@@ -7,7 +7,7 @@
 
 		<!-- PK fields -->
 
-		<column name="id" type="long" primary="true" />
+		<column name="applicationId" type="long" primary="true" />
 
 		<!-- Audit fields -->
 
@@ -23,19 +23,50 @@
 		<column name="name" type="String" />
 		<column name="description" type="String" />
 		<column name="website" type="String" />
-		<column name="secret" type="String" />
+		<column name="consumerKey" type="String" />
+		<column name="consumerSecret" type="String" />
 		<column name="callBackURL" type="String" />
-		
+		<column name="accessLevel" type="int" />
+
 		<!-- Finder methods -->
 
-		<finder name="name" return-type="Collection">
+		<finder name="CK_CS" return-type="OAuthApplication" unique="true">
+			<finder-column name="consumerKey" />
+			<finder-column name="consumerSecret" />
+		</finder>
+		<finder name="Name" return-type="Collection">
 			<finder-column name="name" />
 		</finder>
-		<finder name="ownerId" return-type="long" unique="true">
+		<finder name="OwnerId" return-type="Collection" >
 			<finder-column name="ownerId" />
 		</finder>
-		<finder name="website" return-type="Collection">
+		<finder name="Website" return-type="Collection">
 			<finder-column name="website" />
+		</finder>
+	</entity>
+	<entity name="OAuthApplications_Users" local-service="true" remote-service="false">
+		
+		<!-- PK fields -->
+
+		<column name="oaauid" type="long" primary="true" />
+
+		<!-- Other fields -->
+
+		<column name="accessToken" type="String" />
+		<column name="accessSecret" type="String" />
+		<column name="applicationId" type="long" />
+		<column name="authorized" type="boolean" />
+		<column name="userId" type="long" />
+
+		<!-- Finder methods -->
+
+		<finder name="A_U" return-type="OAuthApplications_Users" unique="true">
+			<finder-column name="applicationId" />
+			<finder-column name="userId" />
+		</finder>
+		<finder name="AT_AS" return-type="OAuthApplications_Users" unique="true">
+			<finder-column name="accessToken" />
+			<finder-column name="accessSecret" />
 		</finder>
 	</entity>
 </service-builder>
