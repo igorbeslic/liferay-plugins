@@ -272,6 +272,15 @@ public class OAuthApplicationLocalServiceWrapper
 			arguments);
 	}
 
+	public com.liferay.portal.oauth.model.OAuthApplication addOAuthApplication(
+		int accessLevel, java.lang.String callbackURL,
+		java.lang.String description, java.lang.String name, long ownerId,
+		java.lang.String website)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplicationLocalService.addOAuthApplication(accessLevel,
+			callbackURL, description, name, ownerId, website);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

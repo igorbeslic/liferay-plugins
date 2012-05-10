@@ -111,6 +111,13 @@ public class OAuthApplicationLocalServiceClpInvoker {
 		_methodName37 = "setBeanIdentifier";
 
 		_methodParameterTypes37 = new String[] { "java.lang.String" };
+
+		_methodName42 = "addOAuthApplication";
+
+		_methodParameterTypes42 = new String[] {
+				"int", "java.lang.String", "java.lang.String",
+				"java.lang.String", "long", "java.lang.String"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -212,6 +219,14 @@ public class OAuthApplicationLocalServiceClpInvoker {
 			OAuthApplicationLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
+		if (_methodName42.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+			return OAuthApplicationLocalServiceUtil.addOAuthApplication(((Integer)arguments[0]).intValue(),
+				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
+				(java.lang.String)arguments[3],
+				((Long)arguments[4]).longValue(), (java.lang.String)arguments[5]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -251,4 +266,6 @@ public class OAuthApplicationLocalServiceClpInvoker {
 	private String[] _methodParameterTypes36;
 	private String _methodName37;
 	private String[] _methodParameterTypes37;
+	private String _methodName42;
+	private String[] _methodParameterTypes42;
 }
