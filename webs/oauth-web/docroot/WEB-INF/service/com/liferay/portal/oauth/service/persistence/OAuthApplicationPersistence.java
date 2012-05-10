@@ -55,20 +55,22 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	/**
 	* Creates a new o auth application with the primary key. Does not add the o auth application to the database.
 	*
-	* @param id the primary key for the new o auth application
+	* @param applicationId the primary key for the new o auth application
 	* @return the new o auth application
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication create(long id);
+	public com.liferay.portal.oauth.model.OAuthApplication create(
+		long applicationId);
 
 	/**
 	* Removes the o auth application with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param id the primary key of the o auth application
+	* @param applicationId the primary key of the o auth application
 	* @return the o auth application that was removed
 	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication remove(long id)
+	public com.liferay.portal.oauth.model.OAuthApplication remove(
+		long applicationId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplicationException;
 
@@ -80,25 +82,66 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	/**
 	* Returns the o auth application with the primary key or throws a {@link com.liferay.portal.oauth.NoSuchApplicationException} if it could not be found.
 	*
-	* @param id the primary key of the o auth application
+	* @param applicationId the primary key of the o auth application
 	* @return the o auth application
 	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.portal.oauth.model.OAuthApplication findByPrimaryKey(
-		long id)
+		long applicationId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplicationException;
 
 	/**
 	* Returns the o auth application with the primary key or returns <code>null</code> if it could not be found.
 	*
-	* @param id the primary key of the o auth application
+	* @param applicationId the primary key of the o auth application
 	* @return the o auth application, or <code>null</code> if a o auth application with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.portal.oauth.model.OAuthApplication fetchByPrimaryKey(
-		long id) throws com.liferay.portal.kernel.exception.SystemException;
+		long applicationId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the o auth application where consumerKey = &#63; and consumerSecret = &#63; or throws a {@link com.liferay.portal.oauth.NoSuchApplicationException} if it could not be found.
+	*
+	* @param consumerKey the consumer key
+	* @param consumerSecret the consumer secret
+	* @return the matching o auth application
+	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.oauth.model.OAuthApplication findByCK_CS(
+		java.lang.String consumerKey, java.lang.String consumerSecret)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.oauth.NoSuchApplicationException;
+
+	/**
+	* Returns the o auth application where consumerKey = &#63; and consumerSecret = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param consumerKey the consumer key
+	* @param consumerSecret the consumer secret
+	* @return the matching o auth application, or <code>null</code> if a matching o auth application could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.oauth.model.OAuthApplication fetchByCK_CS(
+		java.lang.String consumerKey, java.lang.String consumerSecret)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the o auth application where consumerKey = &#63; and consumerSecret = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param consumerKey the consumer key
+	* @param consumerSecret the consumer secret
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching o auth application, or <code>null</code> if a matching o auth application could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.oauth.model.OAuthApplication fetchByCK_CS(
+		java.lang.String consumerKey, java.lang.String consumerSecret,
+		boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* Returns all the o auth applications where name = &#63;.
@@ -107,7 +150,7 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* @return the matching o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByname(
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByName(
 		java.lang.String name)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -124,7 +167,7 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* @return the range of matching o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByname(
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByName(
 		java.lang.String name, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -142,7 +185,7 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* @return the ordered range of matching o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByname(
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByName(
 		java.lang.String name, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
@@ -160,7 +203,7 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication findByname_First(
+	public com.liferay.portal.oauth.model.OAuthApplication findByName_First(
 		java.lang.String name,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -179,7 +222,7 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication findByname_Last(
+	public com.liferay.portal.oauth.model.OAuthApplication findByName_Last(
 		java.lang.String name,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -192,54 +235,123 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param id the primary key of the current o auth application
+	* @param applicationId the primary key of the current o auth application
 	* @param name the name
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next o auth application
 	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication[] findByname_PrevAndNext(
-		long id, java.lang.String name,
+	public com.liferay.portal.oauth.model.OAuthApplication[] findByName_PrevAndNext(
+		long applicationId, java.lang.String name,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplicationException;
 
 	/**
-	* Returns the o auth application where ownerId = &#63; or throws a {@link com.liferay.portal.oauth.NoSuchApplicationException} if it could not be found.
+	* Returns all the o auth applications where ownerId = &#63;.
 	*
 	* @param ownerId the owner ID
-	* @return the matching o auth application
+	* @return the matching o auth applications
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByOwnerId(
+		long ownerId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns a range of all the o auth applications where ownerId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param ownerId the owner ID
+	* @param start the lower bound of the range of o auth applications
+	* @param end the upper bound of the range of o auth applications (not inclusive)
+	* @return the range of matching o auth applications
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByOwnerId(
+		long ownerId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns an ordered range of all the o auth applications where ownerId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param ownerId the owner ID
+	* @param start the lower bound of the range of o auth applications
+	* @param end the upper bound of the range of o auth applications (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching o auth applications
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByOwnerId(
+		long ownerId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the first o auth application in the ordered set where ownerId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param ownerId the owner ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching o auth application
 	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication findByownerId(
-		long ownerId)
+	public com.liferay.portal.oauth.model.OAuthApplication findByOwnerId_First(
+		long ownerId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplicationException;
 
 	/**
-	* Returns the o auth application where ownerId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the last o auth application in the ordered set where ownerId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
 	*
 	* @param ownerId the owner ID
-	* @return the matching o auth application, or <code>null</code> if a matching o auth application could not be found
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching o auth application
+	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication fetchByownerId(
-		long ownerId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public com.liferay.portal.oauth.model.OAuthApplication findByOwnerId_Last(
+		long ownerId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.oauth.NoSuchApplicationException;
 
 	/**
-	* Returns the o auth application where ownerId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the o auth applications before and after the current o auth application in the ordered set where ownerId = &#63;.
 	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param applicationId the primary key of the current o auth application
 	* @param ownerId the owner ID
-	* @param retrieveFromCache whether to use the finder cache
-	* @return the matching o auth application, or <code>null</code> if a matching o auth application could not be found
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next o auth application
+	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication fetchByownerId(
-		long ownerId, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public com.liferay.portal.oauth.model.OAuthApplication[] findByOwnerId_PrevAndNext(
+		long applicationId, long ownerId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.oauth.NoSuchApplicationException;
 
 	/**
 	* Returns all the o auth applications where website = &#63;.
@@ -248,7 +360,7 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* @return the matching o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findBywebsite(
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByWebsite(
 		java.lang.String website)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -265,7 +377,7 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* @return the range of matching o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findBywebsite(
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByWebsite(
 		java.lang.String website, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -283,7 +395,7 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* @return the ordered range of matching o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findBywebsite(
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByWebsite(
 		java.lang.String website, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
@@ -301,7 +413,7 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication findBywebsite_First(
+	public com.liferay.portal.oauth.model.OAuthApplication findByWebsite_First(
 		java.lang.String website,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -320,7 +432,7 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication findBywebsite_Last(
+	public com.liferay.portal.oauth.model.OAuthApplication findByWebsite_Last(
 		java.lang.String website,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -333,15 +445,15 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param id the primary key of the current o auth application
+	* @param applicationId the primary key of the current o auth application
 	* @param website the website
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next o auth application
 	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication[] findBywebsite_PrevAndNext(
-		long id, java.lang.String website,
+	public com.liferay.portal.oauth.model.OAuthApplication[] findByWebsite_PrevAndNext(
+		long applicationId, java.lang.String website,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplicationException;
@@ -390,25 +502,35 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Removes the o auth application where consumerKey = &#63; and consumerSecret = &#63; from the database.
+	*
+	* @param consumerKey the consumer key
+	* @param consumerSecret the consumer secret
+	* @return the o auth application that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.oauth.model.OAuthApplication removeByCK_CS(
+		java.lang.String consumerKey, java.lang.String consumerSecret)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.oauth.NoSuchApplicationException;
+
+	/**
 	* Removes all the o auth applications where name = &#63; from the database.
 	*
 	* @param name the name
 	* @throws SystemException if a system exception occurred
 	*/
-	public void removeByname(java.lang.String name)
+	public void removeByName(java.lang.String name)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Removes the o auth application where ownerId = &#63; from the database.
+	* Removes all the o auth applications where ownerId = &#63; from the database.
 	*
 	* @param ownerId the owner ID
-	* @return the o auth application that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication removeByownerId(
-		long ownerId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.oauth.NoSuchApplicationException;
+	public void removeByOwnerId(long ownerId)
+		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* Removes all the o auth applications where website = &#63; from the database.
@@ -416,7 +538,7 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* @param website the website
 	* @throws SystemException if a system exception occurred
 	*/
-	public void removeBywebsite(java.lang.String website)
+	public void removeByWebsite(java.lang.String website)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -428,13 +550,25 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Returns the number of o auth applications where consumerKey = &#63; and consumerSecret = &#63;.
+	*
+	* @param consumerKey the consumer key
+	* @param consumerSecret the consumer secret
+	* @return the number of matching o auth applications
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByCK_CS(java.lang.String consumerKey,
+		java.lang.String consumerSecret)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns the number of o auth applications where name = &#63;.
 	*
 	* @param name the name
 	* @return the number of matching o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
-	public int countByname(java.lang.String name)
+	public int countByName(java.lang.String name)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -444,7 +578,7 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* @return the number of matching o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
-	public int countByownerId(long ownerId)
+	public int countByOwnerId(long ownerId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -454,7 +588,7 @@ public interface OAuthApplicationPersistence extends BasePersistence<OAuthApplic
 	* @return the number of matching o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
-	public int countBywebsite(java.lang.String website)
+	public int countByWebsite(java.lang.String website)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

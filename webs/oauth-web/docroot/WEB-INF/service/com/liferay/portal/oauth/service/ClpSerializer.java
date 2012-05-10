@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.oauth.model.OAuthApplicationClp;
+import com.liferay.portal.oauth.model.OAuthApplications_UsersClp;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -106,6 +107,10 @@ public class ClpSerializer {
 			return translateInputOAuthApplication(oldModel);
 		}
 
+		if (oldModelClassName.equals(OAuthApplications_UsersClp.class.getName())) {
+			return translateInputOAuthApplications_Users(oldModel);
+		}
+
 		return oldModel;
 	}
 
@@ -125,6 +130,17 @@ public class ClpSerializer {
 		OAuthApplicationClp oldClpModel = (OAuthApplicationClp)oldModel;
 
 		BaseModel<?> newModel = oldClpModel.getOAuthApplicationRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputOAuthApplications_Users(
+		BaseModel<?> oldModel) {
+		OAuthApplications_UsersClp oldClpModel = (OAuthApplications_UsersClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getOAuthApplications_UsersRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -151,6 +167,11 @@ public class ClpSerializer {
 		if (oldModelClassName.equals(
 					"com.liferay.portal.oauth.model.impl.OAuthApplicationImpl")) {
 			return translateOutputOAuthApplication(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.liferay.portal.oauth.model.impl.OAuthApplications_UsersImpl")) {
+			return translateOutputOAuthApplications_Users(oldModel);
 		}
 
 		return oldModel;
@@ -238,6 +259,11 @@ public class ClpSerializer {
 			return new com.liferay.portal.oauth.NoSuchApplicationException();
 		}
 
+		if (className.equals(
+					"com.liferay.portal.oauth.NoSuchApplications_UsersException")) {
+			return new com.liferay.portal.oauth.NoSuchApplications_UsersException();
+		}
+
 		return throwable;
 	}
 
@@ -247,6 +273,17 @@ public class ClpSerializer {
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setOAuthApplicationRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputOAuthApplications_Users(
+		BaseModel<?> oldModel) {
+		OAuthApplications_UsersClp newModel = new OAuthApplications_UsersClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setOAuthApplications_UsersRemoteModel(oldModel);
 
 		return newModel;
 	}

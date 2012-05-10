@@ -14,33 +14,33 @@
 
 package com.liferay.portal.oauth.service.base;
 
-import com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil;
+import com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil;
 
 import java.util.Arrays;
 
 /**
  * @author Brian Wing Shun Chan
  */
-public class OAuthApplicationLocalServiceClpInvoker {
-	public OAuthApplicationLocalServiceClpInvoker() {
-		_methodName0 = "addOAuthApplication";
+public class OAuthApplications_UsersLocalServiceClpInvoker {
+	public OAuthApplications_UsersLocalServiceClpInvoker() {
+		_methodName0 = "addOAuthApplications_Users";
 
 		_methodParameterTypes0 = new String[] {
-				"com.liferay.portal.oauth.model.OAuthApplication"
+				"com.liferay.portal.oauth.model.OAuthApplications_Users"
 			};
 
-		_methodName1 = "createOAuthApplication";
+		_methodName1 = "createOAuthApplications_Users";
 
 		_methodParameterTypes1 = new String[] { "long" };
 
-		_methodName2 = "deleteOAuthApplication";
+		_methodName2 = "deleteOAuthApplications_Users";
 
 		_methodParameterTypes2 = new String[] { "long" };
 
-		_methodName3 = "deleteOAuthApplication";
+		_methodName3 = "deleteOAuthApplications_Users";
 
 		_methodParameterTypes3 = new String[] {
-				"com.liferay.portal.oauth.model.OAuthApplication"
+				"com.liferay.portal.oauth.model.OAuthApplications_Users"
 			};
 
 		_methodName4 = "dynamicQuery";
@@ -72,11 +72,11 @@ public class OAuthApplicationLocalServiceClpInvoker {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName9 = "fetchOAuthApplication";
+		_methodName9 = "fetchOAuthApplications_Users";
 
 		_methodParameterTypes9 = new String[] { "long" };
 
-		_methodName10 = "getOAuthApplication";
+		_methodName10 = "getOAuthApplications_Users";
 
 		_methodParameterTypes10 = new String[] { "long" };
 
@@ -84,24 +84,25 @@ public class OAuthApplicationLocalServiceClpInvoker {
 
 		_methodParameterTypes11 = new String[] { "java.io.Serializable" };
 
-		_methodName12 = "getOAuthApplications";
+		_methodName12 = "getOAuthApplications_Userses";
 
 		_methodParameterTypes12 = new String[] { "int", "int" };
 
-		_methodName13 = "getOAuthApplicationsCount";
+		_methodName13 = "getOAuthApplications_UsersesCount";
 
 		_methodParameterTypes13 = new String[] {  };
 
-		_methodName14 = "updateOAuthApplication";
+		_methodName14 = "updateOAuthApplications_Users";
 
 		_methodParameterTypes14 = new String[] {
-				"com.liferay.portal.oauth.model.OAuthApplication"
+				"com.liferay.portal.oauth.model.OAuthApplications_Users"
 			};
 
-		_methodName15 = "updateOAuthApplication";
+		_methodName15 = "updateOAuthApplications_Users";
 
 		_methodParameterTypes15 = new String[] {
-				"com.liferay.portal.oauth.model.OAuthApplication", "boolean"
+				"com.liferay.portal.oauth.model.OAuthApplications_Users",
+				"boolean"
 			};
 
 		_methodName36 = "getBeanIdentifier";
@@ -117,44 +118,44 @@ public class OAuthApplicationLocalServiceClpInvoker {
 		Object[] arguments) throws Throwable {
 		if (_methodName0.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes0, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.addOAuthApplication((com.liferay.portal.oauth.model.OAuthApplication)arguments[0]);
+			return OAuthApplications_UsersLocalServiceUtil.addOAuthApplications_Users((com.liferay.portal.oauth.model.OAuthApplications_Users)arguments[0]);
 		}
 
 		if (_methodName1.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes1, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.createOAuthApplication(((Long)arguments[0]).longValue());
+			return OAuthApplications_UsersLocalServiceUtil.createOAuthApplications_Users(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName2.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes2, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.deleteOAuthApplication(((Long)arguments[0]).longValue());
+			return OAuthApplications_UsersLocalServiceUtil.deleteOAuthApplications_Users(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName3.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes3, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.deleteOAuthApplication((com.liferay.portal.oauth.model.OAuthApplication)arguments[0]);
+			return OAuthApplications_UsersLocalServiceUtil.deleteOAuthApplications_Users((com.liferay.portal.oauth.model.OAuthApplications_Users)arguments[0]);
 		}
 
 		if (_methodName4.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes4, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.dynamicQuery();
+			return OAuthApplications_UsersLocalServiceUtil.dynamicQuery();
 		}
 
 		if (_methodName5.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes5, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0]);
+			return OAuthApplications_UsersLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0]);
 		}
 
 		if (_methodName6.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes6, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0],
+			return OAuthApplications_UsersLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue());
 		}
 
 		if (_methodName7.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes7, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0],
+			return OAuthApplications_UsersLocalServiceUtil.dynamicQuery((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
@@ -162,54 +163,54 @@ public class OAuthApplicationLocalServiceClpInvoker {
 
 		if (_methodName8.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes8, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0]);
+			return OAuthApplications_UsersLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0]);
 		}
 
 		if (_methodName9.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes9, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.fetchOAuthApplication(((Long)arguments[0]).longValue());
+			return OAuthApplications_UsersLocalServiceUtil.fetchOAuthApplications_Users(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName10.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes10, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.getOAuthApplication(((Long)arguments[0]).longValue());
+			return OAuthApplications_UsersLocalServiceUtil.getOAuthApplications_Users(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName11.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes11, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
+			return OAuthApplications_UsersLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
 		}
 
 		if (_methodName12.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.getOAuthApplications(((Integer)arguments[0]).intValue(),
+			return OAuthApplications_UsersLocalServiceUtil.getOAuthApplications_Userses(((Integer)arguments[0]).intValue(),
 				((Integer)arguments[1]).intValue());
 		}
 
 		if (_methodName13.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.getOAuthApplicationsCount();
+			return OAuthApplications_UsersLocalServiceUtil.getOAuthApplications_UsersesCount();
 		}
 
 		if (_methodName14.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.updateOAuthApplication((com.liferay.portal.oauth.model.OAuthApplication)arguments[0]);
+			return OAuthApplications_UsersLocalServiceUtil.updateOAuthApplications_Users((com.liferay.portal.oauth.model.OAuthApplications_Users)arguments[0]);
 		}
 
 		if (_methodName15.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.updateOAuthApplication((com.liferay.portal.oauth.model.OAuthApplication)arguments[0],
+			return OAuthApplications_UsersLocalServiceUtil.updateOAuthApplications_Users((com.liferay.portal.oauth.model.OAuthApplications_Users)arguments[0],
 				((Boolean)arguments[1]).booleanValue());
 		}
 
 		if (_methodName36.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
-			return OAuthApplicationLocalServiceUtil.getBeanIdentifier();
+			return OAuthApplications_UsersLocalServiceUtil.getBeanIdentifier();
 		}
 
 		if (_methodName37.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
-			OAuthApplicationLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
+			OAuthApplications_UsersLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
 		throw new UnsupportedOperationException();

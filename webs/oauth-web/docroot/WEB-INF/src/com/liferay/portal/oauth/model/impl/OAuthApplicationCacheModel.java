@@ -34,10 +34,10 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 	Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(29);
 
-		sb.append("{id=");
-		sb.append(id);
+		sb.append("{applicationId=");
+		sb.append(applicationId);
 		sb.append(", companyId=");
 		sb.append(companyId);
 		sb.append(", userId=");
@@ -56,10 +56,14 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 		sb.append(description);
 		sb.append(", website=");
 		sb.append(website);
-		sb.append(", secret=");
-		sb.append(secret);
+		sb.append(", consumerKey=");
+		sb.append(consumerKey);
+		sb.append(", consumerSecret=");
+		sb.append(consumerSecret);
 		sb.append(", callBackURL=");
 		sb.append(callBackURL);
+		sb.append(", accessLevel=");
+		sb.append(accessLevel);
 		sb.append("}");
 
 		return sb.toString();
@@ -68,7 +72,7 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 	public OAuthApplication toEntityModel() {
 		OAuthApplicationImpl oAuthApplicationImpl = new OAuthApplicationImpl();
 
-		oAuthApplicationImpl.setId(id);
+		oAuthApplicationImpl.setApplicationId(applicationId);
 		oAuthApplicationImpl.setCompanyId(companyId);
 		oAuthApplicationImpl.setUserId(userId);
 
@@ -116,11 +120,18 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 			oAuthApplicationImpl.setWebsite(website);
 		}
 
-		if (secret == null) {
-			oAuthApplicationImpl.setSecret(StringPool.BLANK);
+		if (consumerKey == null) {
+			oAuthApplicationImpl.setConsumerKey(StringPool.BLANK);
 		}
 		else {
-			oAuthApplicationImpl.setSecret(secret);
+			oAuthApplicationImpl.setConsumerKey(consumerKey);
+		}
+
+		if (consumerSecret == null) {
+			oAuthApplicationImpl.setConsumerSecret(StringPool.BLANK);
+		}
+		else {
+			oAuthApplicationImpl.setConsumerSecret(consumerSecret);
 		}
 
 		if (callBackURL == null) {
@@ -130,12 +141,14 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 			oAuthApplicationImpl.setCallBackURL(callBackURL);
 		}
 
+		oAuthApplicationImpl.setAccessLevel(accessLevel);
+
 		oAuthApplicationImpl.resetOriginalValues();
 
 		return oAuthApplicationImpl;
 	}
 
-	public long id;
+	public long applicationId;
 	public long companyId;
 	public long userId;
 	public String userName;
@@ -145,6 +158,8 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 	public String name;
 	public String description;
 	public String website;
-	public String secret;
+	public String consumerKey;
+	public String consumerSecret;
 	public String callBackURL;
+	public int accessLevel;
 }

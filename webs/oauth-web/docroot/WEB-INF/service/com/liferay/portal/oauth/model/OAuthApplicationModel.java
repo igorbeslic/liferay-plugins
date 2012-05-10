@@ -63,18 +63,18 @@ public interface OAuthApplicationModel extends AuditedModel,
 	public void setPrimaryKey(long primaryKey);
 
 	/**
-	 * Returns the ID of this o auth application.
+	 * Returns the application ID of this o auth application.
 	 *
-	 * @return the ID of this o auth application
+	 * @return the application ID of this o auth application
 	 */
-	public long getId();
+	public long getApplicationId();
 
 	/**
-	 * Sets the ID of this o auth application.
+	 * Sets the application ID of this o auth application.
 	 *
-	 * @param id the ID of this o auth application
+	 * @param applicationId the application ID of this o auth application
 	 */
-	public void setId(long id);
+	public void setApplicationId(long applicationId);
 
 	/**
 	 * Returns the company ID of this o auth application.
@@ -222,19 +222,34 @@ public interface OAuthApplicationModel extends AuditedModel,
 	public void setWebsite(String website);
 
 	/**
-	 * Returns the secret of this o auth application.
+	 * Returns the consumer key of this o auth application.
 	 *
-	 * @return the secret of this o auth application
+	 * @return the consumer key of this o auth application
 	 */
 	@AutoEscape
-	public String getSecret();
+	public String getConsumerKey();
 
 	/**
-	 * Sets the secret of this o auth application.
+	 * Sets the consumer key of this o auth application.
 	 *
-	 * @param secret the secret of this o auth application
+	 * @param consumerKey the consumer key of this o auth application
 	 */
-	public void setSecret(String secret);
+	public void setConsumerKey(String consumerKey);
+
+	/**
+	 * Returns the consumer secret of this o auth application.
+	 *
+	 * @return the consumer secret of this o auth application
+	 */
+	@AutoEscape
+	public String getConsumerSecret();
+
+	/**
+	 * Sets the consumer secret of this o auth application.
+	 *
+	 * @param consumerSecret the consumer secret of this o auth application
+	 */
+	public void setConsumerSecret(String consumerSecret);
 
 	/**
 	 * Returns the call back u r l of this o auth application.
@@ -250,6 +265,20 @@ public interface OAuthApplicationModel extends AuditedModel,
 	 * @param callBackURL the call back u r l of this o auth application
 	 */
 	public void setCallBackURL(String callBackURL);
+
+	/**
+	 * Returns the access level of this o auth application.
+	 *
+	 * @return the access level of this o auth application
+	 */
+	public int getAccessLevel();
+
+	/**
+	 * Sets the access level of this o auth application.
+	 *
+	 * @param accessLevel the access level of this o auth application
+	 */
+	public void setAccessLevel(int accessLevel);
 
 	public boolean isNew();
 

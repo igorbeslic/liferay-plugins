@@ -24,70 +24,70 @@ import com.liferay.portal.service.InvokableLocalService;
 import com.liferay.portal.service.PersistedModelLocalService;
 
 /**
- * The interface for the o auth application local service.
+ * The interface for the o auth applications_ users local service.
  *
  * <p>
  * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
  * </p>
  *
  * @author Brian Wing Shun Chan
- * @see OAuthApplicationLocalServiceUtil
- * @see com.liferay.portal.oauth.service.base.OAuthApplicationLocalServiceBaseImpl
- * @see com.liferay.portal.oauth.service.impl.OAuthApplicationLocalServiceImpl
+ * @see OAuthApplications_UsersLocalServiceUtil
+ * @see com.liferay.portal.oauth.service.base.OAuthApplications_UsersLocalServiceBaseImpl
+ * @see com.liferay.portal.oauth.service.impl.OAuthApplications_UsersLocalServiceImpl
  * @generated
  */
 @Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
 	PortalException.class, SystemException.class})
-public interface OAuthApplicationLocalService extends BaseLocalService,
+public interface OAuthApplications_UsersLocalService extends BaseLocalService,
 	InvokableLocalService, PersistedModelLocalService {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this interface directly. Always use {@link OAuthApplicationLocalServiceUtil} to access the o auth application local service. Add custom service methods to {@link com.liferay.portal.oauth.service.impl.OAuthApplicationLocalServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
+	 * Never modify or reference this interface directly. Always use {@link OAuthApplications_UsersLocalServiceUtil} to access the o auth applications_ users local service. Add custom service methods to {@link com.liferay.portal.oauth.service.impl.OAuthApplications_UsersLocalServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
 
 	/**
-	* Adds the o auth application to the database. Also notifies the appropriate model listeners.
+	* Adds the o auth applications_ users to the database. Also notifies the appropriate model listeners.
 	*
-	* @param oAuthApplication the o auth application
-	* @return the o auth application that was added
+	* @param oAuthApplications_Users the o auth applications_ users
+	* @return the o auth applications_ users that was added
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication addOAuthApplication(
-		com.liferay.portal.oauth.model.OAuthApplication oAuthApplication)
+	public com.liferay.portal.oauth.model.OAuthApplications_Users addOAuthApplications_Users(
+		com.liferay.portal.oauth.model.OAuthApplications_Users oAuthApplications_Users)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Creates a new o auth application with the primary key. Does not add the o auth application to the database.
+	* Creates a new o auth applications_ users with the primary key. Does not add the o auth applications_ users to the database.
 	*
-	* @param applicationId the primary key for the new o auth application
-	* @return the new o auth application
+	* @param oaauid the primary key for the new o auth applications_ users
+	* @return the new o auth applications_ users
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication createOAuthApplication(
-		long applicationId);
+	public com.liferay.portal.oauth.model.OAuthApplications_Users createOAuthApplications_Users(
+		long oaauid);
 
 	/**
-	* Deletes the o auth application with the primary key from the database. Also notifies the appropriate model listeners.
+	* Deletes the o auth applications_ users with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param applicationId the primary key of the o auth application
-	* @return the o auth application that was removed
-	* @throws PortalException if a o auth application with the primary key could not be found
+	* @param oaauid the primary key of the o auth applications_ users
+	* @return the o auth applications_ users that was removed
+	* @throws PortalException if a o auth applications_ users with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication deleteOAuthApplication(
-		long applicationId)
+	public com.liferay.portal.oauth.model.OAuthApplications_Users deleteOAuthApplications_Users(
+		long oaauid)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Deletes the o auth application from the database. Also notifies the appropriate model listeners.
+	* Deletes the o auth applications_ users from the database. Also notifies the appropriate model listeners.
 	*
-	* @param oAuthApplication the o auth application
-	* @return the o auth application that was removed
+	* @param oAuthApplications_Users the o auth applications_ users
+	* @return the o auth applications_ users that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication deleteOAuthApplication(
-		com.liferay.portal.oauth.model.OAuthApplication oAuthApplication)
+	public com.liferay.portal.oauth.model.OAuthApplications_Users deleteOAuthApplications_Users(
+		com.liferay.portal.oauth.model.OAuthApplications_Users oAuthApplications_Users)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery();
@@ -155,21 +155,20 @@ public interface OAuthApplicationLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.portal.oauth.model.OAuthApplication fetchOAuthApplication(
-		long applicationId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public com.liferay.portal.oauth.model.OAuthApplications_Users fetchOAuthApplications_Users(
+		long oaauid) throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the o auth application with the primary key.
+	* Returns the o auth applications_ users with the primary key.
 	*
-	* @param applicationId the primary key of the o auth application
-	* @return the o auth application
-	* @throws PortalException if a o auth application with the primary key could not be found
+	* @param oaauid the primary key of the o auth applications_ users
+	* @return the o auth applications_ users
+	* @throws PortalException if a o auth applications_ users with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.portal.oauth.model.OAuthApplication getOAuthApplication(
-		long applicationId)
+	public com.liferay.portal.oauth.model.OAuthApplications_Users getOAuthApplications_Users(
+		long oaauid)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -180,53 +179,53 @@ public interface OAuthApplicationLocalService extends BaseLocalService,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns a range of all the o auth applications.
+	* Returns a range of all the o auth applications_ userses.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param start the lower bound of the range of o auth applications
-	* @param end the upper bound of the range of o auth applications (not inclusive)
-	* @return the range of o auth applications
+	* @param start the lower bound of the range of o auth applications_ userses
+	* @param end the upper bound of the range of o auth applications_ userses (not inclusive)
+	* @return the range of o auth applications_ userses
 	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> getOAuthApplications(
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplications_Users> getOAuthApplications_Userses(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of o auth applications.
+	* Returns the number of o auth applications_ userses.
 	*
-	* @return the number of o auth applications
+	* @return the number of o auth applications_ userses
 	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getOAuthApplicationsCount()
+	public int getOAuthApplications_UsersesCount()
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Updates the o auth application in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Updates the o auth applications_ users in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
-	* @param oAuthApplication the o auth application
-	* @return the o auth application that was updated
+	* @param oAuthApplications_Users the o auth applications_ users
+	* @return the o auth applications_ users that was updated
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication updateOAuthApplication(
-		com.liferay.portal.oauth.model.OAuthApplication oAuthApplication)
+	public com.liferay.portal.oauth.model.OAuthApplications_Users updateOAuthApplications_Users(
+		com.liferay.portal.oauth.model.OAuthApplications_Users oAuthApplications_Users)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Updates the o auth application in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
+	* Updates the o auth applications_ users in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
-	* @param oAuthApplication the o auth application
-	* @param merge whether to merge the o auth application with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	* @return the o auth application that was updated
+	* @param oAuthApplications_Users the o auth applications_ users
+	* @param merge whether to merge the o auth applications_ users with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
+	* @return the o auth applications_ users that was updated
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.portal.oauth.model.OAuthApplication updateOAuthApplication(
-		com.liferay.portal.oauth.model.OAuthApplication oAuthApplication,
+	public com.liferay.portal.oauth.model.OAuthApplications_Users updateOAuthApplications_Users(
+		com.liferay.portal.oauth.model.OAuthApplications_Users oAuthApplications_Users,
 		boolean merge)
 		throws com.liferay.portal.kernel.exception.SystemException;
 

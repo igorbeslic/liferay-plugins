@@ -60,7 +60,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	 */
 	public static final String TABLE_NAME = "OAuthApplication";
 	public static final Object[][] TABLE_COLUMNS = {
-			{ "id_", Types.BIGINT },
+			{ "applicationId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
 			{ "userId", Types.BIGINT },
 			{ "userName", Types.VARCHAR },
@@ -70,10 +70,12 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			{ "name", Types.VARCHAR },
 			{ "description", Types.VARCHAR },
 			{ "website", Types.VARCHAR },
-			{ "secret", Types.VARCHAR },
-			{ "callBackURL", Types.VARCHAR }
+			{ "consumerKey", Types.VARCHAR },
+			{ "consumerSecret", Types.VARCHAR },
+			{ "callBackURL", Types.VARCHAR },
+			{ "accessLevel", Types.INTEGER }
 		};
-	public static final String TABLE_SQL_CREATE = "create table OAuthApplication (id_ LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,ownerId LONG,name VARCHAR(75) null,description VARCHAR(75) null,website VARCHAR(75) null,secret VARCHAR(75) null,callBackURL VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table OAuthApplication (applicationId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,ownerId LONG,name VARCHAR(75) null,description VARCHAR(75) null,website VARCHAR(75) null,consumerKey VARCHAR(75) null,consumerSecret VARCHAR(75) null,callBackURL VARCHAR(75) null,accessLevel INTEGER)";
 	public static final String TABLE_SQL_DROP = "drop table OAuthApplication";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -87,9 +89,11 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.liferay.portal.oauth.model.OAuthApplication"),
 			true);
-	public static long NAME_COLUMN_BITMASK = 1L;
-	public static long OWNERID_COLUMN_BITMASK = 2L;
-	public static long WEBSITE_COLUMN_BITMASK = 4L;
+	public static long CONSUMERKEY_COLUMN_BITMASK = 1L;
+	public static long CONSUMERSECRET_COLUMN_BITMASK = 2L;
+	public static long NAME_COLUMN_BITMASK = 4L;
+	public static long OWNERID_COLUMN_BITMASK = 8L;
+	public static long WEBSITE_COLUMN_BITMASK = 16L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.portal.oauth.model.OAuthApplication"));
 
@@ -97,15 +101,15 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	}
 
 	public long getPrimaryKey() {
-		return _id;
+		return _applicationId;
 	}
 
 	public void setPrimaryKey(long primaryKey) {
-		setId(primaryKey);
+		setApplicationId(primaryKey);
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_id);
+		return new Long(_applicationId);
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
@@ -124,7 +128,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("id", getId());
+		attributes.put("applicationId", getApplicationId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
@@ -134,18 +138,20 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		attributes.put("name", getName());
 		attributes.put("description", getDescription());
 		attributes.put("website", getWebsite());
-		attributes.put("secret", getSecret());
+		attributes.put("consumerKey", getConsumerKey());
+		attributes.put("consumerSecret", getConsumerSecret());
 		attributes.put("callBackURL", getCallBackURL());
+		attributes.put("accessLevel", getAccessLevel());
 
 		return attributes;
 	}
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long id = (Long)attributes.get("id");
+		Long applicationId = (Long)attributes.get("applicationId");
 
-		if (id != null) {
-			setId(id);
+		if (applicationId != null) {
+			setApplicationId(applicationId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -202,10 +208,16 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			setWebsite(website);
 		}
 
-		String secret = (String)attributes.get("secret");
+		String consumerKey = (String)attributes.get("consumerKey");
 
-		if (secret != null) {
-			setSecret(secret);
+		if (consumerKey != null) {
+			setConsumerKey(consumerKey);
+		}
+
+		String consumerSecret = (String)attributes.get("consumerSecret");
+
+		if (consumerSecret != null) {
+			setConsumerSecret(consumerSecret);
 		}
 
 		String callBackURL = (String)attributes.get("callBackURL");
@@ -213,14 +225,20 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		if (callBackURL != null) {
 			setCallBackURL(callBackURL);
 		}
+
+		Integer accessLevel = (Integer)attributes.get("accessLevel");
+
+		if (accessLevel != null) {
+			setAccessLevel(accessLevel);
+		}
 	}
 
-	public long getId() {
-		return _id;
+	public long getApplicationId() {
+		return _applicationId;
 	}
 
-	public void setId(long id) {
-		_id = id;
+	public void setApplicationId(long applicationId) {
+		_applicationId = applicationId;
 	}
 
 	public long getCompanyId() {
@@ -355,17 +373,50 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		return GetterUtil.getString(_originalWebsite);
 	}
 
-	public String getSecret() {
-		if (_secret == null) {
+	public String getConsumerKey() {
+		if (_consumerKey == null) {
 			return StringPool.BLANK;
 		}
 		else {
-			return _secret;
+			return _consumerKey;
 		}
 	}
 
-	public void setSecret(String secret) {
-		_secret = secret;
+	public void setConsumerKey(String consumerKey) {
+		_columnBitmask |= CONSUMERKEY_COLUMN_BITMASK;
+
+		if (_originalConsumerKey == null) {
+			_originalConsumerKey = _consumerKey;
+		}
+
+		_consumerKey = consumerKey;
+	}
+
+	public String getOriginalConsumerKey() {
+		return GetterUtil.getString(_originalConsumerKey);
+	}
+
+	public String getConsumerSecret() {
+		if (_consumerSecret == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _consumerSecret;
+		}
+	}
+
+	public void setConsumerSecret(String consumerSecret) {
+		_columnBitmask |= CONSUMERSECRET_COLUMN_BITMASK;
+
+		if (_originalConsumerSecret == null) {
+			_originalConsumerSecret = _consumerSecret;
+		}
+
+		_consumerSecret = consumerSecret;
+	}
+
+	public String getOriginalConsumerSecret() {
+		return GetterUtil.getString(_originalConsumerSecret);
 	}
 
 	public String getCallBackURL() {
@@ -379,6 +430,14 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 
 	public void setCallBackURL(String callBackURL) {
 		_callBackURL = callBackURL;
+	}
+
+	public int getAccessLevel() {
+		return _accessLevel;
+	}
+
+	public void setAccessLevel(int accessLevel) {
+		_accessLevel = accessLevel;
 	}
 
 	public long getColumnBitmask() {
@@ -415,7 +474,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	public Object clone() {
 		OAuthApplicationImpl oAuthApplicationImpl = new OAuthApplicationImpl();
 
-		oAuthApplicationImpl.setId(getId());
+		oAuthApplicationImpl.setApplicationId(getApplicationId());
 		oAuthApplicationImpl.setCompanyId(getCompanyId());
 		oAuthApplicationImpl.setUserId(getUserId());
 		oAuthApplicationImpl.setUserName(getUserName());
@@ -425,8 +484,10 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		oAuthApplicationImpl.setName(getName());
 		oAuthApplicationImpl.setDescription(getDescription());
 		oAuthApplicationImpl.setWebsite(getWebsite());
-		oAuthApplicationImpl.setSecret(getSecret());
+		oAuthApplicationImpl.setConsumerKey(getConsumerKey());
+		oAuthApplicationImpl.setConsumerSecret(getConsumerSecret());
 		oAuthApplicationImpl.setCallBackURL(getCallBackURL());
+		oAuthApplicationImpl.setAccessLevel(getAccessLevel());
 
 		oAuthApplicationImpl.resetOriginalValues();
 
@@ -489,6 +550,10 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 
 		oAuthApplicationModelImpl._originalWebsite = oAuthApplicationModelImpl._website;
 
+		oAuthApplicationModelImpl._originalConsumerKey = oAuthApplicationModelImpl._consumerKey;
+
+		oAuthApplicationModelImpl._originalConsumerSecret = oAuthApplicationModelImpl._consumerSecret;
+
 		oAuthApplicationModelImpl._columnBitmask = 0;
 	}
 
@@ -496,7 +561,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	public CacheModel<OAuthApplication> toCacheModel() {
 		OAuthApplicationCacheModel oAuthApplicationCacheModel = new OAuthApplicationCacheModel();
 
-		oAuthApplicationCacheModel.id = getId();
+		oAuthApplicationCacheModel.applicationId = getApplicationId();
 
 		oAuthApplicationCacheModel.companyId = getCompanyId();
 
@@ -554,12 +619,20 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			oAuthApplicationCacheModel.website = null;
 		}
 
-		oAuthApplicationCacheModel.secret = getSecret();
+		oAuthApplicationCacheModel.consumerKey = getConsumerKey();
 
-		String secret = oAuthApplicationCacheModel.secret;
+		String consumerKey = oAuthApplicationCacheModel.consumerKey;
 
-		if ((secret != null) && (secret.length() == 0)) {
-			oAuthApplicationCacheModel.secret = null;
+		if ((consumerKey != null) && (consumerKey.length() == 0)) {
+			oAuthApplicationCacheModel.consumerKey = null;
+		}
+
+		oAuthApplicationCacheModel.consumerSecret = getConsumerSecret();
+
+		String consumerSecret = oAuthApplicationCacheModel.consumerSecret;
+
+		if ((consumerSecret != null) && (consumerSecret.length() == 0)) {
+			oAuthApplicationCacheModel.consumerSecret = null;
 		}
 
 		oAuthApplicationCacheModel.callBackURL = getCallBackURL();
@@ -570,15 +643,17 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			oAuthApplicationCacheModel.callBackURL = null;
 		}
 
+		oAuthApplicationCacheModel.accessLevel = getAccessLevel();
+
 		return oAuthApplicationCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(29);
 
-		sb.append("{id=");
-		sb.append(getId());
+		sb.append("{applicationId=");
+		sb.append(getApplicationId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
 		sb.append(", userId=");
@@ -597,25 +672,29 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		sb.append(getDescription());
 		sb.append(", website=");
 		sb.append(getWebsite());
-		sb.append(", secret=");
-		sb.append(getSecret());
+		sb.append(", consumerKey=");
+		sb.append(getConsumerKey());
+		sb.append(", consumerSecret=");
+		sb.append(getConsumerSecret());
 		sb.append(", callBackURL=");
 		sb.append(getCallBackURL());
+		sb.append(", accessLevel=");
+		sb.append(getAccessLevel());
 		sb.append("}");
 
 		return sb.toString();
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(40);
+		StringBundler sb = new StringBundler(46);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.portal.oauth.model.OAuthApplication");
 		sb.append("</model-name>");
 
 		sb.append(
-			"<column><column-name>id</column-name><column-value><![CDATA[");
-		sb.append(getId());
+			"<column><column-name>applicationId</column-name><column-value><![CDATA[");
+		sb.append(getApplicationId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
@@ -654,12 +733,20 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		sb.append(getWebsite());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>secret</column-name><column-value><![CDATA[");
-		sb.append(getSecret());
+			"<column><column-name>consumerKey</column-name><column-value><![CDATA[");
+		sb.append(getConsumerKey());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>consumerSecret</column-name><column-value><![CDATA[");
+		sb.append(getConsumerSecret());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>callBackURL</column-name><column-value><![CDATA[");
 		sb.append(getCallBackURL());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>accessLevel</column-name><column-value><![CDATA[");
+		sb.append(getAccessLevel());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -671,7 +758,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	private static Class<?>[] _escapedModelProxyInterfaces = new Class[] {
 			OAuthApplication.class
 		};
-	private long _id;
+	private long _applicationId;
 	private long _companyId;
 	private long _userId;
 	private String _userUuid;
@@ -686,8 +773,12 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	private String _description;
 	private String _website;
 	private String _originalWebsite;
-	private String _secret;
+	private String _consumerKey;
+	private String _originalConsumerKey;
+	private String _consumerSecret;
+	private String _originalConsumerSecret;
 	private String _callBackURL;
+	private int _accessLevel;
 	private transient ExpandoBridge _expandoBridge;
 	private long _columnBitmask;
 	private OAuthApplication _escapedModelProxy;

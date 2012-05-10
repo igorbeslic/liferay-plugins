@@ -47,15 +47,15 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 	}
 
 	public long getPrimaryKey() {
-		return _id;
+		return _applicationId;
 	}
 
 	public void setPrimaryKey(long primaryKey) {
-		setId(primaryKey);
+		setApplicationId(primaryKey);
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_id);
+		return new Long(_applicationId);
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
@@ -65,7 +65,7 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
-		attributes.put("id", getId());
+		attributes.put("applicationId", getApplicationId());
 		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
 		attributes.put("userName", getUserName());
@@ -75,17 +75,19 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		attributes.put("name", getName());
 		attributes.put("description", getDescription());
 		attributes.put("website", getWebsite());
-		attributes.put("secret", getSecret());
+		attributes.put("consumerKey", getConsumerKey());
+		attributes.put("consumerSecret", getConsumerSecret());
 		attributes.put("callBackURL", getCallBackURL());
+		attributes.put("accessLevel", getAccessLevel());
 
 		return attributes;
 	}
 
 	public void setModelAttributes(Map<String, Object> attributes) {
-		Long id = (Long)attributes.get("id");
+		Long applicationId = (Long)attributes.get("applicationId");
 
-		if (id != null) {
-			setId(id);
+		if (applicationId != null) {
+			setApplicationId(applicationId);
 		}
 
 		Long companyId = (Long)attributes.get("companyId");
@@ -142,10 +144,16 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 			setWebsite(website);
 		}
 
-		String secret = (String)attributes.get("secret");
+		String consumerKey = (String)attributes.get("consumerKey");
 
-		if (secret != null) {
-			setSecret(secret);
+		if (consumerKey != null) {
+			setConsumerKey(consumerKey);
+		}
+
+		String consumerSecret = (String)attributes.get("consumerSecret");
+
+		if (consumerSecret != null) {
+			setConsumerSecret(consumerSecret);
 		}
 
 		String callBackURL = (String)attributes.get("callBackURL");
@@ -153,14 +161,20 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		if (callBackURL != null) {
 			setCallBackURL(callBackURL);
 		}
+
+		Integer accessLevel = (Integer)attributes.get("accessLevel");
+
+		if (accessLevel != null) {
+			setAccessLevel(accessLevel);
+		}
 	}
 
-	public long getId() {
-		return _id;
+	public long getApplicationId() {
+		return _applicationId;
 	}
 
-	public void setId(long id) {
-		_id = id;
+	public void setApplicationId(long applicationId) {
+		_applicationId = applicationId;
 	}
 
 	public long getCompanyId() {
@@ -243,12 +257,20 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		_website = website;
 	}
 
-	public String getSecret() {
-		return _secret;
+	public String getConsumerKey() {
+		return _consumerKey;
 	}
 
-	public void setSecret(String secret) {
-		_secret = secret;
+	public void setConsumerKey(String consumerKey) {
+		_consumerKey = consumerKey;
+	}
+
+	public String getConsumerSecret() {
+		return _consumerSecret;
+	}
+
+	public void setConsumerSecret(String consumerSecret) {
+		_consumerSecret = consumerSecret;
 	}
 
 	public String getCallBackURL() {
@@ -257,6 +279,14 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 
 	public void setCallBackURL(String callBackURL) {
 		_callBackURL = callBackURL;
+	}
+
+	public int getAccessLevel() {
+		return _accessLevel;
+	}
+
+	public void setAccessLevel(int accessLevel) {
+		_accessLevel = accessLevel;
 	}
 
 	public BaseModel<?> getOAuthApplicationRemoteModel() {
@@ -288,7 +318,7 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 	public Object clone() {
 		OAuthApplicationClp clone = new OAuthApplicationClp();
 
-		clone.setId(getId());
+		clone.setApplicationId(getApplicationId());
 		clone.setCompanyId(getCompanyId());
 		clone.setUserId(getUserId());
 		clone.setUserName(getUserName());
@@ -298,8 +328,10 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		clone.setName(getName());
 		clone.setDescription(getDescription());
 		clone.setWebsite(getWebsite());
-		clone.setSecret(getSecret());
+		clone.setConsumerKey(getConsumerKey());
+		clone.setConsumerSecret(getConsumerSecret());
 		clone.setCallBackURL(getCallBackURL());
+		clone.setAccessLevel(getAccessLevel());
 
 		return clone;
 	}
@@ -350,10 +382,10 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(29);
 
-		sb.append("{id=");
-		sb.append(getId());
+		sb.append("{applicationId=");
+		sb.append(getApplicationId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
 		sb.append(", userId=");
@@ -372,25 +404,29 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		sb.append(getDescription());
 		sb.append(", website=");
 		sb.append(getWebsite());
-		sb.append(", secret=");
-		sb.append(getSecret());
+		sb.append(", consumerKey=");
+		sb.append(getConsumerKey());
+		sb.append(", consumerSecret=");
+		sb.append(getConsumerSecret());
 		sb.append(", callBackURL=");
 		sb.append(getCallBackURL());
+		sb.append(", accessLevel=");
+		sb.append(getAccessLevel());
 		sb.append("}");
 
 		return sb.toString();
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(40);
+		StringBundler sb = new StringBundler(46);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.portal.oauth.model.OAuthApplication");
 		sb.append("</model-name>");
 
 		sb.append(
-			"<column><column-name>id</column-name><column-value><![CDATA[");
-		sb.append(getId());
+			"<column><column-name>applicationId</column-name><column-value><![CDATA[");
+		sb.append(getApplicationId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>companyId</column-name><column-value><![CDATA[");
@@ -429,12 +465,20 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		sb.append(getWebsite());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>secret</column-name><column-value><![CDATA[");
-		sb.append(getSecret());
+			"<column><column-name>consumerKey</column-name><column-value><![CDATA[");
+		sb.append(getConsumerKey());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>consumerSecret</column-name><column-value><![CDATA[");
+		sb.append(getConsumerSecret());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>callBackURL</column-name><column-value><![CDATA[");
 		sb.append(getCallBackURL());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>accessLevel</column-name><column-value><![CDATA[");
+		sb.append(getAccessLevel());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -442,7 +486,7 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		return sb.toString();
 	}
 
-	private long _id;
+	private long _applicationId;
 	private long _companyId;
 	private long _userId;
 	private String _userUuid;
@@ -453,7 +497,9 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 	private String _name;
 	private String _description;
 	private String _website;
-	private String _secret;
+	private String _consumerKey;
+	private String _consumerSecret;
 	private String _callBackURL;
+	private int _accessLevel;
 	private BaseModel<?> _oAuthApplicationRemoteModel;
 }

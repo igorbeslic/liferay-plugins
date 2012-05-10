@@ -49,27 +49,27 @@ public class OAuthApplicationLocalServiceWrapper
 	/**
 	* Creates a new o auth application with the primary key. Does not add the o auth application to the database.
 	*
-	* @param id the primary key for the new o auth application
+	* @param applicationId the primary key for the new o auth application
 	* @return the new o auth application
 	*/
 	public com.liferay.portal.oauth.model.OAuthApplication createOAuthApplication(
-		long id) {
-		return _oAuthApplicationLocalService.createOAuthApplication(id);
+		long applicationId) {
+		return _oAuthApplicationLocalService.createOAuthApplication(applicationId);
 	}
 
 	/**
 	* Deletes the o auth application with the primary key from the database. Also notifies the appropriate model listeners.
 	*
-	* @param id the primary key of the o auth application
+	* @param applicationId the primary key of the o auth application
 	* @return the o auth application that was removed
 	* @throws PortalException if a o auth application with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.portal.oauth.model.OAuthApplication deleteOAuthApplication(
-		long id)
+		long applicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _oAuthApplicationLocalService.deleteOAuthApplication(id);
+		return _oAuthApplicationLocalService.deleteOAuthApplication(applicationId);
 	}
 
 	/**
@@ -162,23 +162,24 @@ public class OAuthApplicationLocalServiceWrapper
 	}
 
 	public com.liferay.portal.oauth.model.OAuthApplication fetchOAuthApplication(
-		long id) throws com.liferay.portal.kernel.exception.SystemException {
-		return _oAuthApplicationLocalService.fetchOAuthApplication(id);
+		long applicationId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplicationLocalService.fetchOAuthApplication(applicationId);
 	}
 
 	/**
 	* Returns the o auth application with the primary key.
 	*
-	* @param id the primary key of the o auth application
+	* @param applicationId the primary key of the o auth application
 	* @return the o auth application
 	* @throws PortalException if a o auth application with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.portal.oauth.model.OAuthApplication getOAuthApplication(
-		long id)
+		long applicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _oAuthApplicationLocalService.getOAuthApplication(id);
+		return _oAuthApplicationLocalService.getOAuthApplication(applicationId);
 	}
 
 	public com.liferay.portal.model.PersistedModel getPersistedModel(

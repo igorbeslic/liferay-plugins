@@ -30,7 +30,7 @@ public class OAuthApplicationSoap implements Serializable {
 	public static OAuthApplicationSoap toSoapModel(OAuthApplication model) {
 		OAuthApplicationSoap soapModel = new OAuthApplicationSoap();
 
-		soapModel.setId(model.getId());
+		soapModel.setApplicationId(model.getApplicationId());
 		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
 		soapModel.setUserName(model.getUserName());
@@ -40,8 +40,10 @@ public class OAuthApplicationSoap implements Serializable {
 		soapModel.setName(model.getName());
 		soapModel.setDescription(model.getDescription());
 		soapModel.setWebsite(model.getWebsite());
-		soapModel.setSecret(model.getSecret());
+		soapModel.setConsumerKey(model.getConsumerKey());
+		soapModel.setConsumerSecret(model.getConsumerSecret());
 		soapModel.setCallBackURL(model.getCallBackURL());
+		soapModel.setAccessLevel(model.getAccessLevel());
 
 		return soapModel;
 	}
@@ -89,19 +91,19 @@ public class OAuthApplicationSoap implements Serializable {
 	}
 
 	public long getPrimaryKey() {
-		return _id;
+		return _applicationId;
 	}
 
 	public void setPrimaryKey(long pk) {
-		setId(pk);
+		setApplicationId(pk);
 	}
 
-	public long getId() {
-		return _id;
+	public long getApplicationId() {
+		return _applicationId;
 	}
 
-	public void setId(long id) {
-		_id = id;
+	public void setApplicationId(long applicationId) {
+		_applicationId = applicationId;
 	}
 
 	public long getCompanyId() {
@@ -176,12 +178,20 @@ public class OAuthApplicationSoap implements Serializable {
 		_website = website;
 	}
 
-	public String getSecret() {
-		return _secret;
+	public String getConsumerKey() {
+		return _consumerKey;
 	}
 
-	public void setSecret(String secret) {
-		_secret = secret;
+	public void setConsumerKey(String consumerKey) {
+		_consumerKey = consumerKey;
+	}
+
+	public String getConsumerSecret() {
+		return _consumerSecret;
+	}
+
+	public void setConsumerSecret(String consumerSecret) {
+		_consumerSecret = consumerSecret;
 	}
 
 	public String getCallBackURL() {
@@ -192,7 +202,15 @@ public class OAuthApplicationSoap implements Serializable {
 		_callBackURL = callBackURL;
 	}
 
-	private long _id;
+	public int getAccessLevel() {
+		return _accessLevel;
+	}
+
+	public void setAccessLevel(int accessLevel) {
+		_accessLevel = accessLevel;
+	}
+
+	private long _applicationId;
 	private long _companyId;
 	private long _userId;
 	private String _userName;
@@ -202,6 +220,8 @@ public class OAuthApplicationSoap implements Serializable {
 	private String _name;
 	private String _description;
 	private String _website;
-	private String _secret;
+	private String _consumerKey;
+	private String _consumerSecret;
 	private String _callBackURL;
+	private int _accessLevel;
 }
