@@ -191,50 +191,46 @@ public class OAuthApplicationUtil {
 	}
 
 	/**
-	* Returns the o auth application where consumerKey = &#63; and consumerSecret = &#63; or throws a {@link com.liferay.portal.oauth.NoSuchApplicationException} if it could not be found.
+	* Returns the o auth application where consumerKey = &#63; or throws a {@link com.liferay.portal.oauth.NoSuchApplicationException} if it could not be found.
 	*
 	* @param consumerKey the consumer key
-	* @param consumerSecret the consumer secret
 	* @return the matching o auth application
 	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication findByCK_CS(
-		java.lang.String consumerKey, java.lang.String consumerSecret)
+	public static com.liferay.portal.oauth.model.OAuthApplication findByConsumerKey(
+		java.lang.String consumerKey)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence().findByCK_CS(consumerKey, consumerSecret);
+		return getPersistence().findByConsumerKey(consumerKey);
 	}
 
 	/**
-	* Returns the o auth application where consumerKey = &#63; and consumerSecret = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the o auth application where consumerKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
 	* @param consumerKey the consumer key
-	* @param consumerSecret the consumer secret
 	* @return the matching o auth application, or <code>null</code> if a matching o auth application could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication fetchByCK_CS(
-		java.lang.String consumerKey, java.lang.String consumerSecret)
+	public static com.liferay.portal.oauth.model.OAuthApplication fetchByConsumerKey(
+		java.lang.String consumerKey)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByCK_CS(consumerKey, consumerSecret);
+		return getPersistence().fetchByConsumerKey(consumerKey);
 	}
 
 	/**
-	* Returns the o auth application where consumerKey = &#63; and consumerSecret = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the o auth application where consumerKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
 	* @param consumerKey the consumer key
-	* @param consumerSecret the consumer secret
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching o auth application, or <code>null</code> if a matching o auth application could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication fetchByCK_CS(
-		java.lang.String consumerKey, java.lang.String consumerSecret,
-		boolean retrieveFromCache)
+	public static com.liferay.portal.oauth.model.OAuthApplication fetchByConsumerKey(
+		java.lang.String consumerKey, boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .fetchByCK_CS(consumerKey, consumerSecret, retrieveFromCache);
+				   .fetchByConsumerKey(consumerKey, retrieveFromCache);
 	}
 
 	/**
@@ -646,18 +642,17 @@ public class OAuthApplicationUtil {
 	}
 
 	/**
-	* Removes the o auth application where consumerKey = &#63; and consumerSecret = &#63; from the database.
+	* Removes the o auth application where consumerKey = &#63; from the database.
 	*
 	* @param consumerKey the consumer key
-	* @param consumerSecret the consumer secret
 	* @return the o auth application that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication removeByCK_CS(
-		java.lang.String consumerKey, java.lang.String consumerSecret)
+	public static com.liferay.portal.oauth.model.OAuthApplication removeByConsumerKey(
+		java.lang.String consumerKey)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence().removeByCK_CS(consumerKey, consumerSecret);
+		return getPersistence().removeByConsumerKey(consumerKey);
 	}
 
 	/**
@@ -704,17 +699,15 @@ public class OAuthApplicationUtil {
 	}
 
 	/**
-	* Returns the number of o auth applications where consumerKey = &#63; and consumerSecret = &#63;.
+	* Returns the number of o auth applications where consumerKey = &#63;.
 	*
 	* @param consumerKey the consumer key
-	* @param consumerSecret the consumer secret
 	* @return the number of matching o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByCK_CS(java.lang.String consumerKey,
-		java.lang.String consumerSecret)
+	public static int countByConsumerKey(java.lang.String consumerKey)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByCK_CS(consumerKey, consumerSecret);
+		return getPersistence().countByConsumerKey(consumerKey);
 	}
 
 	/**

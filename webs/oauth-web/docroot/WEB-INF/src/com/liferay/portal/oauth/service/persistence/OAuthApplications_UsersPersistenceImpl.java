@@ -87,17 +87,15 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 			OAuthApplications_UsersModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByA_U",
 			new String[] { Long.class.getName(), Long.class.getName() });
-	public static final FinderPath FINDER_PATH_FETCH_BY_AT_AS = new FinderPath(OAuthApplications_UsersModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_FETCH_BY_ACCESSTOKEN = new FinderPath(OAuthApplications_UsersModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthApplications_UsersModelImpl.FINDER_CACHE_ENABLED,
 			OAuthApplications_UsersImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchByAT_AS",
-			new String[] { String.class.getName(), String.class.getName() },
-			OAuthApplications_UsersModelImpl.ACCESSTOKEN_COLUMN_BITMASK |
-			OAuthApplications_UsersModelImpl.ACCESSSECRET_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_AT_AS = new FinderPath(OAuthApplications_UsersModelImpl.ENTITY_CACHE_ENABLED,
+			"fetchByAccessToken", new String[] { String.class.getName() },
+			OAuthApplications_UsersModelImpl.ACCESSTOKEN_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_ACCESSTOKEN = new FinderPath(OAuthApplications_UsersModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthApplications_UsersModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAT_AS",
-			new String[] { String.class.getName(), String.class.getName() });
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAccessToken",
+			new String[] { String.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(OAuthApplications_UsersModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthApplications_UsersModelImpl.FINDER_CACHE_ENABLED,
 			OAuthApplications_UsersImpl.class,
@@ -126,12 +124,9 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 				Long.valueOf(oAuthApplications_Users.getUserId())
 			}, oAuthApplications_Users);
 
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_AT_AS,
-			new Object[] {
-				oAuthApplications_Users.getAccessToken(),
-				
-			oAuthApplications_Users.getAccessSecret()
-			}, oAuthApplications_Users);
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
+			new Object[] { oAuthApplications_Users.getAccessToken() },
+			oAuthApplications_Users);
 
 		oAuthApplications_Users.resetOriginalValues();
 	}
@@ -218,12 +213,8 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 				Long.valueOf(oAuthApplications_Users.getUserId())
 			});
 
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_AT_AS,
-			new Object[] {
-				oAuthApplications_Users.getAccessToken(),
-				
-			oAuthApplications_Users.getAccessSecret()
-			});
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
+			new Object[] { oAuthApplications_Users.getAccessToken() });
 	}
 
 	/**
@@ -363,12 +354,9 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 					Long.valueOf(oAuthApplications_Users.getUserId())
 				}, oAuthApplications_Users);
 
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_AT_AS,
-				new Object[] {
-					oAuthApplications_Users.getAccessToken(),
-					
-				oAuthApplications_Users.getAccessSecret()
-				}, oAuthApplications_Users);
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
+				new Object[] { oAuthApplications_Users.getAccessToken() },
+				oAuthApplications_Users);
 		}
 		else {
 			if ((oAuthApplications_UsersModelImpl.getColumnBitmask() &
@@ -389,22 +377,19 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 			}
 
 			if ((oAuthApplications_UsersModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_AT_AS.getColumnBitmask()) != 0) {
+					FINDER_PATH_FETCH_BY_ACCESSTOKEN.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						oAuthApplications_UsersModelImpl.getOriginalAccessToken(),
-						
-						oAuthApplications_UsersModelImpl.getOriginalAccessSecret()
+						oAuthApplications_UsersModelImpl.getOriginalAccessToken()
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_AT_AS, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_AT_AS, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
+					args);
 
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_AT_AS,
-					new Object[] {
-						oAuthApplications_Users.getAccessToken(),
-						
-					oAuthApplications_Users.getAccessSecret()
-					}, oAuthApplications_Users);
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
+					new Object[] { oAuthApplications_Users.getAccessToken() },
+					oAuthApplications_Users);
 			}
 		}
 
@@ -682,30 +667,24 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 	}
 
 	/**
-	 * Returns the o auth applications_ users where accessToken = &#63; and accessSecret = &#63; or throws a {@link com.liferay.portal.oauth.NoSuchApplications_UsersException} if it could not be found.
+	 * Returns the o auth applications_ users where accessToken = &#63; or throws a {@link com.liferay.portal.oauth.NoSuchApplications_UsersException} if it could not be found.
 	 *
 	 * @param accessToken the access token
-	 * @param accessSecret the access secret
 	 * @return the matching o auth applications_ users
 	 * @throws com.liferay.portal.oauth.NoSuchApplications_UsersException if a matching o auth applications_ users could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplications_Users findByAT_AS(String accessToken,
-		String accessSecret)
+	public OAuthApplications_Users findByAccessToken(String accessToken)
 		throws NoSuchApplications_UsersException, SystemException {
-		OAuthApplications_Users oAuthApplications_Users = fetchByAT_AS(accessToken,
-				accessSecret);
+		OAuthApplications_Users oAuthApplications_Users = fetchByAccessToken(accessToken);
 
 		if (oAuthApplications_Users == null) {
-			StringBundler msg = new StringBundler(6);
+			StringBundler msg = new StringBundler(4);
 
 			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
 			msg.append("accessToken=");
 			msg.append(accessToken);
-
-			msg.append(", accessSecret=");
-			msg.append(accessSecret);
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -720,36 +699,33 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 	}
 
 	/**
-	 * Returns the o auth applications_ users where accessToken = &#63; and accessSecret = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the o auth applications_ users where accessToken = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param accessToken the access token
-	 * @param accessSecret the access secret
 	 * @return the matching o auth applications_ users, or <code>null</code> if a matching o auth applications_ users could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplications_Users fetchByAT_AS(String accessToken,
-		String accessSecret) throws SystemException {
-		return fetchByAT_AS(accessToken, accessSecret, true);
+	public OAuthApplications_Users fetchByAccessToken(String accessToken)
+		throws SystemException {
+		return fetchByAccessToken(accessToken, true);
 	}
 
 	/**
-	 * Returns the o auth applications_ users where accessToken = &#63; and accessSecret = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the o auth applications_ users where accessToken = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param accessToken the access token
-	 * @param accessSecret the access secret
 	 * @param retrieveFromCache whether to use the finder cache
 	 * @return the matching o auth applications_ users, or <code>null</code> if a matching o auth applications_ users could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplications_Users fetchByAT_AS(String accessToken,
-		String accessSecret, boolean retrieveFromCache)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { accessToken, accessSecret };
+	public OAuthApplications_Users fetchByAccessToken(String accessToken,
+		boolean retrieveFromCache) throws SystemException {
+		Object[] finderArgs = new Object[] { accessToken };
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_AT_AS,
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
 					finderArgs, this);
 		}
 
@@ -757,39 +733,25 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 			OAuthApplications_Users oAuthApplications_Users = (OAuthApplications_Users)result;
 
 			if (!Validator.equals(accessToken,
-						oAuthApplications_Users.getAccessToken()) ||
-					!Validator.equals(accessSecret,
-						oAuthApplications_Users.getAccessSecret())) {
+						oAuthApplications_Users.getAccessToken())) {
 				result = null;
 			}
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler query = new StringBundler(2);
 
 			query.append(_SQL_SELECT_OAUTHAPPLICATIONS_USERS_WHERE);
 
 			if (accessToken == null) {
-				query.append(_FINDER_COLUMN_AT_AS_ACCESSTOKEN_1);
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_1);
 			}
 			else {
 				if (accessToken.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_AT_AS_ACCESSTOKEN_3);
+					query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3);
 				}
 				else {
-					query.append(_FINDER_COLUMN_AT_AS_ACCESSTOKEN_2);
-				}
-			}
-
-			if (accessSecret == null) {
-				query.append(_FINDER_COLUMN_AT_AS_ACCESSSECRET_1);
-			}
-			else {
-				if (accessSecret.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_AT_AS_ACCESSSECRET_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_AT_AS_ACCESSSECRET_2);
+					query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2);
 				}
 			}
 
@@ -808,10 +770,6 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 					qPos.add(accessToken);
 				}
 
-				if (accessSecret != null) {
-					qPos.add(accessSecret);
-				}
-
 				List<OAuthApplications_Users> list = q.list();
 
 				result = list;
@@ -819,7 +777,7 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 				OAuthApplications_Users oAuthApplications_Users = null;
 
 				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_AT_AS,
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
 						finderArgs, list);
 				}
 				else {
@@ -829,11 +787,8 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 
 					if ((oAuthApplications_Users.getAccessToken() == null) ||
 							!oAuthApplications_Users.getAccessToken()
-														.equals(accessToken) ||
-							(oAuthApplications_Users.getAccessSecret() == null) ||
-							!oAuthApplications_Users.getAccessSecret()
-														.equals(accessSecret)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_AT_AS,
+														.equals(accessToken)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
 							finderArgs, oAuthApplications_Users);
 					}
 				}
@@ -845,7 +800,7 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 			}
 			finally {
 				if (result == null) {
-					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_AT_AS,
+					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
 						finderArgs);
 				}
 
@@ -994,18 +949,15 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 	}
 
 	/**
-	 * Removes the o auth applications_ users where accessToken = &#63; and accessSecret = &#63; from the database.
+	 * Removes the o auth applications_ users where accessToken = &#63; from the database.
 	 *
 	 * @param accessToken the access token
-	 * @param accessSecret the access secret
 	 * @return the o auth applications_ users that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplications_Users removeByAT_AS(String accessToken,
-		String accessSecret)
+	public OAuthApplications_Users removeByAccessToken(String accessToken)
 		throws NoSuchApplications_UsersException, SystemException {
-		OAuthApplications_Users oAuthApplications_Users = findByAT_AS(accessToken,
-				accessSecret);
+		OAuthApplications_Users oAuthApplications_Users = findByAccessToken(accessToken);
 
 		return remove(oAuthApplications_Users);
 	}
@@ -1081,46 +1033,32 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 	}
 
 	/**
-	 * Returns the number of o auth applications_ userses where accessToken = &#63; and accessSecret = &#63;.
+	 * Returns the number of o auth applications_ userses where accessToken = &#63;.
 	 *
 	 * @param accessToken the access token
-	 * @param accessSecret the access secret
 	 * @return the number of matching o auth applications_ userses
 	 * @throws SystemException if a system exception occurred
 	 */
-	public int countByAT_AS(String accessToken, String accessSecret)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { accessToken, accessSecret };
+	public int countByAccessToken(String accessToken) throws SystemException {
+		Object[] finderArgs = new Object[] { accessToken };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_AT_AS,
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN,
 				finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler query = new StringBundler(2);
 
 			query.append(_SQL_COUNT_OAUTHAPPLICATIONS_USERS_WHERE);
 
 			if (accessToken == null) {
-				query.append(_FINDER_COLUMN_AT_AS_ACCESSTOKEN_1);
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_1);
 			}
 			else {
 				if (accessToken.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_AT_AS_ACCESSTOKEN_3);
+					query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3);
 				}
 				else {
-					query.append(_FINDER_COLUMN_AT_AS_ACCESSTOKEN_2);
-				}
-			}
-
-			if (accessSecret == null) {
-				query.append(_FINDER_COLUMN_AT_AS_ACCESSSECRET_1);
-			}
-			else {
-				if (accessSecret.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_AT_AS_ACCESSSECRET_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_AT_AS_ACCESSSECRET_2);
+					query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2);
 				}
 			}
 
@@ -1139,10 +1077,6 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 					qPos.add(accessToken);
 				}
 
-				if (accessSecret != null) {
-					qPos.add(accessSecret);
-				}
-
 				count = (Long)q.uniqueResult();
 			}
 			catch (Exception e) {
@@ -1153,7 +1087,7 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_AT_AS,
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN,
 					finderArgs, count);
 
 				closeSession(session);
@@ -1244,12 +1178,9 @@ public class OAuthApplications_UsersPersistenceImpl extends BasePersistenceImpl<
 	private static final String _SQL_COUNT_OAUTHAPPLICATIONS_USERS_WHERE = "SELECT COUNT(oAuthApplications_Users) FROM OAuthApplications_Users oAuthApplications_Users WHERE ";
 	private static final String _FINDER_COLUMN_A_U_APPLICATIONID_2 = "oAuthApplications_Users.applicationId = ? AND ";
 	private static final String _FINDER_COLUMN_A_U_USERID_2 = "oAuthApplications_Users.userId = ?";
-	private static final String _FINDER_COLUMN_AT_AS_ACCESSTOKEN_1 = "oAuthApplications_Users.accessToken IS NULL AND ";
-	private static final String _FINDER_COLUMN_AT_AS_ACCESSTOKEN_2 = "oAuthApplications_Users.accessToken = ? AND ";
-	private static final String _FINDER_COLUMN_AT_AS_ACCESSTOKEN_3 = "(oAuthApplications_Users.accessToken IS NULL OR oAuthApplications_Users.accessToken = ?) AND ";
-	private static final String _FINDER_COLUMN_AT_AS_ACCESSSECRET_1 = "oAuthApplications_Users.accessSecret IS NULL";
-	private static final String _FINDER_COLUMN_AT_AS_ACCESSSECRET_2 = "oAuthApplications_Users.accessSecret = ?";
-	private static final String _FINDER_COLUMN_AT_AS_ACCESSSECRET_3 = "(oAuthApplications_Users.accessSecret IS NULL OR oAuthApplications_Users.accessSecret = ?)";
+	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_1 = "oAuthApplications_Users.accessToken IS NULL";
+	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2 = "oAuthApplications_Users.accessToken = ?";
+	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3 = "(oAuthApplications_Users.accessToken IS NULL OR oAuthApplications_Users.accessToken = ?)";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "oAuthApplications_Users.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No OAuthApplications_Users exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No OAuthApplications_Users exists with the key {";

@@ -90,10 +90,9 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 				"value.object.column.bitmask.enabled.com.liferay.portal.oauth.model.OAuthApplication"),
 			true);
 	public static long CONSUMERKEY_COLUMN_BITMASK = 1L;
-	public static long CONSUMERSECRET_COLUMN_BITMASK = 2L;
-	public static long NAME_COLUMN_BITMASK = 4L;
-	public static long OWNERID_COLUMN_BITMASK = 8L;
-	public static long WEBSITE_COLUMN_BITMASK = 16L;
+	public static long NAME_COLUMN_BITMASK = 2L;
+	public static long OWNERID_COLUMN_BITMASK = 4L;
+	public static long WEBSITE_COLUMN_BITMASK = 8L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.portal.oauth.model.OAuthApplication"));
 
@@ -406,17 +405,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	}
 
 	public void setConsumerSecret(String consumerSecret) {
-		_columnBitmask |= CONSUMERSECRET_COLUMN_BITMASK;
-
-		if (_originalConsumerSecret == null) {
-			_originalConsumerSecret = _consumerSecret;
-		}
-
 		_consumerSecret = consumerSecret;
-	}
-
-	public String getOriginalConsumerSecret() {
-		return GetterUtil.getString(_originalConsumerSecret);
 	}
 
 	public String getCallBackURL() {
@@ -551,8 +540,6 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		oAuthApplicationModelImpl._originalWebsite = oAuthApplicationModelImpl._website;
 
 		oAuthApplicationModelImpl._originalConsumerKey = oAuthApplicationModelImpl._consumerKey;
-
-		oAuthApplicationModelImpl._originalConsumerSecret = oAuthApplicationModelImpl._consumerSecret;
 
 		oAuthApplicationModelImpl._columnBitmask = 0;
 	}
@@ -776,7 +763,6 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	private String _consumerKey;
 	private String _originalConsumerKey;
 	private String _consumerSecret;
-	private String _originalConsumerSecret;
 	private String _callBackURL;
 	private int _accessLevel;
 	private transient ExpandoBridge _expandoBridge;

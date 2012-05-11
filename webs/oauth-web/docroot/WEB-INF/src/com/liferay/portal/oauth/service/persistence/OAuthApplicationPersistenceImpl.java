@@ -76,17 +76,15 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
-	public static final FinderPath FINDER_PATH_FETCH_BY_CK_CS = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_FETCH_BY_CONSUMERKEY = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED,
 			OAuthApplicationImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchByCK_CS",
-			new String[] { String.class.getName(), String.class.getName() },
-			OAuthApplicationModelImpl.CONSUMERKEY_COLUMN_BITMASK |
-			OAuthApplicationModelImpl.CONSUMERSECRET_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_CK_CS = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
+			"fetchByConsumerKey", new String[] { String.class.getName() },
+			OAuthApplicationModelImpl.CONSUMERKEY_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_CONSUMERKEY = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCK_CS",
-			new String[] { String.class.getName(), String.class.getName() });
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByConsumerKey",
+			new String[] { String.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_NAME = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED,
 			OAuthApplicationImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
@@ -171,12 +169,8 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 			OAuthApplicationImpl.class, oAuthApplication.getPrimaryKey(),
 			oAuthApplication);
 
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CK_CS,
-			new Object[] {
-				oAuthApplication.getConsumerKey(),
-				
-			oAuthApplication.getConsumerSecret()
-			}, oAuthApplication);
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONSUMERKEY,
+			new Object[] { oAuthApplication.getConsumerKey() }, oAuthApplication);
 
 		oAuthApplication.resetOriginalValues();
 	}
@@ -252,12 +246,8 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	protected void clearUniqueFindersCache(OAuthApplication oAuthApplication) {
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CK_CS,
-			new Object[] {
-				oAuthApplication.getConsumerKey(),
-				
-			oAuthApplication.getConsumerSecret()
-			});
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CONSUMERKEY,
+			new Object[] { oAuthApplication.getConsumerKey() });
 	}
 
 	/**
@@ -444,31 +434,25 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 			oAuthApplication);
 
 		if (isNew) {
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CK_CS,
-				new Object[] {
-					oAuthApplication.getConsumerKey(),
-					
-				oAuthApplication.getConsumerSecret()
-				}, oAuthApplication);
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONSUMERKEY,
+				new Object[] { oAuthApplication.getConsumerKey() },
+				oAuthApplication);
 		}
 		else {
 			if ((oAuthApplicationModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_CK_CS.getColumnBitmask()) != 0) {
+					FINDER_PATH_FETCH_BY_CONSUMERKEY.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						oAuthApplicationModelImpl.getOriginalConsumerKey(),
-						
-						oAuthApplicationModelImpl.getOriginalConsumerSecret()
+						oAuthApplicationModelImpl.getOriginalConsumerKey()
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CK_CS, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CK_CS, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CONSUMERKEY,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CONSUMERKEY,
+					args);
 
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CK_CS,
-					new Object[] {
-						oAuthApplication.getConsumerKey(),
-						
-					oAuthApplication.getConsumerSecret()
-					}, oAuthApplication);
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONSUMERKEY,
+					new Object[] { oAuthApplication.getConsumerKey() },
+					oAuthApplication);
 			}
 		}
 
@@ -605,30 +589,24 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the o auth application where consumerKey = &#63; and consumerSecret = &#63; or throws a {@link com.liferay.portal.oauth.NoSuchApplicationException} if it could not be found.
+	 * Returns the o auth application where consumerKey = &#63; or throws a {@link com.liferay.portal.oauth.NoSuchApplicationException} if it could not be found.
 	 *
 	 * @param consumerKey the consumer key
-	 * @param consumerSecret the consumer secret
 	 * @return the matching o auth application
 	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplication findByCK_CS(String consumerKey,
-		String consumerSecret)
+	public OAuthApplication findByConsumerKey(String consumerKey)
 		throws NoSuchApplicationException, SystemException {
-		OAuthApplication oAuthApplication = fetchByCK_CS(consumerKey,
-				consumerSecret);
+		OAuthApplication oAuthApplication = fetchByConsumerKey(consumerKey);
 
 		if (oAuthApplication == null) {
-			StringBundler msg = new StringBundler(6);
+			StringBundler msg = new StringBundler(4);
 
 			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
 			msg.append("consumerKey=");
 			msg.append(consumerKey);
-
-			msg.append(", consumerSecret=");
-			msg.append(consumerSecret);
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -643,75 +621,58 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the o auth application where consumerKey = &#63; and consumerSecret = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the o auth application where consumerKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param consumerKey the consumer key
-	 * @param consumerSecret the consumer secret
 	 * @return the matching o auth application, or <code>null</code> if a matching o auth application could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplication fetchByCK_CS(String consumerKey,
-		String consumerSecret) throws SystemException {
-		return fetchByCK_CS(consumerKey, consumerSecret, true);
+	public OAuthApplication fetchByConsumerKey(String consumerKey)
+		throws SystemException {
+		return fetchByConsumerKey(consumerKey, true);
 	}
 
 	/**
-	 * Returns the o auth application where consumerKey = &#63; and consumerSecret = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the o auth application where consumerKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param consumerKey the consumer key
-	 * @param consumerSecret the consumer secret
 	 * @param retrieveFromCache whether to use the finder cache
 	 * @return the matching o auth application, or <code>null</code> if a matching o auth application could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplication fetchByCK_CS(String consumerKey,
-		String consumerSecret, boolean retrieveFromCache)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { consumerKey, consumerSecret };
+	public OAuthApplication fetchByConsumerKey(String consumerKey,
+		boolean retrieveFromCache) throws SystemException {
+		Object[] finderArgs = new Object[] { consumerKey };
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_CK_CS,
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_CONSUMERKEY,
 					finderArgs, this);
 		}
 
 		if (result instanceof OAuthApplication) {
 			OAuthApplication oAuthApplication = (OAuthApplication)result;
 
-			if (!Validator.equals(consumerKey, oAuthApplication.getConsumerKey()) ||
-					!Validator.equals(consumerSecret,
-						oAuthApplication.getConsumerSecret())) {
+			if (!Validator.equals(consumerKey, oAuthApplication.getConsumerKey())) {
 				result = null;
 			}
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler query = new StringBundler(2);
 
 			query.append(_SQL_SELECT_OAUTHAPPLICATION_WHERE);
 
 			if (consumerKey == null) {
-				query.append(_FINDER_COLUMN_CK_CS_CONSUMERKEY_1);
+				query.append(_FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_1);
 			}
 			else {
 				if (consumerKey.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_CK_CS_CONSUMERKEY_3);
+					query.append(_FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_3);
 				}
 				else {
-					query.append(_FINDER_COLUMN_CK_CS_CONSUMERKEY_2);
-				}
-			}
-
-			if (consumerSecret == null) {
-				query.append(_FINDER_COLUMN_CK_CS_CONSUMERSECRET_1);
-			}
-			else {
-				if (consumerSecret.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_CK_CS_CONSUMERSECRET_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_CK_CS_CONSUMERSECRET_2);
+					query.append(_FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_2);
 				}
 			}
 
@@ -730,10 +691,6 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 					qPos.add(consumerKey);
 				}
 
-				if (consumerSecret != null) {
-					qPos.add(consumerSecret);
-				}
-
 				List<OAuthApplication> list = q.list();
 
 				result = list;
@@ -741,7 +698,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 				OAuthApplication oAuthApplication = null;
 
 				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CK_CS,
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONSUMERKEY,
 						finderArgs, list);
 				}
 				else {
@@ -751,11 +708,8 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 
 					if ((oAuthApplication.getConsumerKey() == null) ||
 							!oAuthApplication.getConsumerKey()
-												 .equals(consumerKey) ||
-							(oAuthApplication.getConsumerSecret() == null) ||
-							!oAuthApplication.getConsumerSecret()
-												 .equals(consumerSecret)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CK_CS,
+												 .equals(consumerKey)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CONSUMERKEY,
 							finderArgs, oAuthApplication);
 					}
 				}
@@ -767,7 +721,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 			}
 			finally {
 				if (result == null) {
-					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CK_CS,
+					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CONSUMERKEY,
 						finderArgs);
 				}
 
@@ -1991,18 +1945,15 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Removes the o auth application where consumerKey = &#63; and consumerSecret = &#63; from the database.
+	 * Removes the o auth application where consumerKey = &#63; from the database.
 	 *
 	 * @param consumerKey the consumer key
-	 * @param consumerSecret the consumer secret
 	 * @return the o auth application that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplication removeByCK_CS(String consumerKey,
-		String consumerSecret)
+	public OAuthApplication removeByConsumerKey(String consumerKey)
 		throws NoSuchApplicationException, SystemException {
-		OAuthApplication oAuthApplication = findByCK_CS(consumerKey,
-				consumerSecret);
+		OAuthApplication oAuthApplication = findByConsumerKey(consumerKey);
 
 		return remove(oAuthApplication);
 	}
@@ -2055,46 +2006,32 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the number of o auth applications where consumerKey = &#63; and consumerSecret = &#63;.
+	 * Returns the number of o auth applications where consumerKey = &#63;.
 	 *
 	 * @param consumerKey the consumer key
-	 * @param consumerSecret the consumer secret
 	 * @return the number of matching o auth applications
 	 * @throws SystemException if a system exception occurred
 	 */
-	public int countByCK_CS(String consumerKey, String consumerSecret)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { consumerKey, consumerSecret };
+	public int countByConsumerKey(String consumerKey) throws SystemException {
+		Object[] finderArgs = new Object[] { consumerKey };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_CK_CS,
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_CONSUMERKEY,
 				finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler query = new StringBundler(2);
 
 			query.append(_SQL_COUNT_OAUTHAPPLICATION_WHERE);
 
 			if (consumerKey == null) {
-				query.append(_FINDER_COLUMN_CK_CS_CONSUMERKEY_1);
+				query.append(_FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_1);
 			}
 			else {
 				if (consumerKey.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_CK_CS_CONSUMERKEY_3);
+					query.append(_FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_3);
 				}
 				else {
-					query.append(_FINDER_COLUMN_CK_CS_CONSUMERKEY_2);
-				}
-			}
-
-			if (consumerSecret == null) {
-				query.append(_FINDER_COLUMN_CK_CS_CONSUMERSECRET_1);
-			}
-			else {
-				if (consumerSecret.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_CK_CS_CONSUMERSECRET_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_CK_CS_CONSUMERSECRET_2);
+					query.append(_FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_2);
 				}
 			}
 
@@ -2113,10 +2050,6 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 					qPos.add(consumerKey);
 				}
 
-				if (consumerSecret != null) {
-					qPos.add(consumerSecret);
-				}
-
 				count = (Long)q.uniqueResult();
 			}
 			catch (Exception e) {
@@ -2127,7 +2060,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CK_CS,
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CONSUMERKEY,
 					finderArgs, count);
 
 				closeSession(session);
@@ -2399,12 +2332,9 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	private static final String _SQL_SELECT_OAUTHAPPLICATION_WHERE = "SELECT oAuthApplication FROM OAuthApplication oAuthApplication WHERE ";
 	private static final String _SQL_COUNT_OAUTHAPPLICATION = "SELECT COUNT(oAuthApplication) FROM OAuthApplication oAuthApplication";
 	private static final String _SQL_COUNT_OAUTHAPPLICATION_WHERE = "SELECT COUNT(oAuthApplication) FROM OAuthApplication oAuthApplication WHERE ";
-	private static final String _FINDER_COLUMN_CK_CS_CONSUMERKEY_1 = "oAuthApplication.consumerKey IS NULL AND ";
-	private static final String _FINDER_COLUMN_CK_CS_CONSUMERKEY_2 = "oAuthApplication.consumerKey = ? AND ";
-	private static final String _FINDER_COLUMN_CK_CS_CONSUMERKEY_3 = "(oAuthApplication.consumerKey IS NULL OR oAuthApplication.consumerKey = ?) AND ";
-	private static final String _FINDER_COLUMN_CK_CS_CONSUMERSECRET_1 = "oAuthApplication.consumerSecret IS NULL";
-	private static final String _FINDER_COLUMN_CK_CS_CONSUMERSECRET_2 = "oAuthApplication.consumerSecret = ?";
-	private static final String _FINDER_COLUMN_CK_CS_CONSUMERSECRET_3 = "(oAuthApplication.consumerSecret IS NULL OR oAuthApplication.consumerSecret = ?)";
+	private static final String _FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_1 = "oAuthApplication.consumerKey IS NULL";
+	private static final String _FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_2 = "oAuthApplication.consumerKey = ?";
+	private static final String _FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_3 = "(oAuthApplication.consumerKey IS NULL OR oAuthApplication.consumerKey = ?)";
 	private static final String _FINDER_COLUMN_NAME_NAME_1 = "oAuthApplication.name IS NULL";
 	private static final String _FINDER_COLUMN_NAME_NAME_2 = "oAuthApplication.name = ?";
 	private static final String _FINDER_COLUMN_NAME_NAME_3 = "(oAuthApplication.name IS NULL OR oAuthApplication.name = ?)";

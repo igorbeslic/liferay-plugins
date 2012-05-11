@@ -80,10 +80,9 @@ public class OAuthApplications_UsersModelImpl extends BaseModelImpl<OAuthApplica
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.liferay.portal.oauth.model.OAuthApplications_Users"),
 			true);
-	public static long ACCESSSECRET_COLUMN_BITMASK = 1L;
-	public static long ACCESSTOKEN_COLUMN_BITMASK = 2L;
-	public static long APPLICATIONID_COLUMN_BITMASK = 4L;
-	public static long USERID_COLUMN_BITMASK = 8L;
+	public static long ACCESSTOKEN_COLUMN_BITMASK = 1L;
+	public static long APPLICATIONID_COLUMN_BITMASK = 2L;
+	public static long USERID_COLUMN_BITMASK = 4L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.portal.oauth.model.OAuthApplications_Users"));
 
@@ -208,17 +207,7 @@ public class OAuthApplications_UsersModelImpl extends BaseModelImpl<OAuthApplica
 	}
 
 	public void setAccessSecret(String accessSecret) {
-		_columnBitmask |= ACCESSSECRET_COLUMN_BITMASK;
-
-		if (_originalAccessSecret == null) {
-			_originalAccessSecret = _accessSecret;
-		}
-
 		_accessSecret = accessSecret;
-	}
-
-	public String getOriginalAccessSecret() {
-		return GetterUtil.getString(_originalAccessSecret);
 	}
 
 	public long getApplicationId() {
@@ -377,8 +366,6 @@ public class OAuthApplications_UsersModelImpl extends BaseModelImpl<OAuthApplica
 
 		oAuthApplications_UsersModelImpl._originalAccessToken = oAuthApplications_UsersModelImpl._accessToken;
 
-		oAuthApplications_UsersModelImpl._originalAccessSecret = oAuthApplications_UsersModelImpl._accessSecret;
-
 		oAuthApplications_UsersModelImpl._originalApplicationId = oAuthApplications_UsersModelImpl._applicationId;
 
 		oAuthApplications_UsersModelImpl._setOriginalApplicationId = false;
@@ -487,7 +474,6 @@ public class OAuthApplications_UsersModelImpl extends BaseModelImpl<OAuthApplica
 	private String _accessToken;
 	private String _originalAccessToken;
 	private String _accessSecret;
-	private String _originalAccessSecret;
 	private long _applicationId;
 	private long _originalApplicationId;
 	private boolean _setOriginalApplicationId;

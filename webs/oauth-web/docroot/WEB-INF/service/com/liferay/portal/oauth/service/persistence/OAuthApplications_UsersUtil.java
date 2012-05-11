@@ -240,50 +240,46 @@ public class OAuthApplications_UsersUtil {
 	}
 
 	/**
-	* Returns the o auth applications_ users where accessToken = &#63; and accessSecret = &#63; or throws a {@link com.liferay.portal.oauth.NoSuchApplications_UsersException} if it could not be found.
+	* Returns the o auth applications_ users where accessToken = &#63; or throws a {@link com.liferay.portal.oauth.NoSuchApplications_UsersException} if it could not be found.
 	*
 	* @param accessToken the access token
-	* @param accessSecret the access secret
 	* @return the matching o auth applications_ users
 	* @throws com.liferay.portal.oauth.NoSuchApplications_UsersException if a matching o auth applications_ users could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.portal.oauth.model.OAuthApplications_Users findByAT_AS(
-		java.lang.String accessToken, java.lang.String accessSecret)
+	public static com.liferay.portal.oauth.model.OAuthApplications_Users findByAccessToken(
+		java.lang.String accessToken)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplications_UsersException {
-		return getPersistence().findByAT_AS(accessToken, accessSecret);
+		return getPersistence().findByAccessToken(accessToken);
 	}
 
 	/**
-	* Returns the o auth applications_ users where accessToken = &#63; and accessSecret = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the o auth applications_ users where accessToken = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
 	* @param accessToken the access token
-	* @param accessSecret the access secret
 	* @return the matching o auth applications_ users, or <code>null</code> if a matching o auth applications_ users could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.portal.oauth.model.OAuthApplications_Users fetchByAT_AS(
-		java.lang.String accessToken, java.lang.String accessSecret)
+	public static com.liferay.portal.oauth.model.OAuthApplications_Users fetchByAccessToken(
+		java.lang.String accessToken)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByAT_AS(accessToken, accessSecret);
+		return getPersistence().fetchByAccessToken(accessToken);
 	}
 
 	/**
-	* Returns the o auth applications_ users where accessToken = &#63; and accessSecret = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the o auth applications_ users where accessToken = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
 	* @param accessToken the access token
-	* @param accessSecret the access secret
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching o auth applications_ users, or <code>null</code> if a matching o auth applications_ users could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.portal.oauth.model.OAuthApplications_Users fetchByAT_AS(
-		java.lang.String accessToken, java.lang.String accessSecret,
-		boolean retrieveFromCache)
+	public static com.liferay.portal.oauth.model.OAuthApplications_Users fetchByAccessToken(
+		java.lang.String accessToken, boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .fetchByAT_AS(accessToken, accessSecret, retrieveFromCache);
+				   .fetchByAccessToken(accessToken, retrieveFromCache);
 	}
 
 	/**
@@ -351,18 +347,17 @@ public class OAuthApplications_UsersUtil {
 	}
 
 	/**
-	* Removes the o auth applications_ users where accessToken = &#63; and accessSecret = &#63; from the database.
+	* Removes the o auth applications_ users where accessToken = &#63; from the database.
 	*
 	* @param accessToken the access token
-	* @param accessSecret the access secret
 	* @return the o auth applications_ users that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.portal.oauth.model.OAuthApplications_Users removeByAT_AS(
-		java.lang.String accessToken, java.lang.String accessSecret)
+	public static com.liferay.portal.oauth.model.OAuthApplications_Users removeByAccessToken(
+		java.lang.String accessToken)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplications_UsersException {
-		return getPersistence().removeByAT_AS(accessToken, accessSecret);
+		return getPersistence().removeByAccessToken(accessToken);
 	}
 
 	/**
@@ -389,17 +384,15 @@ public class OAuthApplications_UsersUtil {
 	}
 
 	/**
-	* Returns the number of o auth applications_ userses where accessToken = &#63; and accessSecret = &#63;.
+	* Returns the number of o auth applications_ userses where accessToken = &#63;.
 	*
 	* @param accessToken the access token
-	* @param accessSecret the access secret
 	* @return the number of matching o auth applications_ userses
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByAT_AS(java.lang.String accessToken,
-		java.lang.String accessSecret)
+	public static int countByAccessToken(java.lang.String accessToken)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByAT_AS(accessToken, accessSecret);
+		return getPersistence().countByAccessToken(accessToken);
 	}
 
 	/**
