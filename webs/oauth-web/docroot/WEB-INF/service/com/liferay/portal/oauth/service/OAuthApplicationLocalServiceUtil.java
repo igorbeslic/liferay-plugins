@@ -285,6 +285,12 @@ public class OAuthApplicationLocalServiceUtil {
 			name, ownerId, website);
 	}
 
+	public static com.liferay.portal.oauth.model.OAuthApplication getOAuthApplicationByConsumerKey(
+		java.lang.String consumerKey)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getOAuthApplicationByConsumerKey(consumerKey);
+	}
+
 	/**
 	 * @deprecated
 	 */

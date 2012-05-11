@@ -118,6 +118,10 @@ public class OAuthApplicationLocalServiceClpInvoker {
 				"int", "java.lang.String", "java.lang.String",
 				"java.lang.String", "long", "java.lang.String"
 			};
+
+		_methodName43 = "getOAuthApplicationByConsumerKey";
+
+		_methodParameterTypes43 = new String[] { "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -227,6 +231,11 @@ public class OAuthApplicationLocalServiceClpInvoker {
 				((Long)arguments[4]).longValue(), (java.lang.String)arguments[5]);
 		}
 
+		if (_methodName43.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
+			return OAuthApplicationLocalServiceUtil.getOAuthApplicationByConsumerKey((java.lang.String)arguments[0]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -268,4 +277,6 @@ public class OAuthApplicationLocalServiceClpInvoker {
 	private String[] _methodParameterTypes37;
 	private String _methodName42;
 	private String[] _methodParameterTypes42;
+	private String _methodName43;
+	private String[] _methodParameterTypes43;
 }

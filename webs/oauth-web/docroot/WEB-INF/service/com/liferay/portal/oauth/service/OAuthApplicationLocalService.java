@@ -253,4 +253,9 @@ public interface OAuthApplicationLocalService extends BaseLocalService,
 		java.lang.String description, java.lang.String name, long ownerId,
 		java.lang.String website)
 		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.portal.oauth.model.OAuthApplication getOAuthApplicationByConsumerKey(
+		java.lang.String consumerKey)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

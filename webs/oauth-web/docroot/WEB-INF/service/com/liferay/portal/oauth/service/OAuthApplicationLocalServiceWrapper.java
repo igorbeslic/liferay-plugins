@@ -281,6 +281,12 @@ public class OAuthApplicationLocalServiceWrapper
 			callbackURL, description, name, ownerId, website);
 	}
 
+	public com.liferay.portal.oauth.model.OAuthApplication getOAuthApplicationByConsumerKey(
+		java.lang.String consumerKey)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplicationLocalService.getOAuthApplicationByConsumerKey(consumerKey);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */
