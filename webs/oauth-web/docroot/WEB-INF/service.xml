@@ -30,9 +30,8 @@
 
 		<!-- Finder methods -->
 
-		<finder name="CK_CS" return-type="OAuthApplication" unique="true">
+		<finder name="ConsumerKey" return-type="OAuthApplication" unique="true">
 			<finder-column name="consumerKey" />
-			<finder-column name="consumerSecret" />
 		</finder>
 		<finder name="Name" return-type="Collection">
 			<finder-column name="name" />
@@ -64,9 +63,8 @@
 			<finder-column name="applicationId" />
 			<finder-column name="userId" />
 		</finder>
-		<finder name="AT_AS" return-type="OAuthApplications_Users" unique="true">
+		<finder name="AccessToken" return-type="OAuthApplications_Users" unique="true">
 			<finder-column name="accessToken" />
-			<finder-column name="accessSecret" />
 		</finder>
 	</entity>
 </service-builder>
