@@ -45,8 +45,8 @@ public class OAuthApplicationLocalServiceImpl
 			int accessLevel, String callbackURL, String description,
 			String name, long ownerId, String website)
 		throws SystemException {
-		OAuthApplication oaa = OAuthApplicationLocalServiceUtil
-				.createOAuthApplication(CounterLocalServiceUtil.increment());
+		OAuthApplication oaa =
+			createOAuthApplication(CounterLocalServiceUtil.increment());
 		
 		oaa.setAccessLevel(accessLevel);
 		oaa.setCallBackURL(callbackURL);
@@ -55,7 +55,13 @@ public class OAuthApplicationLocalServiceImpl
 		oaa.setOwnerId(ownerId);
 		oaa.setWebsite(website);
 		
-		return OAuthApplicationLocalServiceUtil
-				.updateOAuthApplication(oaa, true);
+		return updateOAuthApplication(oaa, true);
 	}
+
+	public OAuthApplication getOAuthApplicationByConsumerKey(String consumerKey)
+		throws SystemException{
+
+		return oAuthApplicationPersistence.fetchByConsumerKey(consumerKey);
+	}
+
 }
