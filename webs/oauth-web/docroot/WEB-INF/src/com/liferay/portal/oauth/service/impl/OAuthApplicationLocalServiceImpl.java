@@ -17,7 +17,6 @@ package com.liferay.portal.oauth.service.impl;
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.oauth.model.OAuthApplication;
-import com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil;
 import com.liferay.portal.oauth.service.base.OAuthApplicationLocalServiceBaseImpl;
 
 /**
@@ -36,7 +35,7 @@ import com.liferay.portal.oauth.service.base.OAuthApplicationLocalServiceBaseImp
  */
 public class OAuthApplicationLocalServiceImpl
 	extends OAuthApplicationLocalServiceBaseImpl {
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this interface directly. Always use {@link com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil} to access the o auth application local service.
@@ -45,16 +44,16 @@ public class OAuthApplicationLocalServiceImpl
 			int accessLevel, String callbackURL, String description,
 			String name, long ownerId, String website)
 		throws SystemException {
-		OAuthApplication oaa =
-			createOAuthApplication(CounterLocalServiceUtil.increment());
-		
+		OAuthApplication oaa = createOAuthApplication(
+			CounterLocalServiceUtil.increment());
+
 		oaa.setAccessLevel(accessLevel);
 		oaa.setCallBackURL(callbackURL);
 		oaa.setName(name);
 		oaa.setDescription(description);
 		oaa.setOwnerId(ownerId);
 		oaa.setWebsite(website);
-		
+
 		return updateOAuthApplication(oaa, true);
 	}
 
