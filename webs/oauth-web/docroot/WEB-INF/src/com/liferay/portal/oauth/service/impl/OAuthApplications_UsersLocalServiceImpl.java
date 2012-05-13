@@ -14,6 +14,12 @@
 
 package com.liferay.portal.oauth.service.impl;
 
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.User;
+import com.liferay.portal.oauth.model.OAuthApplication;
+import com.liferay.portal.oauth.model.OAuthApplications_Users;
+import com.liferay.portal.oauth.model.impl.OAuthApplications_UsersImpl;
+import com.liferay.portal.oauth.service.OAuthApplications_UsersLocalService;
 import com.liferay.portal.oauth.service.base.OAuthApplications_UsersLocalServiceBaseImpl;
 
 /**
@@ -37,4 +43,31 @@ public class OAuthApplications_UsersLocalServiceImpl
 	 *
 	 * Never reference this interface directly. Always use {@link com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil} to access the o auth applications_ users local service.
 	 */
+
+	public OAuthApplications_Users updateOAuthApplications_Users(
+			OAuthApplication oAuthApplication, User user, String accessToken,
+			String accessSecret)
+		throws SystemException{
+
+		OAuthApplications_Users oAuthApplications_users =
+			oAuthApplications_UsersPersistence.fetchByA_U(
+				oAuthApplication.getApplicationId(), user.getUserId());
+
+		if (oAuthApplications_users == null) {
+			oAuthApplications_users = new OAuthApplications_UsersImpl();
+			oAuthApplications_users.setApplicationId(
+				oAuthApplication.getApplicationId());
+			oAuthApplications_users.setUserId(user.getUserId());
+			oAuthApplications_users.setAccessToken(accessToken);
+			oAuthApplications_users.setAccessSecret(accessSecret);
+		}
+
+		oAuthApplications_users.setAccessToken(accessToken);
+		oAuthApplications_users.setAccessSecret(accessSecret);
+
+		oAuthApplications_users = updateOAuthApplications_Users(
+			oAuthApplications_users);
+
+		return oAuthApplications_users;
+	}
 }
