@@ -117,10 +117,12 @@ public class OAuthApplications_UsersLocalServiceClp
 
 		_methodName19 = "updateOAuthApplications_Users";
 
-		_methodParameterTypes19 = new String[] {
-				"com.liferay.portal.oauth.model.OAuthApplication",
-				"com.liferay.portal.model.User", "java.lang.String",
-				"java.lang.String"
+		_methodParameterTypes19 = new String[] { "long", "long", "boolean" };
+
+		_methodName20 = "updateOAuthApplications_Users";
+
+		_methodParameterTypes20 = new String[] {
+				"long", "long", "java.lang.String", "java.lang.String"
 			};
 	}
 
@@ -661,19 +663,47 @@ public class OAuthApplications_UsersLocalServiceClp
 	}
 
 	public com.liferay.portal.oauth.model.OAuthApplications_Users updateOAuthApplications_Users(
-		com.liferay.portal.oauth.model.OAuthApplication oAuthApplication,
-		com.liferay.portal.model.User user, java.lang.String accessToken,
-		java.lang.String accessSecret)
+		long oAuthApplicationId, long userId, boolean authorized)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName19,
 					_methodParameterTypes19,
+					new Object[] { oAuthApplicationId, userId, authorized });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.portal.oauth.model.OAuthApplications_Users)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public com.liferay.portal.oauth.model.OAuthApplications_Users updateOAuthApplications_Users(
+		long oAuthApplicationId, long userId, java.lang.String accessToken,
+		java.lang.String accessSecret)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
 					new Object[] {
-						ClpSerializer.translateInput(oAuthApplication),
+						oAuthApplicationId,
 						
-					ClpSerializer.translateInput(user),
+					userId,
 						
 					ClpSerializer.translateInput(accessToken),
 						
@@ -738,4 +768,6 @@ public class OAuthApplications_UsersLocalServiceClp
 	private String[] _methodParameterTypes17;
 	private String _methodName19;
 	private String[] _methodParameterTypes19;
+	private String _methodName20;
+	private String[] _methodParameterTypes20;
 }

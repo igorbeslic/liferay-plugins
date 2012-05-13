@@ -248,8 +248,11 @@ public interface OAuthApplications_UsersLocalService extends BaseLocalService,
 		throws java.lang.Throwable;
 
 	public com.liferay.portal.oauth.model.OAuthApplications_Users updateOAuthApplications_Users(
-		com.liferay.portal.oauth.model.OAuthApplication oAuthApplication,
-		com.liferay.portal.model.User user, java.lang.String accessToken,
+		long oAuthApplicationId, long userId, boolean authorized)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.portal.oauth.model.OAuthApplications_Users updateOAuthApplications_Users(
+		long oAuthApplicationId, long userId, java.lang.String accessToken,
 		java.lang.String accessSecret)
 		throws com.liferay.portal.kernel.exception.SystemException;
 }

@@ -273,12 +273,18 @@ public class OAuthApplications_UsersLocalServiceWrapper
 	}
 
 	public com.liferay.portal.oauth.model.OAuthApplications_Users updateOAuthApplications_Users(
-		com.liferay.portal.oauth.model.OAuthApplication oAuthApplication,
-		com.liferay.portal.model.User user, java.lang.String accessToken,
+		long oAuthApplicationId, long userId, boolean authorized)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplications_UsersLocalService.updateOAuthApplications_Users(oAuthApplicationId,
+			userId, authorized);
+	}
+
+	public com.liferay.portal.oauth.model.OAuthApplications_Users updateOAuthApplications_Users(
+		long oAuthApplicationId, long userId, java.lang.String accessToken,
 		java.lang.String accessSecret)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _oAuthApplications_UsersLocalService.updateOAuthApplications_Users(oAuthApplication,
-			user, accessToken, accessSecret);
+		return _oAuthApplications_UsersLocalService.updateOAuthApplications_Users(oAuthApplicationId,
+			userId, accessToken, accessSecret);
 	}
 
 	/**
