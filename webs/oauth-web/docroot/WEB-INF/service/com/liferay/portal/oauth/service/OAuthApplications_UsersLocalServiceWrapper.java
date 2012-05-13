@@ -272,6 +272,15 @@ public class OAuthApplications_UsersLocalServiceWrapper
 			parameterTypes, arguments);
 	}
 
+	public com.liferay.portal.oauth.model.OAuthApplications_Users updateOAuthApplications_Users(
+		com.liferay.portal.oauth.model.OAuthApplication oAuthApplication,
+		com.liferay.portal.model.User user, java.lang.String accessToken,
+		java.lang.String accessSecret)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplications_UsersLocalService.updateOAuthApplications_Users(oAuthApplication,
+			user, accessToken, accessSecret);
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

@@ -277,6 +277,16 @@ public class OAuthApplications_UsersLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.liferay.portal.oauth.model.OAuthApplications_Users updateOAuthApplications_Users(
+		com.liferay.portal.oauth.model.OAuthApplication oAuthApplication,
+		com.liferay.portal.model.User user, java.lang.String accessToken,
+		java.lang.String accessSecret)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateOAuthApplications_Users(oAuthApplication, user,
+			accessToken, accessSecret);
+	}
+
 	/**
 	 * @deprecated
 	 */

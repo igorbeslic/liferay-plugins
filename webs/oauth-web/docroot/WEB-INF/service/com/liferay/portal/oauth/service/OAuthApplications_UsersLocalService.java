@@ -246,4 +246,10 @@ public interface OAuthApplications_UsersLocalService extends BaseLocalService,
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
+
+	public com.liferay.portal.oauth.model.OAuthApplications_Users updateOAuthApplications_Users(
+		com.liferay.portal.oauth.model.OAuthApplication oAuthApplication,
+		com.liferay.portal.model.User user, java.lang.String accessToken,
+		java.lang.String accessSecret)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

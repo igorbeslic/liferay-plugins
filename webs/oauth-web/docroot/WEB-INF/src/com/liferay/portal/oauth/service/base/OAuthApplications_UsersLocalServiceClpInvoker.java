@@ -112,6 +112,14 @@ public class OAuthApplications_UsersLocalServiceClpInvoker {
 		_methodName37 = "setBeanIdentifier";
 
 		_methodParameterTypes37 = new String[] { "java.lang.String" };
+
+		_methodName42 = "updateOAuthApplications_Users";
+
+		_methodParameterTypes42 = new String[] {
+				"com.liferay.portal.oauth.model.OAuthApplication",
+				"com.liferay.portal.model.User", "java.lang.String",
+				"java.lang.String"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -213,6 +221,13 @@ public class OAuthApplications_UsersLocalServiceClpInvoker {
 			OAuthApplications_UsersLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
+		if (_methodName42.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+			return OAuthApplications_UsersLocalServiceUtil.updateOAuthApplications_Users((com.liferay.portal.oauth.model.OAuthApplication)arguments[0],
+				(com.liferay.portal.model.User)arguments[1],
+				(java.lang.String)arguments[2], (java.lang.String)arguments[3]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -252,4 +267,6 @@ public class OAuthApplications_UsersLocalServiceClpInvoker {
 	private String[] _methodParameterTypes36;
 	private String _methodName37;
 	private String[] _methodParameterTypes37;
+	private String _methodName42;
+	private String[] _methodParameterTypes42;
 }
