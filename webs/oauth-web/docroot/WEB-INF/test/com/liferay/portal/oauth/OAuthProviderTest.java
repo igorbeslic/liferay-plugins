@@ -2,7 +2,17 @@ package com.liferay.portal.oauth;
 
 import java.io.Console;
 import java.io.IOException;
+import java.net.URL;
 
+import com.liferay.portal.test.EnvironmentExecutionTestListener;
+import com.liferay.portal.test.ExecutionTestListeners;
+import com.liferay.portal.test.LiferayIntegrationJUnitTestRunner;
+import com.liferay.portal.util.TestPropsValues;
+import org.apache.http.HttpHost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.model.*;
 import org.scribe.oauth.OAuthService;
@@ -10,16 +20,23 @@ import org.scribe.oauth.OAuthService;
 /**
  * @author Ivica Cardic
  */
+@ExecutionTestListeners(listeners = {EnvironmentExecutionTestListener.class})
+@RunWith(LiferayIntegrationJUnitTestRunner.class)
 public class OAuthProviderTest {
 
 	public static void main(String args[]) throws IOException {
 		OAuthProviderTest t = new OAuthProviderTest();
 
 		t.setup();
-		t.testRequestToken();
+		try {
+			t.testRequestToken();
+		}
+		catch (Exception e) {
+			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+		}
 	}
 
-	//@Before
+	@Before
 	public void setup() {
 		_service = new ServiceBuilder()
 			.provider(LiferayApi.class)
@@ -28,8 +45,16 @@ public class OAuthProviderTest {
 			.build();
 	}
 
-	//@Test
-	public void testRequestToken() {
+	@Test
+	public void testRequestToken() throws Exception{
+		////DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+
+		//URL url = new URL(TestPropsValues.PORTAL_URL);
+
+		//HttpHost httpHost = new HttpHost(
+		//	url.getHost(), url.getPort(), url.getProtocol());
+
+
 		Token requestToken = _service.getRequestToken();
 
 		//Assert.assertNotNull(requestToken);

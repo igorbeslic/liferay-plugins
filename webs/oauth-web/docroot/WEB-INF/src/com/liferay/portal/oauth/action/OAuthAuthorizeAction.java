@@ -79,7 +79,6 @@ public class OAuthAuthorizeAction extends BaseStrutsAction{
 				ThemeDisplay themeDisplay =
 					(ThemeDisplay)request.getAttribute(WebKeys.THEME_DISPLAY);
 
-				// set userId in accessor and mark it as authorized
 				OAuthProviderManagerUtil.markAsAuthorized(
 					accessor, themeDisplay.getUserId());
 
