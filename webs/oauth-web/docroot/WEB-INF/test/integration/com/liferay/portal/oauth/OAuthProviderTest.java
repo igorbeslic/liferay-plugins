@@ -74,9 +74,10 @@ public class OAuthProviderTest {
 		String authorizationUrl = LiferayApi.AUTHORIZE_URL.replace(
 				"%s", requestToken.getToken());
 
-		//
 		_driver.get(TEST_PORTAL_URL);
 
+		//currently redirect after login doesn't work so the login page is
+		//explicitly called first before calling authorization page
 		WebElement element = _driver.findElement(By.name("_58_login"));
 		element.clear();
 		element.sendKeys(TEST_USER_LOGIN);
