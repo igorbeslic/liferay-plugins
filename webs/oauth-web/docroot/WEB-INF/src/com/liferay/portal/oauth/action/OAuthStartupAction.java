@@ -1,9 +1,18 @@
-package com.liferay.portal.oauth.action;
+/**
+ * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+package com.liferay.portal.oauth.action;
 
 import com.liferay.portal.NoSuchRoleException;
 import com.liferay.portal.kernel.events.ActionException;
@@ -20,6 +29,11 @@ import com.liferay.portal.service.CompanyLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
 /**
  * @author Igor Beslic
  */
@@ -30,41 +44,41 @@ public class OAuthStartupAction extends SimpleAction {
 		if (_log.isDebugEnabled()) {
 			_log.debug("Checking new roles to support OAuth...");
 		}
-		
+
 		try {
 			List<Company> companies = CompanyLocalServiceUtil.getCompanies();
-			
 
 			for (Company company : companies) {
 				User defaultUser = UserLocalServiceUtil.getDefaultUser(
 						company.getCompanyId());
 				for (int i=0; i < DEFAULT_OAUTH_ROLES[0].length; i++) {
 					try {
-						RoleLocalServiceUtil.getRole(company.getCompanyId(),
+						RoleLocalServiceUtil.getRole(
+								company.getCompanyId(),
 								DEFAULT_OAUTH_ROLES[0][i]);
 					}
 					catch (NoSuchRoleException nsre) {
 						Map<Locale, String> descriptionMap =
 							new HashMap<Locale, String>();
 
-						descriptionMap.put(LocaleUtil.getDefault(),
+						descriptionMap.put(
+								LocaleUtil.getDefault(),
 								DEFAULT_OAUTH_ROLES[1][i]);
 
 						RoleLocalServiceUtil.addRole(
 							defaultUser.getUserId(), company.getCompanyId(),
 							DEFAULT_OAUTH_ROLES[0][i], null, descriptionMap,
 							RoleConstants.TYPE_REGULAR);
-						
+
 						if (_log.isInfoEnabled()) {
 							_log.info(DEFAULT_OAUTH_ROLES[0][i]
 									.concat(" role succesfuly added!"));
 						}
 					}
-				}	
+				}
 			}
 		} catch (Exception e) {
-			if (e instanceof SystemException ||
-				e instanceof PortalException	) {
+			if (e instanceof SystemException || e instanceof PortalException ) {
 				throw new ActionException(e);
 			}
 			else {
@@ -72,11 +86,12 @@ public class OAuthStartupAction extends SimpleAction {
 			}
 		}
 	}
-	
-	private static String [][] DEFAULT_OAUTH_ROLES = {
+
+	private static String[][] DEFAULT_OAUTH_ROLES = {
 		{"OAuth User"},
 		{"OAuth User Role is automaticaly added by OAuth web plugin"}
 	};
 
 	private static Log _log = LogFactoryUtil.getLog(OAuthStartupAction.class);
+
 }

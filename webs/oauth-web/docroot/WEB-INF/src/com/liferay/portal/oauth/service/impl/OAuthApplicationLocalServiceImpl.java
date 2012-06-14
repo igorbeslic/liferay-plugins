@@ -14,8 +14,6 @@
 
 package com.liferay.portal.oauth.service.impl;
 
-import java.util.List;
-
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.DigesterUtil;
@@ -23,6 +21,8 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.oauth.model.OAuthApplication;
 import com.liferay.portal.oauth.service.base.OAuthApplicationLocalServiceBaseImpl;
+
+import java.util.List;
 
 /**
  * The implementation of the o auth application local service.
@@ -45,12 +45,12 @@ public class OAuthApplicationLocalServiceImpl
 	 *
 	 * Never reference this interface directly. Always use {@link com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil} to access the o auth application local service.
 	 */
-	
+
 	/**
 	 * Add info about new application that should use OAuth feature. Method will generate new
 	 * consumer key and secret that will be used by this application to do authorized access
 	 * to portal resources.
-	 *  
+	 *
 	 */
 	public OAuthApplication addOAuthApplication(
 			int accessLevel, String callbackURL, String description,
@@ -66,24 +66,24 @@ public class OAuthApplicationLocalServiceImpl
 		oaa.setDescription(description);
 		oaa.setOwnerId(ownerId);
 		oaa.setWebsite(website);
-		
+
 		String secretSeed = oaa.getConsumerKey()
 				.concat(Long.toString(System.nanoTime()));
-		
+
 		oaa.setConsumerSecret(DigesterUtil.digestHex(secretSeed));
-		
+
 		return updateOAuthApplication(oaa, true);
 	}
-	
+
 	public int countByName(String name)
 			throws SystemException {
-			
+
 			return oAuthApplicationFinder.countByName(name);
 	}
-	
+
 	public int countByNameAndOwner(String name, long ownerId)
 			throws SystemException {
-			
+
 			return oAuthApplicationFinder.countByN_O(name, ownerId);
 	}
 
@@ -92,19 +92,19 @@ public class OAuthApplicationLocalServiceImpl
 
 		return oAuthApplicationPersistence.fetchByConsumerKey(consumerKey);
 	}
-	
+
 	public List<OAuthApplication> findByName(String name, int start, int end,
 			OrderByComparator orderByComparator)
 		throws SystemException {
-			
+
 			return oAuthApplicationFinder.findByName(
 					name, start, end, orderByComparator);
 		}
-	
+
 	public List<OAuthApplication> findByNameAndOwner(String name, long ownerId,
 			int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
-			
+
 			return oAuthApplicationFinder.findByN_O(
 					name, ownerId, start, end, orderByComparator);
 		}

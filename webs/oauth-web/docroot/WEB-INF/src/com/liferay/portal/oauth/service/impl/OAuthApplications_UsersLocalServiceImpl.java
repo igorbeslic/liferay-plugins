@@ -14,9 +14,9 @@
 
 package com.liferay.portal.oauth.service.impl;
 
+import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.oauth.model.OAuthApplications_Users;
-import com.liferay.portal.oauth.model.impl.OAuthApplications_UsersImpl;
 import com.liferay.portal.oauth.service.base.OAuthApplications_UsersLocalServiceBaseImpl;
 
 /**
@@ -50,13 +50,16 @@ public class OAuthApplications_UsersLocalServiceImpl
 				oAuthApplicationId, userId);
 
 		if (oAuthApplications_users == null) {
-			oAuthApplications_users = new OAuthApplications_UsersImpl();
+			oAuthApplications_users = createOAuthApplications_Users(
+					CounterLocalServiceUtil.increment());
+			oAuthApplications_users.setApplicationId(oAuthApplicationId);
+			oAuthApplications_users.setUserId(userId);
 		}
 
-		oAuthApplications_users.setAuthorized(true);
+		oAuthApplications_users.setAuthorized(authorized);
 
 		oAuthApplications_users = updateOAuthApplications_Users(
-			oAuthApplications_users);
+			oAuthApplications_users, true);
 
 		return oAuthApplications_users;
 	}
@@ -71,7 +74,8 @@ public class OAuthApplications_UsersLocalServiceImpl
 				oAuthApplicationId, userId);
 
 		if (oAuthApplications_users == null) {
-			oAuthApplications_users = new OAuthApplications_UsersImpl();
+			oAuthApplications_users = createOAuthApplications_Users(
+					CounterLocalServiceUtil.increment());
 			oAuthApplications_users.setApplicationId(oAuthApplicationId);
 			oAuthApplications_users.setUserId(userId);
 			oAuthApplications_users.setAccessToken(accessToken);
@@ -82,7 +86,7 @@ public class OAuthApplications_UsersLocalServiceImpl
 		oAuthApplications_users.setAccessSecret(accessSecret);
 
 		oAuthApplications_users = updateOAuthApplications_Users(
-			oAuthApplications_users);
+			oAuthApplications_users, true);
 
 		return oAuthApplications_users;
 	}
