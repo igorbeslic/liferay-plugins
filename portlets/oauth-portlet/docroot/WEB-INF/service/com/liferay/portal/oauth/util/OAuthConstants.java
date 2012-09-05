@@ -30,6 +30,8 @@ public interface OAuthConstants {
 	 */
 	public static final String ACCESSOR_SECRET = "oauth_accessor_secret";
 
+	public static final String ALREADY_AUTHORIZED_KEY = "already-authorized";
+
 	public static final String APPLICATION_ID = "applicationId";
 
 	public static final String AUTHORIZED = "authorized";
@@ -55,6 +57,10 @@ public interface OAuthConstants {
 	public static final String OAUTH_ADMIN = "1_WAR_oauthportlet";
 
 	public static final String OAUTH_USERS = "2_WAR_oauthportlet";
+
+	public static final String OAUTH_SIMULATION = "3_WAR_oauthportlet";
+
+	public static final String OAUTH_AUTHORIZE = "4_WAR_oauthportlet";
 
 	public static final String OAUTH_TOKEN = "oauth_token";
 

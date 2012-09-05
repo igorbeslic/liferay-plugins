@@ -21,22 +21,20 @@ import org.scribe.builder.api.DefaultApi10a;
  */
 public class LiferayApi extends DefaultApi10a {
 
-	public static final String AUTHORIZE_URL =
-			OAuthProviderTest.getString("portal.default.url") +
-					"/c/portal/oauth/authorize?oauth_token=%s";
+	public static final String DEFAULT_URL = OAuthProviderTest.getString(
+		"portal.default.url");
+
+	public static final String AUTHORIZE_URL = DEFAULT_URL.concat(
+		"/c/portal/oauth/authorize?oauth_token=%s");
 
 	@Override
-	public String getAccessTokenEndpoint()
-	{
-		return OAuthProviderTest.getString("portal.default.url") +
-				"/c/portal/oauth/access_token";
+	public String getAccessTokenEndpoint() {
+		return DEFAULT_URL.concat("/c/portal/oauth/access_token");
 	}
 
 	@Override
-	public String getRequestTokenEndpoint()
-	{
-		return OAuthProviderTest.getString("portal.default.url") +
-				"/c/portal/oauth/request_token";
+	public String getRequestTokenEndpoint() {
+		return DEFAULT_URL.concat("/c/portal/oauth/request_token");
 	}
 
 }

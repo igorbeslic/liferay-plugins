@@ -84,7 +84,7 @@ public class OAuthAuthorizePortlet extends MVCPortlet
 			renderRequest.setAttribute(OAUTH_ACCESSOR, accessor);
 
 			if (Boolean.TRUE.equals(accessor.getProperty(AUTHORIZED))) {
-				SessionErrors.add(renderRequest, "already-authorized");
+				SessionErrors.add(renderRequest, ALREADY_AUTHORIZED_KEY);
 			}
 		}
 		catch (Exception e) {
@@ -117,11 +117,7 @@ public class OAuthAuthorizePortlet extends MVCPortlet
 
 		String callbackURL = consumer.getCallbackURL();
 
-		if (NONE.equals(callback) &&
-			Validator.isNotNull(callbackURL)) {
-
-			// first check if we have something in our properties file
-
+		if (NONE.equals(callback) && Validator.isNotNull(callbackURL)) {
 			callback = callbackURL;
 		}
 

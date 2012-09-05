@@ -16,6 +16,7 @@ package com.liferay.portal.oauth.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.AuditedModel;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.service.ServiceContext;
@@ -23,6 +24,8 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.expando.model.ExpandoBridge;
 
 import java.io.Serializable;
+
+import java.util.Date;
 
 /**
  * The base model interface for the OAuthApplicationUser service. Represents a row in the &quot;OAuthApplicationUser&quot; database table, with each column mapped to a property of this class.
@@ -37,7 +40,8 @@ import java.io.Serializable;
  * @see com.liferay.portal.oauth.model.impl.OAuthApplicationUserModelImpl
  * @generated
  */
-public interface OAuthApplicationUserModel extends BaseModel<OAuthApplicationUser> {
+public interface OAuthApplicationUserModel extends AuditedModel,
+	BaseModel<OAuthApplicationUser> {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -73,6 +77,20 @@ public interface OAuthApplicationUserModel extends BaseModel<OAuthApplicationUse
 	public void setOaauId(long oaauId);
 
 	/**
+	 * Returns the company ID of this o auth application user.
+	 *
+	 * @return the company ID of this o auth application user
+	 */
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this o auth application user.
+	 *
+	 * @param companyId the company ID of this o auth application user
+	 */
+	public void setCompanyId(long companyId);
+
+	/**
 	 * Returns the user ID of this o auth application user.
 	 *
 	 * @return the user ID of this o auth application user
@@ -100,6 +118,49 @@ public interface OAuthApplicationUserModel extends BaseModel<OAuthApplicationUse
 	 * @param userUuid the user uuid of this o auth application user
 	 */
 	public void setUserUuid(String userUuid);
+
+	/**
+	 * Returns the user name of this o auth application user.
+	 *
+	 * @return the user name of this o auth application user
+	 */
+	@AutoEscape
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this o auth application user.
+	 *
+	 * @param userName the user name of this o auth application user
+	 */
+	public void setUserName(String userName);
+
+	/**
+	 * Returns the create date of this o auth application user.
+	 *
+	 * @return the create date of this o auth application user
+	 */
+	public Date getCreateDate();
+
+	/**
+	 * Sets the create date of this o auth application user.
+	 *
+	 * @param createDate the create date of this o auth application user
+	 */
+	public void setCreateDate(Date createDate);
+
+	/**
+	 * Returns the modified date of this o auth application user.
+	 *
+	 * @return the modified date of this o auth application user
+	 */
+	public Date getModifiedDate();
+
+	/**
+	 * Sets the modified date of this o auth application user.
+	 *
+	 * @param modifiedDate the modified date of this o auth application user
+	 */
+	public void setModifiedDate(Date modifiedDate);
 
 	/**
 	 * Returns the application ID of this o auth application user.

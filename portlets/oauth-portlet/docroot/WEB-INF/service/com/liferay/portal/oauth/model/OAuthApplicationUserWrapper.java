@@ -16,6 +16,7 @@ package com.liferay.portal.oauth.model;
 
 import com.liferay.portal.model.ModelWrapper;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +48,11 @@ public class OAuthApplicationUserWrapper implements OAuthApplicationUser,
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("oaauId", getOaauId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
+		attributes.put("createDate", getCreateDate());
+		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("applicationId", getApplicationId());
 		attributes.put("accessToken", getAccessToken());
 		attributes.put("accessSecret", getAccessSecret());
@@ -63,10 +68,34 @@ public class OAuthApplicationUserWrapper implements OAuthApplicationUser,
 			setOaauId(oaauId);
 		}
 
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
+		}
+
 		Long userId = (Long)attributes.get("userId");
 
 		if (userId != null) {
 			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
+		Date createDate = (Date)attributes.get("createDate");
+
+		if (createDate != null) {
+			setCreateDate(createDate);
+		}
+
+		Date modifiedDate = (Date)attributes.get("modifiedDate");
+
+		if (modifiedDate != null) {
+			setModifiedDate(modifiedDate);
 		}
 
 		Long applicationId = (Long)attributes.get("applicationId");
@@ -131,6 +160,24 @@ public class OAuthApplicationUserWrapper implements OAuthApplicationUser,
 	}
 
 	/**
+	* Returns the company ID of this o auth application user.
+	*
+	* @return the company ID of this o auth application user
+	*/
+	public long getCompanyId() {
+		return _oAuthApplicationUser.getCompanyId();
+	}
+
+	/**
+	* Sets the company ID of this o auth application user.
+	*
+	* @param companyId the company ID of this o auth application user
+	*/
+	public void setCompanyId(long companyId) {
+		_oAuthApplicationUser.setCompanyId(companyId);
+	}
+
+	/**
 	* Returns the user ID of this o auth application user.
 	*
 	* @return the user ID of this o auth application user
@@ -166,6 +213,60 @@ public class OAuthApplicationUserWrapper implements OAuthApplicationUser,
 	*/
 	public void setUserUuid(java.lang.String userUuid) {
 		_oAuthApplicationUser.setUserUuid(userUuid);
+	}
+
+	/**
+	* Returns the user name of this o auth application user.
+	*
+	* @return the user name of this o auth application user
+	*/
+	public java.lang.String getUserName() {
+		return _oAuthApplicationUser.getUserName();
+	}
+
+	/**
+	* Sets the user name of this o auth application user.
+	*
+	* @param userName the user name of this o auth application user
+	*/
+	public void setUserName(java.lang.String userName) {
+		_oAuthApplicationUser.setUserName(userName);
+	}
+
+	/**
+	* Returns the create date of this o auth application user.
+	*
+	* @return the create date of this o auth application user
+	*/
+	public java.util.Date getCreateDate() {
+		return _oAuthApplicationUser.getCreateDate();
+	}
+
+	/**
+	* Sets the create date of this o auth application user.
+	*
+	* @param createDate the create date of this o auth application user
+	*/
+	public void setCreateDate(java.util.Date createDate) {
+		_oAuthApplicationUser.setCreateDate(createDate);
+	}
+
+	/**
+	* Returns the modified date of this o auth application user.
+	*
+	* @return the modified date of this o auth application user
+	*/
+	public java.util.Date getModifiedDate() {
+		return _oAuthApplicationUser.getModifiedDate();
+	}
+
+	/**
+	* Sets the modified date of this o auth application user.
+	*
+	* @param modifiedDate the modified date of this o auth application user
+	*/
+	public void setModifiedDate(java.util.Date modifiedDate) {
+		_oAuthApplicationUser.setModifiedDate(modifiedDate);
 	}
 
 	/**

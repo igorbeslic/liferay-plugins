@@ -629,6 +629,223 @@ public class OAuthApplicationUserUtil {
 	}
 
 	/**
+	* Returns all the o auth application users where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the matching o auth application users
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplicationUser> findByCompanyId(
+		long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByCompanyId(companyId);
+	}
+
+	/**
+	* Returns a range of all the o auth application users where companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param start the lower bound of the range of o auth application users
+	* @param end the upper bound of the range of o auth application users (not inclusive)
+	* @return the range of matching o auth application users
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplicationUser> findByCompanyId(
+		long companyId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByCompanyId(companyId, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the o auth application users where companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param start the lower bound of the range of o auth application users
+	* @param end the upper bound of the range of o auth application users (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching o auth application users
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplicationUser> findByCompanyId(
+		long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .findByCompanyId(companyId, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns the first o auth application user in the ordered set where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching o auth application user
+	* @throws com.liferay.portal.oauth.NoSuchApplicationUserException if a matching o auth application user could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.oauth.model.OAuthApplicationUser findByCompanyId_First(
+		long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.oauth.NoSuchApplicationUserException {
+		return getPersistence()
+				   .findByCompanyId_First(companyId, orderByComparator);
+	}
+
+	/**
+	* Returns the first o auth application user in the ordered set where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching o auth application user, or <code>null</code> if a matching o auth application user could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.oauth.model.OAuthApplicationUser fetchByCompanyId_First(
+		long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchByCompanyId_First(companyId, orderByComparator);
+	}
+
+	/**
+	* Returns the last o auth application user in the ordered set where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching o auth application user
+	* @throws com.liferay.portal.oauth.NoSuchApplicationUserException if a matching o auth application user could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.oauth.model.OAuthApplicationUser findByCompanyId_Last(
+		long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.oauth.NoSuchApplicationUserException {
+		return getPersistence()
+				   .findByCompanyId_Last(companyId, orderByComparator);
+	}
+
+	/**
+	* Returns the last o auth application user in the ordered set where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching o auth application user, or <code>null</code> if a matching o auth application user could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.oauth.model.OAuthApplicationUser fetchByCompanyId_Last(
+		long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchByCompanyId_Last(companyId, orderByComparator);
+	}
+
+	/**
+	* Returns the o auth application users before and after the current o auth application user in the ordered set where companyId = &#63;.
+	*
+	* @param oaauId the primary key of the current o auth application user
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next o auth application user
+	* @throws com.liferay.portal.oauth.NoSuchApplicationUserException if a o auth application user with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.oauth.model.OAuthApplicationUser[] findByCompanyId_PrevAndNext(
+		long oaauId, long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.oauth.NoSuchApplicationUserException {
+		return getPersistence()
+				   .findByCompanyId_PrevAndNext(oaauId, companyId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns all the o auth application users that the user has permission to view where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the matching o auth application users that the user has permission to view
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplicationUser> filterFindByCompanyId(
+		long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().filterFindByCompanyId(companyId);
+	}
+
+	/**
+	* Returns a range of all the o auth application users that the user has permission to view where companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param start the lower bound of the range of o auth application users
+	* @param end the upper bound of the range of o auth application users (not inclusive)
+	* @return the range of matching o auth application users that the user has permission to view
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplicationUser> filterFindByCompanyId(
+		long companyId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().filterFindByCompanyId(companyId, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the o auth application users that the user has permissions to view where companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param companyId the company ID
+	* @param start the lower bound of the range of o auth application users
+	* @param end the upper bound of the range of o auth application users (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching o auth application users that the user has permission to view
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplicationUser> filterFindByCompanyId(
+		long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .filterFindByCompanyId(companyId, start, end,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the o auth application users before and after the current o auth application user in the ordered set of o auth application users that the user has permission to view where companyId = &#63;.
+	*
+	* @param oaauId the primary key of the current o auth application user
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next o auth application user
+	* @throws com.liferay.portal.oauth.NoSuchApplicationUserException if a o auth application user with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.oauth.model.OAuthApplicationUser[] filterFindByCompanyId_PrevAndNext(
+		long oaauId, long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.oauth.NoSuchApplicationUserException {
+		return getPersistence()
+				   .filterFindByCompanyId_PrevAndNext(oaauId, companyId,
+			orderByComparator);
+	}
+
+	/**
 	* Returns all the o auth application users where userId = &#63;.
 	*
 	* @param userId the user ID
@@ -1416,6 +1633,17 @@ public class OAuthApplicationUserUtil {
 	}
 
 	/**
+	* Removes all the o auth application users where companyId = &#63; from the database.
+	*
+	* @param companyId the company ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByCompanyId(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByCompanyId(companyId);
+	}
+
+	/**
 	* Removes all the o auth application users where userId = &#63; from the database.
 	*
 	* @param userId the user ID
@@ -1521,6 +1749,30 @@ public class OAuthApplicationUserUtil {
 	public static int filterCountByApplicationId(long applicationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().filterCountByApplicationId(applicationId);
+	}
+
+	/**
+	* Returns the number of o auth application users where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the number of matching o auth application users
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByCompanyId(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByCompanyId(companyId);
+	}
+
+	/**
+	* Returns the number of o auth application users that the user has permission to view where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the number of matching o auth application users that the user has permission to view
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int filterCountByCompanyId(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().filterCountByCompanyId(companyId);
 	}
 
 	/**

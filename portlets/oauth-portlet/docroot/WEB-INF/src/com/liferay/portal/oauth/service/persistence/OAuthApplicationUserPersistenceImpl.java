@@ -122,6 +122,28 @@ public class OAuthApplicationUserPersistenceImpl extends BasePersistenceImpl<OAu
 			OAuthApplicationUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByApplicationId",
 			new String[] { Long.class.getName() });
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID =
+		new FinderPath(OAuthApplicationUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthApplicationUserModelImpl.FINDER_CACHE_ENABLED,
+			OAuthApplicationUserImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompanyId",
+			new String[] {
+				Long.class.getName(),
+				
+			"java.lang.Integer", "java.lang.Integer",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID =
+		new FinderPath(OAuthApplicationUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthApplicationUserModelImpl.FINDER_CACHE_ENABLED,
+			OAuthApplicationUserImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCompanyId",
+			new String[] { Long.class.getName() },
+			OAuthApplicationUserModelImpl.COMPANYID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_COMPANYID = new FinderPath(OAuthApplicationUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthApplicationUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
+			new String[] { Long.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_USERID = new FinderPath(OAuthApplicationUserModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthApplicationUserModelImpl.FINDER_CACHE_ENABLED,
 			OAuthApplicationUserImpl.class,
@@ -476,6 +498,27 @@ public class OAuthApplicationUserPersistenceImpl extends BasePersistenceImpl<OAu
 			}
 
 			if ((oAuthApplicationUserModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(oAuthApplicationUserModelImpl.getOriginalCompanyId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
+					args);
+
+				args = new Object[] {
+						Long.valueOf(oAuthApplicationUserModelImpl.getCompanyId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
+					args);
+			}
+
+			if ((oAuthApplicationUserModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
 						Long.valueOf(oAuthApplicationUserModelImpl.getOriginalUserId())
@@ -583,7 +626,11 @@ public class OAuthApplicationUserPersistenceImpl extends BasePersistenceImpl<OAu
 		oAuthApplicationUserImpl.setPrimaryKey(oAuthApplicationUser.getPrimaryKey());
 
 		oAuthApplicationUserImpl.setOaauId(oAuthApplicationUser.getOaauId());
+		oAuthApplicationUserImpl.setCompanyId(oAuthApplicationUser.getCompanyId());
 		oAuthApplicationUserImpl.setUserId(oAuthApplicationUser.getUserId());
+		oAuthApplicationUserImpl.setUserName(oAuthApplicationUser.getUserName());
+		oAuthApplicationUserImpl.setCreateDate(oAuthApplicationUser.getCreateDate());
+		oAuthApplicationUserImpl.setModifiedDate(oAuthApplicationUser.getModifiedDate());
 		oAuthApplicationUserImpl.setApplicationId(oAuthApplicationUser.getApplicationId());
 		oAuthApplicationUserImpl.setAccessToken(oAuthApplicationUser.getAccessToken());
 		oAuthApplicationUserImpl.setAccessSecret(oAuthApplicationUser.getAccessSecret());
@@ -2077,6 +2124,678 @@ public class OAuthApplicationUserPersistenceImpl extends BasePersistenceImpl<OAu
 		QueryPos qPos = QueryPos.getInstance(q);
 
 		qPos.add(applicationId);
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(oAuthApplicationUser);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<OAuthApplicationUser> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Returns all the o auth application users where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the matching o auth application users
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<OAuthApplicationUser> findByCompanyId(long companyId)
+		throws SystemException {
+		return findByCompanyId(companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
+	}
+
+	/**
+	 * Returns a range of all the o auth application users where companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of o auth application users
+	 * @param end the upper bound of the range of o auth application users (not inclusive)
+	 * @return the range of matching o auth application users
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<OAuthApplicationUser> findByCompanyId(long companyId,
+		int start, int end) throws SystemException {
+		return findByCompanyId(companyId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the o auth application users where companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of o auth application users
+	 * @param end the upper bound of the range of o auth application users (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching o auth application users
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<OAuthApplicationUser> findByCompanyId(long companyId,
+		int start, int end, OrderByComparator orderByComparator)
+		throws SystemException {
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+				(orderByComparator == null)) {
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID;
+			finderArgs = new Object[] { companyId };
+		}
+		else {
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID;
+			finderArgs = new Object[] { companyId, start, end, orderByComparator };
+		}
+
+		List<OAuthApplicationUser> list = (List<OAuthApplicationUser>)FinderCacheUtil.getResult(finderPath,
+				finderArgs, this);
+
+		if ((list != null) && !list.isEmpty()) {
+			for (OAuthApplicationUser oAuthApplicationUser : list) {
+				if ((companyId != oAuthApplicationUser.getCompanyId())) {
+					list = null;
+
+					break;
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(3 +
+						(orderByComparator.getOrderByFields().length * 3));
+			}
+			else {
+				query = new StringBundler(2);
+			}
+
+			query.append(_SQL_SELECT_OAUTHAPPLICATIONUSER_WHERE);
+
+			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(companyId);
+
+				list = (List<OAuthApplicationUser>)QueryUtil.list(q,
+						getDialect(), start, end);
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (list == null) {
+					FinderCacheUtil.removeResult(finderPath, finderArgs);
+				}
+				else {
+					cacheResult(list);
+
+					FinderCacheUtil.putResult(finderPath, finderArgs, list);
+				}
+
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first o auth application user in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching o auth application user
+	 * @throws com.liferay.portal.oauth.NoSuchApplicationUserException if a matching o auth application user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OAuthApplicationUser findByCompanyId_First(long companyId,
+		OrderByComparator orderByComparator)
+		throws NoSuchApplicationUserException, SystemException {
+		OAuthApplicationUser oAuthApplicationUser = fetchByCompanyId_First(companyId,
+				orderByComparator);
+
+		if (oAuthApplicationUser != null) {
+			return oAuthApplicationUser;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchApplicationUserException(msg.toString());
+	}
+
+	/**
+	 * Returns the first o auth application user in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching o auth application user, or <code>null</code> if a matching o auth application user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OAuthApplicationUser fetchByCompanyId_First(long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
+		List<OAuthApplicationUser> list = findByCompanyId(companyId, 0, 1,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last o auth application user in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching o auth application user
+	 * @throws com.liferay.portal.oauth.NoSuchApplicationUserException if a matching o auth application user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OAuthApplicationUser findByCompanyId_Last(long companyId,
+		OrderByComparator orderByComparator)
+		throws NoSuchApplicationUserException, SystemException {
+		OAuthApplicationUser oAuthApplicationUser = fetchByCompanyId_Last(companyId,
+				orderByComparator);
+
+		if (oAuthApplicationUser != null) {
+			return oAuthApplicationUser;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchApplicationUserException(msg.toString());
+	}
+
+	/**
+	 * Returns the last o auth application user in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching o auth application user, or <code>null</code> if a matching o auth application user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OAuthApplicationUser fetchByCompanyId_Last(long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
+		int count = countByCompanyId(companyId);
+
+		List<OAuthApplicationUser> list = findByCompanyId(companyId, count - 1,
+				count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the o auth application users before and after the current o auth application user in the ordered set where companyId = &#63;.
+	 *
+	 * @param oaauId the primary key of the current o auth application user
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next o auth application user
+	 * @throws com.liferay.portal.oauth.NoSuchApplicationUserException if a o auth application user with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OAuthApplicationUser[] findByCompanyId_PrevAndNext(long oaauId,
+		long companyId, OrderByComparator orderByComparator)
+		throws NoSuchApplicationUserException, SystemException {
+		OAuthApplicationUser oAuthApplicationUser = findByPrimaryKey(oaauId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			OAuthApplicationUser[] array = new OAuthApplicationUserImpl[3];
+
+			array[0] = getByCompanyId_PrevAndNext(session,
+					oAuthApplicationUser, companyId, orderByComparator, true);
+
+			array[1] = oAuthApplicationUser;
+
+			array[2] = getByCompanyId_PrevAndNext(session,
+					oAuthApplicationUser, companyId, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected OAuthApplicationUser getByCompanyId_PrevAndNext(Session session,
+		OAuthApplicationUser oAuthApplicationUser, long companyId,
+		OrderByComparator orderByComparator, boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(6 +
+					(orderByComparator.getOrderByFields().length * 6));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_OAUTHAPPLICATIONUSER_WHERE);
+
+		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(companyId);
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(oAuthApplicationUser);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<OAuthApplicationUser> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Returns all the o auth application users that the user has permission to view where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the matching o auth application users that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<OAuthApplicationUser> filterFindByCompanyId(long companyId)
+		throws SystemException {
+		return filterFindByCompanyId(companyId, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the o auth application users that the user has permission to view where companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of o auth application users
+	 * @param end the upper bound of the range of o auth application users (not inclusive)
+	 * @return the range of matching o auth application users that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<OAuthApplicationUser> filterFindByCompanyId(long companyId,
+		int start, int end) throws SystemException {
+		return filterFindByCompanyId(companyId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the o auth application users that the user has permissions to view where companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of o auth application users
+	 * @param end the upper bound of the range of o auth application users (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching o auth application users that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<OAuthApplicationUser> filterFindByCompanyId(long companyId,
+		int start, int end, OrderByComparator orderByComparator)
+		throws SystemException {
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return findByCompanyId(companyId, start, end, orderByComparator);
+		}
+
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(3 +
+					(orderByComparator.getOrderByFields().length * 3));
+		}
+		else {
+			query = new StringBundler(2);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATIONUSER_WHERE);
+		}
+		else {
+			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATIONUSER_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATIONUSER_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			if (getDB().isSupportsInlineDistinct()) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+			else {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
+					orderByComparator);
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				OAuthApplicationUser.class.getName(),
+				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			if (getDB().isSupportsInlineDistinct()) {
+				q.addEntity(_FILTER_ENTITY_ALIAS, OAuthApplicationUserImpl.class);
+			}
+			else {
+				q.addEntity(_FILTER_ENTITY_TABLE, OAuthApplicationUserImpl.class);
+			}
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(companyId);
+
+			return (List<OAuthApplicationUser>)QueryUtil.list(q, getDialect(),
+				start, end);
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
+	 * Returns the o auth application users before and after the current o auth application user in the ordered set of o auth application users that the user has permission to view where companyId = &#63;.
+	 *
+	 * @param oaauId the primary key of the current o auth application user
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next o auth application user
+	 * @throws com.liferay.portal.oauth.NoSuchApplicationUserException if a o auth application user with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OAuthApplicationUser[] filterFindByCompanyId_PrevAndNext(
+		long oaauId, long companyId, OrderByComparator orderByComparator)
+		throws NoSuchApplicationUserException, SystemException {
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return findByCompanyId_PrevAndNext(oaauId, companyId,
+				orderByComparator);
+		}
+
+		OAuthApplicationUser oAuthApplicationUser = findByPrimaryKey(oaauId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			OAuthApplicationUser[] array = new OAuthApplicationUserImpl[3];
+
+			array[0] = filterGetByCompanyId_PrevAndNext(session,
+					oAuthApplicationUser, companyId, orderByComparator, true);
+
+			array[1] = oAuthApplicationUser;
+
+			array[2] = filterGetByCompanyId_PrevAndNext(session,
+					oAuthApplicationUser, companyId, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected OAuthApplicationUser filterGetByCompanyId_PrevAndNext(
+		Session session, OAuthApplicationUser oAuthApplicationUser,
+		long companyId, OrderByComparator orderByComparator, boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(6 +
+					(orderByComparator.getOrderByFields().length * 6));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		if (getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATIONUSER_WHERE);
+		}
+		else {
+			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATIONUSER_NO_INLINE_DISTINCT_WHERE_1);
+		}
+
+		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+
+		if (!getDB().isSupportsInlineDistinct()) {
+			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATIONUSER_NO_INLINE_DISTINCT_WHERE_2);
+		}
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(_ORDER_BY_ENTITY_ALIAS);
+				}
+				else {
+					query.append(_ORDER_BY_ENTITY_TABLE);
+				}
+
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				if (getDB().isSupportsInlineDistinct()) {
+					query.append(_ORDER_BY_ENTITY_ALIAS);
+				}
+				else {
+					query.append(_ORDER_BY_ENTITY_TABLE);
+				}
+
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				OAuthApplicationUser.class.getName(),
+				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		SQLQuery q = session.createSQLQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		if (getDB().isSupportsInlineDistinct()) {
+			q.addEntity(_FILTER_ENTITY_ALIAS, OAuthApplicationUserImpl.class);
+		}
+		else {
+			q.addEntity(_FILTER_ENTITY_TABLE, OAuthApplicationUserImpl.class);
+		}
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(companyId);
 
 		if (orderByComparator != null) {
 			Object[] values = orderByComparator.getOrderByConditionValues(oAuthApplicationUser);
@@ -4495,6 +5214,19 @@ public class OAuthApplicationUserPersistenceImpl extends BasePersistenceImpl<OAu
 	}
 
 	/**
+	 * Removes all the o auth application users where companyId = &#63; from the database.
+	 *
+	 * @param companyId the company ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByCompanyId(long companyId) throws SystemException {
+		for (OAuthApplicationUser oAuthApplicationUser : findByCompanyId(
+				companyId)) {
+			remove(oAuthApplicationUser);
+		}
+	}
+
+	/**
 	 * Removes all the o auth application users where userId = &#63; from the database.
 	 *
 	 * @param userId the user ID
@@ -4779,6 +5511,107 @@ public class OAuthApplicationUserPersistenceImpl extends BasePersistenceImpl<OAu
 			QueryPos qPos = QueryPos.getInstance(q);
 
 			qPos.add(applicationId);
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	/**
+	 * Returns the number of o auth application users where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the number of matching o auth application users
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByCompanyId(long companyId) throws SystemException {
+		Object[] finderArgs = new Object[] { companyId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_COMPANYID,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_OAUTHAPPLICATIONUSER_WHERE);
+
+			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(companyId);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_COMPANYID,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	/**
+	 * Returns the number of o auth application users that the user has permission to view where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the number of matching o auth application users that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int filterCountByCompanyId(long companyId) throws SystemException {
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return countByCompanyId(companyId);
+		}
+
+		StringBundler query = new StringBundler(2);
+
+		query.append(_FILTER_SQL_COUNT_OAUTHAPPLICATIONUSER_WHERE);
+
+		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				OAuthApplicationUser.class.getName(),
+				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			q.addScalar(COUNT_COLUMN_NAME,
+				com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(companyId);
 
 			Long count = (Long)q.uniqueResult();
 
@@ -5261,6 +6094,7 @@ public class OAuthApplicationUserPersistenceImpl extends BasePersistenceImpl<OAu
 	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2 = "oAuthApplicationUser.accessToken = ?";
 	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3 = "(oAuthApplicationUser.accessToken IS NULL OR oAuthApplicationUser.accessToken = ?)";
 	private static final String _FINDER_COLUMN_APPLICATIONID_APPLICATIONID_2 = "oAuthApplicationUser.applicationId = ?";
+	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "oAuthApplicationUser.companyId = ?";
 	private static final String _FINDER_COLUMN_USERID_USERID_2 = "oAuthApplicationUser.userId = ?";
 	private static final String _FINDER_COLUMN_A_A_APPLICATIONID_2 = "oAuthApplicationUser.applicationId = ? AND ";
 	private static final String _FINDER_COLUMN_A_A_AUTHORIZED_2 = "oAuthApplicationUser.authorized = ?";

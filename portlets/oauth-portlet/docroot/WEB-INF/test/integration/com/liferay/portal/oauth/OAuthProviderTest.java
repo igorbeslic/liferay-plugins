@@ -14,11 +14,24 @@
 
 package com.liferay.portal.oauth;
 
+import com.liferay.portal.kernel.util.CharPool;
+import com.liferay.portal.kernel.util.MapUtil;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.URLCodec;
+import com.liferay.portal.kernel.util.Validator;
+
 import java.io.InputStream;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -27,12 +40,10 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
@@ -126,7 +137,8 @@ public class OAuthProviderTest {
 			}
 
 			WebElement element = _driver.findElement(
-					By.id("_4_WAR_oauthportlet_authorize"));
+				By.id("_4_WAR_oauthportlet_authorize"));
+
 			element.submit();
 
 			String[] params = extractParams(_driver.getCurrentUrl());
@@ -192,6 +204,7 @@ public class OAuthProviderTest {
 			}
 
 			WebElement element = _driver.findElement(By.id(OAUTH_PORTLET_ID));
+
 			element.submit();
 
 			String[] params = extractParams(_driver.getCurrentUrl());
@@ -206,9 +219,9 @@ public class OAuthProviderTest {
 				By.className("portlet-msg-error"));
 
 			for (WebElement webElement : elements) {
-				if (webElement.getText().contains(
-					"Your token has been expired.")) {
+				String text = webElement.getText();
 
+				if (text.contains("Your token has expired.")) {
 					return;
 				}
 			}
@@ -220,28 +233,28 @@ public class OAuthProviderTest {
 	private OAuthService buildOAuthService(Object[][] data, int index) {
 		OAuthService service = new ServiceBuilder()
 			.provider(LiferayApi.class)
-			.apiKey((String) data[index][8])
-			.apiSecret((String) data[index][9])
+			.apiKey((String) data[index][9])
+			.apiSecret((String) data[index][10])
 			.build();
 
 		return service;
 	}
 
 	private void clearData(Object[][] data) throws Exception {
-		for (int i = 0; i< data.length; i++) {
+		for (Object[] element : data) {
 			PreparedStatement pstmt = _connection.prepareStatement(
 				DELETE_STATEMENT_OAUTHAPPLICATION);
 
-			pstmt.setInt(1, (Integer) data[i][0]);
+			pstmt.setLong(1, (Long) element[0]);
 
 			pstmt.executeUpdate();
 
 			pstmt.close();
 
 			pstmt = _connection.prepareStatement(
-				DELETE_STATEMENT_OAuthApplicationUser);
+				DELETE_STATEMENT_OAUTHAPPLICATIONUSER);
 
-			pstmt.setInt(1, (Integer) data[i][0]);
+			pstmt.setLong(1, (Long) element[0]);
 
 			pstmt.executeUpdate();
 
@@ -250,25 +263,29 @@ public class OAuthProviderTest {
 	}
 
 	private String[] extractParams(String url) {
-		int beginIndex = url.indexOf("oauth_token");
-		int endIndex = url.length();
+		System.out.println(url);
 
-		url = url.substring(beginIndex, endIndex);
+		int pos = url.indexOf(StringPool.QUESTION);
 
-		beginIndex = "oauth_token=".length();
-		endIndex = url.indexOf("&oauth_verifier");
+		if (pos != -1) {
+			url = url.substring(pos + 1);
+		}
 
-		String oauthToken =url.substring(beginIndex, endIndex);
+		Map<String, String[]> parameterMap = parameterMapFromString(url);
 
-		beginIndex = url.indexOf("&oauth_verifier");
-		endIndex = url.length();
+		String oauthToken = MapUtil.getString(
+			parameterMap, "_4_WAR_oauthportlet_oauth_token");
 
-		url = url.substring(beginIndex, endIndex);
+		if (Validator.isNull(oauthToken)) {
+			oauthToken = MapUtil.getString(parameterMap, "oauth_token");
+		}
 
-		beginIndex = "oauth_verifier=".length();
-		endIndex = url.length();
+		String oauthVerifier = MapUtil.getString(
+			parameterMap, "_4_WAR_oauthportlet_oauth_verifier");
 
-		String oauthVerifier =url.substring(beginIndex, endIndex);
+		if (Validator.isNull(oauthVerifier)) {
+			oauthVerifier = MapUtil.getString(parameterMap, "oauth_verifier");
+		}
 
 		return new String[]{oauthToken, oauthVerifier};
 	}
@@ -282,8 +299,10 @@ public class OAuthProviderTest {
 
 	private void loadProperties() throws Exception {
 		_properties = new Properties();
+
 		InputStream in = this.getClass().getResourceAsStream(
 			"/portal-test.properties");
+
 		_properties.load(in);
 	}
 
@@ -299,25 +318,73 @@ public class OAuthProviderTest {
 		_connection = DriverManager.getConnection(url, username, password);
 	}
 
+	private Map<String, String[]> parameterMapFromString(String queryString) {
+		Map<String, String[]> parameterMap =
+			new LinkedHashMap<String, String[]>();
+
+		if (Validator.isNull(queryString)) {
+			return parameterMap;
+		}
+
+		Map<String, List<String>> tempParameterMap =
+			new LinkedHashMap<String, List<String>>();
+
+		String[] parameters = StringUtil.split(queryString, CharPool.AMPERSAND);
+
+		for (String parameter : parameters) {
+			if (parameter.length() > 0) {
+				String[] kvp = StringUtil.split(parameter, CharPool.EQUAL);
+
+				String key = kvp[0];
+
+				String value = StringPool.BLANK;
+
+				if (kvp.length > 1) {
+					value = URLCodec.decodeURL(kvp[1], StringPool.UTF8, false);
+				}
+
+				List<String> values = tempParameterMap.get(key);
+
+				if (values == null) {
+					values = new ArrayList<String>();
+
+					tempParameterMap.put(key, values);
+				}
+
+				values.add(value);
+			}
+		}
+
+		for (Map.Entry<String, List<String>> entry :
+				tempParameterMap.entrySet()) {
+
+			String key = entry.getKey();
+			List<String> values = entry.getValue();
+
+			parameterMap.put(key, values.toArray(new String[values.size()]));
+		}
+
+		return parameterMap;
+	}
+
 	private void prepareData(Object[][] data) throws Exception {
-		for (int i = 0; i< data.length; i++) {
+		for (Object[] element : data) {
 			PreparedStatement pstmt = _connection.prepareStatement(
 				INSERT_STATEMENT_OAUTHAPPLICATION);
 
-			pstmt.setInt(1, (Integer) data[i][0]);
-			pstmt.setInt(2, (Integer) data[i][1]);
-			pstmt.setInt(3, (Integer) data[i][2]);
-			pstmt.setString(4, (String) data[i][3]);
+			pstmt.setLong(1, (Long) element[0]);
+			pstmt.setLong(2, (Long) element[1]);
+			pstmt.setLong(3, (Long) element[2]);
+			pstmt.setString(4, (String) element[3]);
 			pstmt.setDate(5, new Date(System.currentTimeMillis()));
 			pstmt.setDate(6, new Date(System.currentTimeMillis()));
-			pstmt.setInt(7, (Integer) data[i][4]);
-			pstmt.setString(8, (String) data[i][5]);
-			pstmt.setString(9, (String) data[i][6]);
-			pstmt.setString(10, (String) data[i][7]);
-			pstmt.setString(11, (String) data[i][8]);
-			pstmt.setString(12, (String) data[i][9]);
-			pstmt.setString(13, (String) data[i][10]);
-			pstmt.setInt(14, (Integer) data[i][11]);
+			pstmt.setString(7, (String) element[4]);
+			pstmt.setString(8, (String) element[5]);
+			pstmt.setString(9, (String) element[6]);
+			pstmt.setString(10, (String) element[7]);
+			pstmt.setInt(11, (Integer) element[8]);
+			pstmt.setString(12, (String) element[9]);
+			pstmt.setString(13, (String) element[10]);
 
 			pstmt.executeUpdate();
 
@@ -344,39 +411,39 @@ public class OAuthProviderTest {
 	}
 
 	private static final String DELETE_STATEMENT_OAUTHAPPLICATION =
-			"delete from oauthapplication where applicationId=?";
-	private static final String DELETE_STATEMENT_OAuthApplicationUser =
-			"delete from OAuthApplicationUser where applicationId=?";
+		"delete from OAuthApplication where applicationId=?";
+	private static final String DELETE_STATEMENT_OAUTHAPPLICATIONUSER =
+		"delete from OAuthApplicationUser where applicationId=?";
 	private static final String INSERT_STATEMENT_OAUTHAPPLICATION =
-		"INSERT INTO oauthapplication VALUES " +
-			"(? ,? ,? ,? ,? ,? , ?, ?, ?, ?, ?, ?, ?, ?)";
+		"insert into OAuthApplication VALUES " +
+			"(? ,? ,? ,? ,? ,? ,?, ?, ?, ?, ?, ?, ?)";
 
 	private static final String OAUTH_PORTLET_ID =
 		"_4_WAR_oauthportlet_authorize";
 
 	Object[][] dataWithoutCallback = {
 		{
-			20000, 10152, 10194, "test@liferay.com", 10194, "application1",
-			"this is a test application1", "http://liferay.com",
-			"af91876b105c6834ec", "521b0a6b31a3f8", null, 0
+			20000L, 10152L, 10194L, "test@liferay.com", "application1",
+			"this is a test application1", "http://liferay.com", null, 0,
+			"af91876b105c6834ec", "521b0a6b31a3f8"
 		},
 		{
-			20001, 10152, 10194, "test@liferay.com", 10194, "application2",
-			"this is a test application2", "http://liferay.com",
-			"13a795dcbd0acd97816", "a5385e50e6812", null, 0
+			20001L, 10152L, 10194L, "test@liferay.com", "application2",
+			"this is a test application2", "http://liferay.com", null, 0,
+			"13a795dcbd0acd97816", "a5385e50e6812"
 		}
 	};
 
 	Object[][] dataWithCallback = {
 		{
-			20002, 10152, 10194, "test@liferay.com", 10194, "application3",
+			20002L, 10152L, 10194L, "test@liferay.com", "application3",
 			"this is a test application3", "http://liferay.com",
-			"af91876uubfc6834ec", "521b0poj31a3f8", "http://liferay.com", 0
+			"http://liferay.com", 0, "af91876uubfc6834ec", "521b0poj31a3f8"
 		},
 		{
-			20003, 10152, 10194, "test@liferay.com", 10194, "application4",
+			20003L, 10152L, 10194L, "test@liferay.com", "application4",
 			"this is a test application4", "http://liferay.com",
-			"13a795dvcd0acd97816", "a5385jbde6812", "http://liferay.com", 0
+			"http://liferay.com", 0, "13a795dvcd0acd97816", "a5385jbde6812"
 		}
 	};
 

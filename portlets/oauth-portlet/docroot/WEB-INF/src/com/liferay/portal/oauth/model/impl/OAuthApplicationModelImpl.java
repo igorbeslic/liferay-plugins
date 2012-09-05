@@ -74,7 +74,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			{ "consumerKey", Types.VARCHAR },
 			{ "consumerSecret", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table OAuthApplication (applicationId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,description VARCHAR(75) null,website VARCHAR(75) null,callBackURL VARCHAR(75) null,accessLevel INTEGER,consumerKey VARCHAR(75) null,consumerSecret VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table OAuthApplication (applicationId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name STRING null,description STRING null,website VARCHAR(75) null,callBackURL VARCHAR(75) null,accessLevel INTEGER,consumerKey VARCHAR(75) null,consumerSecret VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table OAuthApplication";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";

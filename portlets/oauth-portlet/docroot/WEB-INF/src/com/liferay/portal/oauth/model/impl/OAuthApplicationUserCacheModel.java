@@ -21,6 +21,8 @@ import com.liferay.portal.oauth.model.OAuthApplicationUser;
 
 import java.io.Serializable;
 
+import java.util.Date;
+
 /**
  * The cache model class for representing OAuthApplicationUser in entity cache.
  *
@@ -32,12 +34,20 @@ public class OAuthApplicationUserCacheModel implements CacheModel<OAuthApplicati
 	Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{oaauId=");
 		sb.append(oaauId);
+		sb.append(", companyId=");
+		sb.append(companyId);
 		sb.append(", userId=");
 		sb.append(userId);
+		sb.append(", userName=");
+		sb.append(userName);
+		sb.append(", createDate=");
+		sb.append(createDate);
+		sb.append(", modifiedDate=");
+		sb.append(modifiedDate);
 		sb.append(", applicationId=");
 		sb.append(applicationId);
 		sb.append(", accessToken=");
@@ -55,7 +65,30 @@ public class OAuthApplicationUserCacheModel implements CacheModel<OAuthApplicati
 		OAuthApplicationUserImpl oAuthApplicationUserImpl = new OAuthApplicationUserImpl();
 
 		oAuthApplicationUserImpl.setOaauId(oaauId);
+		oAuthApplicationUserImpl.setCompanyId(companyId);
 		oAuthApplicationUserImpl.setUserId(userId);
+
+		if (userName == null) {
+			oAuthApplicationUserImpl.setUserName(StringPool.BLANK);
+		}
+		else {
+			oAuthApplicationUserImpl.setUserName(userName);
+		}
+
+		if (createDate == Long.MIN_VALUE) {
+			oAuthApplicationUserImpl.setCreateDate(null);
+		}
+		else {
+			oAuthApplicationUserImpl.setCreateDate(new Date(createDate));
+		}
+
+		if (modifiedDate == Long.MIN_VALUE) {
+			oAuthApplicationUserImpl.setModifiedDate(null);
+		}
+		else {
+			oAuthApplicationUserImpl.setModifiedDate(new Date(modifiedDate));
+		}
+
 		oAuthApplicationUserImpl.setApplicationId(applicationId);
 
 		if (accessToken == null) {
@@ -80,7 +113,11 @@ public class OAuthApplicationUserCacheModel implements CacheModel<OAuthApplicati
 	}
 
 	public long oaauId;
+	public long companyId;
 	public long userId;
+	public String userName;
+	public long createDate;
+	public long modifiedDate;
 	public long applicationId;
 	public String accessToken;
 	public String accessSecret;

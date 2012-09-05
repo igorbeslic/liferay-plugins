@@ -22,7 +22,7 @@ OAuthApplication oAuthApplication = (OAuthApplication)request.getAttribute(OAuth
 String actionName = "addApplication";
 
 if ((oAuthApplication != null) && (oAuthApplication.getApplicationId() != 0)) {
-	actionName = "editApplication";
+	actionName = "updateApplication";
 }
 
 String backURL = ParamUtil.getString(request, "referer");
@@ -32,8 +32,6 @@ String backURL = ParamUtil.getString(request, "referer");
 	backURL="<%= backURL %>"
 	title='<%= actionName.equals("addApplication") ? "new-application" : oAuthApplication.getName() %>'
 />
-
-<aui:model-context bean="<%= oAuthApplication %>" model="<%= OAuthApplication.class %>" />
 
 <liferay-ui:error-marker key="errorSection" value="details" />
 
@@ -46,17 +44,27 @@ String backURL = ParamUtil.getString(request, "referer");
 </liferay-portlet:actionURL>
 
 <aui:form action="<%= addApplicationURL %>" method="post">
-	<aui:input id="applicationId" name="applicationId" type="hidden" />
+	<aui:model-context bean="<%= oAuthApplication %>" model="<%= OAuthApplication.class %>" />
+
+	<aui:input name="applicationId" type="hidden" />
 
 	<aui:fieldset>
 		<aui:input label="name" name="<%= OAuthConstants.NAME%>" showRequiredLabel="true" />
-		<aui:input label="description" name="<%= OAuthConstants.DESCRIPTION%>" type="textarea" />
+		<aui:input label="description" name="<%= OAuthConstants.DESCRIPTION%>" />
 		<aui:input label="website" name="<%= OAuthConstants.WEBSITE %>" showRequiredLabel="true"  />
 		<aui:input label="callback-url" name="<%= OAuthConstants.CALLBACK_URL%>" showRequiredLabel="true" />
 
+		<%
+		int accessType = OAuthConstants.ACCESS_TYPE_READ;
+
+		if (oAuthApplication != null) {
+			accessType = oAuthApplication.getAccessLevel();
+		}
+		%>
+
 		<aui:select helpMessage="access-level-description" label="access-level" name="<%= OAuthConstants.ACCESS_TYPE %>">
-			<aui:option label='access-level-option-0' value="<%= OAuthConstants.ACCESS_TYPE_READ %>"></aui:option>
-			<aui:option label='access-level-option-1' value="<%= OAuthConstants.ACCESS_TYPE_WRITE %>"></aui:option>
+			<aui:option label='access-level-option-0' selected="<%= accessType == OAuthConstants.ACCESS_TYPE_READ %>" value="<%= OAuthConstants.ACCESS_TYPE_READ %>"></aui:option>
+			<aui:option label='access-level-option-1' selected="<%= accessType == OAuthConstants.ACCESS_TYPE_WRITE %>" value="<%= OAuthConstants.ACCESS_TYPE_WRITE %>"></aui:option>
 		</aui:select>
 
 		<c:if test="<%= (oAuthApplication != null) && (Validator.isNotNull(oAuthApplication.getConsumerKey())) %>">

@@ -67,8 +67,10 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 		OAuthApplication application = consumer.getOAuthApplication();
 
 		try {
-			OAuthApplicationUserLocalServiceUtil.updateAuthorized(
-				userId, application.getApplicationId(), true, serviceContext);
+			OAuthApplicationUserLocalServiceUtil.updateApplicationUser(
+				userId, application.getApplicationId(),
+				accessor.getAccessToken(), accessor.getTokenSecret(), true,
+				serviceContext);
 		}
 		catch (Exception e) {
 			throw new OAuthException(e);
@@ -118,7 +120,7 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 		try {
 			OAuthApplicationUserLocalServiceUtil.updateApplicationUser(
 				userId, application.getApplicationId(),
-				accessor.getAccessToken(), accessor.getTokenSecret(),
+				accessor.getAccessToken(), accessor.getTokenSecret(), false,
 				serviceContext);
 		}
 		catch (Exception e) {
@@ -172,7 +174,7 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 		String consumerToken = null;
 
 		try {
-			requestMessage.getToken();
+			consumerToken = requestMessage.getToken();
 		}
 		catch (IOException ioe) {
 			throw new OAuthException(ioe);
@@ -187,12 +189,14 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 			if (Validator.isNotNull(requestToken)) {
 				if (requestToken.equals(consumerToken)) {
 					accessor = oAuthAccessor;
+
 					break;
 				}
 			}
 			else if (Validator.isNotNull(accessToken)) {
 				if (accessToken.equals(consumerToken)) {
 					accessor = oAuthAccessor;
+
 					break;
 				}
 			}

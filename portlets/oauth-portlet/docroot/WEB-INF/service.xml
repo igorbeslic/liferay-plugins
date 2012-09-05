@@ -45,9 +45,16 @@
 
 		<column name="oaauId" type="long" primary="true" />
 
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
 		<!-- Other fields -->
 
-		<column name="userId" type="long" />
 		<column name="applicationId" type="long" />
 		<column name="accessToken" type="String" />
 		<column name="accessSecret" type="String" />
@@ -60,6 +67,9 @@
 		</finder>
 		<finder name="ApplicationId" return-type="Collection" >
 			<finder-column name="applicationId" />
+		</finder>
+		<finder name="CompanyId" return-type="Collection">
+			<finder-column name="companyId" />
 		</finder>
 		<finder name="UserId" return-type="Collection" >
 			<finder-column name="userId" />

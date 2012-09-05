@@ -49,7 +49,7 @@ public class OAuthApplicationAuthorizationPortlet extends MVCPortlet {
 					ServiceContextFactory.getInstance(actionRequest);
 
 				OAuthApplicationUserLocalServiceUtil.deleteApplicationUser(
-					applicationId, serviceContext.getUserId(), serviceContext);
+					serviceContext.getUserId(), applicationId, serviceContext);
 			}
 			else {
 				SessionErrors.add(

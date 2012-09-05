@@ -14,46 +14,26 @@
  */
 --%>
 
-<%@ page import="com.liferay.portlet.oauth.OAuthWebKeys" %>
-
-<%--
-/**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- */
---%>
-
 <%@ include file="/html/init.jsp" %>
 
 <%
-	OAuthAccessor accessor = (OAuthAccessor)request.getAttribute(OAuthWebKeys.OAUTH_ACCESSOR);
-	String verifier = (String)request.getAttribute(OAuthWebKeys.VERIFIER);
+OAuthAccessor accessor = (OAuthAccessor)request.getAttribute(OAuthConstants.OAUTH_ACCESSOR);
 
-	String callback = request.getParameter(OAuthConstants.OAUTH_CALLBACK);
+String verifier = (String)request.getAttribute(OAuthConstants.VERIFIER);
 
-	if ((callback == null) || (callback.length() <= 0)) {
-		callback = OAuthConstants.NONE;
-	}
+String callback = ParamUtil.getString(request, OAuthConstants.OAUTH_CALLBACK, OAuthConstants.NONE);
 
-	boolean alreadyAuthorized = GetterUtil.get(SessionErrors.contains(renderRequest, OAuthConstants.ALREADY_AUTHORIZED), false);
+boolean alreadyAuthorized = GetterUtil.get(SessionErrors.contains(renderRequest, OAuthConstants.ALREADY_AUTHORIZED_KEY), false);
+
+Object value = SessionErrors.get(renderRequest, OAuthProblemException.class);
 %>
 
-<c:if test='<%= SessionErrors.contains(renderRequest, OAuthProblemException.class) %>'>
-	<c:if test='<%= SessionErrors.get(renderRequest, OAuthProblemException.class) == OAuthProblemException.TOKEN_EXPIRED%>'>
-		<div class="portlet-msg-error">
-			<liferay-ui:message key="your-token-has-been-expired" />
-		</div>
-	</c:if>
+<c:if test='<%= (value != null) && OAuthProblemException.TOKEN_EXPIRED.equals(value) %>'>
+	<div class="portlet-msg-error">
+		<liferay-ui:message key="your-token-is-expired" />
+	</div>
 </c:if>
+
 <c:if test='<%= alreadyAuthorized %>'>
 	<div class="portlet-msg-error">
 		<liferay-ui:message key="you-are-already-authorized" />
@@ -61,24 +41,31 @@
 </c:if>
 
 <c:if test="<%= accessor != null %>">
+
+	<%
+	OAuthApplication oAuthApplication = accessor.getConsumer().getOAuthApplication();
+	%>
+
 	<aui:layout>
 		<aui:column columnWidth="50">
-			<h3><liferay-ui:message arguments="<%= accessor.getConsumer().getOAuthApplication().getName() %>" key="authorize-application-to-use-your-information" /></h3>
+			<h3><liferay-ui:message arguments="<%= HtmlUtil.escape(oAuthApplication.getName()) %>" key="authorize-x-to-use-your-account" /></h3>
 
 			<div>
-				<span><liferay-ui:message key="this-application-will-be-able-to" /></span>
+				<span><liferay-ui:message key="this-application-will-be-able-to" />:</span>
+
 				<br />
+
 				<span>
 					<c:choose>
-						<c:when test="<%= accessor.getConsumer().getOAuthApplication().getAccessLevel() == 0 %>">
+						<c:when test="<%= oAuthApplication.getAccessLevel() == 0 %>">
 							<ul>
-								<li><liferay-ui:message key="read-data-from-system" /></li>
+								<li><liferay-ui:message key="read-data-from-the-system-on-your-behalf" /></li>
 							</ul>
 						</c:when>
 						<c:otherwise>
 							<ul>
-								<li><liferay-ui:message key="read-data-from-system" /></li>
-								<li><liferay-ui:message key="write-data-from-system" /></li>
+								<li><liferay-ui:message key="read-data-from-the-system-on-your-behalf" /></li>
+								<li><liferay-ui:message key="write-data-to-the-system-on-your-behalf" /></li>
 							</ul>
 						</c:otherwise>
 					</c:choose>
@@ -100,23 +87,39 @@
 			</div>
 			<c:if test='<%= verifier != null %>'>
 				<div class="portlet-msg-info">
-					<liferay-ui:message arguments="<%= verifier %>" key="authorization-successfull-verification" />
+					<liferay-ui:message arguments="<%= verifier %>" key="authorization-was-successful-verification-code-is-x" />
 				</div>
 			</c:if>
 		</aui:column>
 		<aui:column columnWidth="50">
 			<img height="90px" width="90px" />
+
 			<br />
-			<h4><%= accessor.getConsumer().getOAuthApplication().getName() %></h4>
-			<span><%= accessor.getConsumer().getOAuthApplication().getWebsite() %></span>
+
+			<h3><%= HtmlUtil.escape(oAuthApplication.getName()) %></h3>
+
+			<strong><%= HtmlUtil.escape(oAuthApplication.getWebsite()) %></strong>
+
 			<br />
-			<span><%= accessor.getConsumer().getOAuthApplication().getDescription() %></span>
+
+			<%
+			String description = HtmlUtil.escape(oAuthApplication.getDescription());
+			%>
+
+			<c:choose>
+				<c:when test="<%= Validator.isNull(description) %>">
+					<liferay-ui:message key="no-description" />
+				</c:when>
+				<c:otherwise>
+					<span><%= description %></span>
+				</c:otherwise>
+			</c:choose>
 		</aui:column>
 	</aui:layout>
 
 	<br />
 
 	<div>
-		<liferay-ui:message key="you-can-revoke-application-at-any-time" />
+		<liferay-ui:message key="you-can-revoke-access-to-any-application-at-any-time" />
 	</div>
 </c:if>

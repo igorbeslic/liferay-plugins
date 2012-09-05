@@ -290,12 +290,12 @@ public class OAuthApplicationUserLocalServiceWrapper
 	*/
 	public com.liferay.portal.oauth.model.OAuthApplicationUser addApplicationUser(
 		long userId, long applicationId, java.lang.String accessToken,
-		java.lang.String accessSecret, boolean authorized,
+		java.lang.String accessSecret,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthApplicationUserLocalService.addApplicationUser(userId,
-			applicationId, accessToken, accessSecret, authorized, serviceContext);
+			applicationId, accessToken, accessSecret, serviceContext);
 	}
 
 	public com.liferay.portal.oauth.model.OAuthApplicationUser deleteApplicationUser(
@@ -317,17 +317,36 @@ public class OAuthApplicationUserLocalServiceWrapper
 	}
 
 	public java.util.List<com.liferay.portal.oauth.model.OAuthApplicationUser> getApplicationUsers(
-		long applicationId)
+		long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _oAuthApplicationUserLocalService.getApplicationUsers(applicationId);
+		return _oAuthApplicationUserLocalService.getApplicationUsers(companyId);
 	}
 
 	public java.util.List<com.liferay.portal.oauth.model.OAuthApplicationUser> getApplicationUsers(
+		long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplicationUserLocalService.getApplicationUsers(companyId,
+			start, end, orderByComparator);
+	}
+
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplicationUser> getApplicationUsersByApplicationId(
+		long applicationId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplicationUserLocalService.getApplicationUsersByApplicationId(applicationId);
+	}
+
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplicationUser> getApplicationUsersByApplicationId(
 		long applicationId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _oAuthApplicationUserLocalService.getApplicationUsers(applicationId,
+		return _oAuthApplicationUserLocalService.getApplicationUsersByApplicationId(applicationId,
 			start, end, orderByComparator);
+	}
+
+	public int getApplicationUsersByApplicationIdCount(long applicationId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplicationUserLocalService.getApplicationUsersByApplicationIdCount(applicationId);
 	}
 
 	public java.util.List<com.liferay.portal.oauth.model.OAuthApplicationUser> getApplicationUsersByUserId(
@@ -348,9 +367,9 @@ public class OAuthApplicationUserLocalServiceWrapper
 		return _oAuthApplicationUserLocalService.getApplicationUsersByUserIdCount(userId);
 	}
 
-	public int getApplicationUsersCount(long applicationId)
+	public int getApplicationUsersCount(long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _oAuthApplicationUserLocalService.getApplicationUsersCount(applicationId);
+		return _oAuthApplicationUserLocalService.getApplicationUsersCount(companyId);
 	}
 
 	public java.util.List<com.liferay.portal.oauth.model.OAuthApplicationUser> getAuthorizedApplicationUsersByUserId(
@@ -375,15 +394,6 @@ public class OAuthApplicationUserLocalServiceWrapper
 			authorized);
 	}
 
-	public com.liferay.portal.oauth.model.OAuthApplicationUser updateAuthorized(
-		long userId, long applicationId, boolean authorized,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _oAuthApplicationUserLocalService.updateAuthorized(userId,
-			applicationId, authorized, serviceContext);
-	}
-
 	/**
 	* Update user's authorization for an existing application that is
 	* registered to use OAuth feature. If entity doesn't exist new one (with
@@ -402,12 +412,12 @@ public class OAuthApplicationUserLocalServiceWrapper
 	*/
 	public com.liferay.portal.oauth.model.OAuthApplicationUser updateApplicationUser(
 		long userId, long applicationId, java.lang.String accessToken,
-		java.lang.String accessSecret,
+		java.lang.String accessSecret, boolean authorized,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthApplicationUserLocalService.updateApplicationUser(userId,
-			applicationId, accessToken, accessSecret, serviceContext);
+			applicationId, accessToken, accessSecret, authorized, serviceContext);
 	}
 
 	/**

@@ -8,8 +8,12 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="name" type="String" />
-		<field name="description" type="String" />
+		<field name="name" type="String">
+			<hint name="max-length">4000</hint>
+		</field>
+		<field name="description" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 		<field name="website" type="String" />
 		<field name="callBackURL" type="String" />
 		<field name="accessLevel" type="int" />
@@ -18,7 +22,11 @@
 	</model>
 	<model name="com.liferay.portal.oauth.model.OAuthApplicationUser">
 		<field name="oaauId" type="long" />
+		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
 		<field name="applicationId" type="long" />
 		<field name="accessToken" type="String" />
 		<field name="accessSecret" type="String" />

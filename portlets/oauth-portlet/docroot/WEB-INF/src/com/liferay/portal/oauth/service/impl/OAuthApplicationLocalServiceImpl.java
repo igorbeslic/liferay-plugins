@@ -65,13 +65,13 @@ public class OAuthApplicationLocalServiceImpl
 			String callBackURL, int accessLevel, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		// Application
-
 		User user = userPersistence.findByPrimaryKey(userId);
 
 		validate(name, website, callBackURL);
 
 		Date now = new Date();
+
+		// Application
 
 		long applicationId = counterLocalService.increment();
 
@@ -88,8 +88,6 @@ public class OAuthApplicationLocalServiceImpl
 		application.setWebsite(website);
 		application.setCallBackURL(callBackURL);
 		application.setAccessLevel(accessLevel);
-
-		// Generated values
 
 		// This is to support potential import
 

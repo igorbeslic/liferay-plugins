@@ -18,10 +18,12 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.ResourceConstants;
+import com.liferay.portal.model.User;
 import com.liferay.portal.oauth.model.OAuthApplicationUser;
 import com.liferay.portal.oauth.service.base.OAuthApplicationUserLocalServiceBaseImpl;
 import com.liferay.portal.service.ServiceContext;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -65,20 +67,27 @@ public class OAuthApplicationUserLocalServiceImpl
 	 */
 	public OAuthApplicationUser addApplicationUser(
 			long userId, long applicationId, String accessToken,
-			String accessSecret, boolean authorized,
-			ServiceContext serviceContext)
+			String accessSecret, ServiceContext serviceContext)
 		throws PortalException, SystemException {
+
+		User user = userPersistence.findByPrimaryKey(userId);
+
+		Date now = new Date();
 
 		long oaauId = counterLocalService.increment();
 
 		OAuthApplicationUser applicationUser =
 			oAuthApplicationUserPersistence.create(oaauId);
 
-		applicationUser.setUserId(userId);
+		applicationUser.setCompanyId(user.getCompanyId());
+		applicationUser.setUserId(user.getUserId());
+		applicationUser.setUserName(user.getFullName());
+		applicationUser.setCreateDate(serviceContext.getCreateDate(now));
+		applicationUser.setModifiedDate(serviceContext.getModifiedDate(now));
 		applicationUser.setApplicationId(applicationId);
 		applicationUser.setAccessToken(accessToken);
 		applicationUser.setAccessSecret(accessSecret);
-		applicationUser.setAuthorized(authorized);
+		applicationUser.setAuthorized(false);
 
 		applicationUser = oAuthApplicationUserPersistence.update(
 			applicationUser, false);
@@ -116,20 +125,43 @@ public class OAuthApplicationUserLocalServiceImpl
 		return applicationUser;
 	}
 
-	public List<OAuthApplicationUser> getApplicationUsers(long applicationId)
+	public List<OAuthApplicationUser> getApplicationUsers(long companyId)
+		throws SystemException {
+
+		return oAuthApplicationUserPersistence.findByCompanyId(companyId);
+	}
+
+	public List<OAuthApplicationUser> getApplicationUsers(
+			long companyId, int start, int end,
+			OrderByComparator orderByComparator)
+		throws SystemException {
+
+		return oAuthApplicationUserPersistence.findByCompanyId(
+			companyId, start, end, orderByComparator);
+	}
+
+	public List<OAuthApplicationUser> getApplicationUsersByApplicationId(
+			long applicationId)
 		throws SystemException {
 
 		return oAuthApplicationUserPersistence.findByApplicationId(
 			applicationId);
 	}
 
-	public List<OAuthApplicationUser> getApplicationUsers(
+	public List<OAuthApplicationUser> getApplicationUsersByApplicationId(
 			long applicationId, int start, int end,
 			OrderByComparator orderByComparator)
 		throws SystemException {
 
 		return oAuthApplicationUserPersistence.findByApplicationId(
 			applicationId, start, end, orderByComparator);
+	}
+
+	public int getApplicationUsersByApplicationIdCount(long applicationId)
+		throws SystemException {
+
+		return oAuthApplicationUserPersistence.countByApplicationId(
+			applicationId);
 	}
 
 	public List<OAuthApplicationUser> getApplicationUsersByUserId(long userId)
@@ -153,11 +185,10 @@ public class OAuthApplicationUserLocalServiceImpl
 		return oAuthApplicationUserPersistence.countByUserId(userId);
 	}
 
-	public int getApplicationUsersCount(long applicationId)
+	public int getApplicationUsersCount(long companyId)
 		throws SystemException {
 
-		return oAuthApplicationUserPersistence.countByApplicationId(
-			applicationId);
+		return oAuthApplicationUserPersistence.countByCompanyId(companyId);
 	}
 
 	public List<OAuthApplicationUser> getAuthorizedApplicationUsersByUserId(
@@ -183,21 +214,6 @@ public class OAuthApplicationUserLocalServiceImpl
 		return oAuthApplicationUserPersistence.countByU_AU(userId, authorized);
 	}
 
-	public OAuthApplicationUser updateAuthorized(
-			long userId, long applicationId, boolean authorized,
-			ServiceContext serviceContext)
-		throws PortalException, SystemException {
-
-		OAuthApplicationUser applicationUser =
-			oAuthApplicationUserPersistence.fetchByU_AP(userId, applicationId);
-
-		applicationUser.setAuthorized(authorized);
-
-		oAuthApplicationUserPersistence.update(applicationUser, false);
-
-		return applicationUser;
-	}
-
 	/**
 	 * Update user's authorization for an existing application that is
 	 * registered to use OAuth feature. If entity doesn't exist new one (with
@@ -216,14 +232,27 @@ public class OAuthApplicationUserLocalServiceImpl
 	 */
 	public OAuthApplicationUser updateApplicationUser(
 			long userId, long applicationId, String accessToken,
-			String accessSecret, ServiceContext serviceContext)
+			String accessSecret, boolean authorized,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		OAuthApplicationUser applicationUser =
 			oAuthApplicationUserPersistence.fetchByU_AP(userId, applicationId);
 
-		applicationUser.setAccessToken(accessToken);
-		applicationUser.setAccessSecret(accessSecret);
+		if (applicationUser == null) {
+			applicationUser = addApplicationUser(
+				userId, applicationId, accessToken, accessSecret,
+				serviceContext);
+		}
+		else {
+			Date now = new Date();
+
+			applicationUser.setModifiedDate(serviceContext.getModifiedDate(now));
+			applicationUser.setAccessToken(accessToken);
+			applicationUser.setAccessSecret(accessSecret);
+		}
+
+		applicationUser.setAuthorized(authorized);
 
 		oAuthApplicationUserPersistence.update(applicationUser, false);
 

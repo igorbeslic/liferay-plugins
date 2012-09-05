@@ -15,15 +15,18 @@
 --%>
 
 <%@ page import="com.liferay.portal.RequiredFieldException" %><%@
+page import="com.liferay.portal.kernel.language.LanguageUtil"%><%@
 page import="com.liferay.portal.kernel.servlet.SessionErrors" %><%@
 page import="com.liferay.portal.kernel.servlet.SessionMessages" %><%@
 page import="com.liferay.portal.kernel.util.GetterUtil" %><%@
+page import="com.liferay.portal.kernel.util.HtmlUtil"%><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
 page import="com.liferay.portal.oauth.OAuthAccessor" %><%@
 page import="com.liferay.portal.oauth.OAuthProblemException" %><%@
 page import="com.liferay.portal.oauth.model.OAuthApplication" %><%@
+page import="com.liferay.portal.oauth.model.OAuthApplicationUser" %><%@
 page import="com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil" %><%@
 page import="com.liferay.portal.oauth.service.OAuthApplicationUserLocalServiceUtil" %><%@
 page import="com.liferay.portal.oauth.util.OAuthConstants" %><%@
@@ -31,6 +34,7 @@ page import="com.liferay.portal.security.permission.ActionKeys" %><%@
 page import="com.liferay.portlet.PortletURLUtil" %><%@
 page import="com.liferay.portlet.oauth.search.OAuthApplicationDisplayTerms" %><%@
 page import="com.liferay.portlet.oauth.search.OAuthApplicationSearch" %><%@
+page import="com.liferay.portlet.oauth.search.OAuthApplicationUserSearch" %><%@
 page import="com.liferay.portlet.oauth.search.OAuthApplicationSearchTerms" %>
 
 <%@ page import="java.net.MalformedURLException" %><%@
@@ -74,6 +78,4 @@ else if (resourceRequest != null) {
 }
 
 String currentURL = currentURLObj.toString();
-
-boolean adminUser = permissionChecker.isOmniadmin() || permissionChecker.isCompanyAdmin();
 %>

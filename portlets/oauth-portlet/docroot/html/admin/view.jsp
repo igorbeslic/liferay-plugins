@@ -16,79 +16,77 @@
 
 <%@ include file="/html/init.jsp" %>
 
+<%
+String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");
+%>
+
 <portlet:actionURL var="searchActionURL">
-	<portlet:param name="mvcPath" value="/admin/view.jsp" />
+	<portlet:param name="mvcPath" value="/html/admin/view.jsp" />
 </portlet:actionURL>
 
 <aui:form action="<%= searchActionURL %>" method="get" name="fm">
 	<liferay-portlet:renderURLParams varImpl="searchURL" />
 
-	<%
-	String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");
-	%>
+	<liferay-util:include page="/html/admin/toolbar.jsp" servletContext="<%= application %>" />
 
-	<liferay-util:include page="/html/admin/toolbar.jsp" servletContext="<%= application %>">
-		<liferay-util:param name="toolbarItem" value="view-all" />
-	</liferay-util:include>
+	<liferay-ui:search-container
+		delta="5"
+		emptyResultsMessage="no-applications-were-found"
+		searchContainer="<%= new OAuthApplicationSearch(renderRequest, currentURLObj) %>"
+	>
 
-	<liferay-ui:search-container delta="5" searchContainer="<%= new OAuthApplicationSearch(renderRequest, currentURLObj) %>">
-
-		<liferay-ui:search-form page="/html/admin/search.jsp" servletContext="<%= application %>" />
+		<liferay-ui:search-form
+			page="/html/admin/search.jsp"
+			servletContext="<%= application %>"
+		/>
 
 		<%
-		List<OAuthApplication> oAuthApps = null;
-		int oAuthAppsCnt = 0;
+		List<OAuthApplication> applications = null;
+		int applicationsCount = 0;
 
-		if (adminUser) {
-			oAuthApps = OAuthApplicationLocalServiceUtil.getApplications(themeDisplay.getCompanyId(), searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
-			oAuthAppsCnt = OAuthApplicationLocalServiceUtil.getApplicationsCount(themeDisplay.getCompanyId());
+		if (permissionChecker.isCompanyAdmin()) {
+			applications = OAuthApplicationLocalServiceUtil.getApplications(themeDisplay.getCompanyId(), searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
+			applicationsCount = OAuthApplicationLocalServiceUtil.getApplicationsCount(themeDisplay.getCompanyId());
 		}
 		else {
-			oAuthApps = OAuthApplicationLocalServiceUtil.getApplicationsByUserId(themeDisplay.getUserId(), searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
-			oAuthAppsCnt = OAuthApplicationLocalServiceUtil.getApplicationsByUserIdCount(themeDisplay.getUserId());
+			applications = OAuthApplicationLocalServiceUtil.getApplicationsByUserId(themeDisplay.getUserId(), searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
+			applicationsCount = OAuthApplicationLocalServiceUtil.getApplicationsByUserIdCount(themeDisplay.getUserId());
 		}
 		%>
 
 		<liferay-ui:search-container-results
-			results="<%= oAuthApps %>"
-			total="<%= oAuthAppsCnt %>"
+			results="<%= applications %>"
+			total="<%= applicationsCount %>"
 		/>
 
 		<liferay-ui:search-container-row
 			className="com.liferay.portal.oauth.model.OAuthApplication"
 			keyProperty="applicationId"
-			modelVar="app"
+			modelVar="oAuthApplication"
 		>
 
-			<%
-			int authorizationsCount = OAuthApplicationUserLocalServiceUtil.getApplicationUsersCount(app.getApplicationId());
-			%>
-
 			<liferay-ui:search-container-column-text
-				name="id"
 				orderable="<%= true %>"
-				value="<%= String.valueOf(app.getApplicationId()) %>"
+				property="applicationId"
 			/>
 
 			<liferay-ui:search-container-column-text
-				name="name"
 				orderable="<%= true %>"
-				value="<%= app.getName() %>"
+				property="name"
 			/>
 
 			<liferay-ui:search-container-column-text
-				name="website"
+				property="website"
 			/>
 
 			<liferay-ui:search-container-column-text
 				name="access-level"
-			>
-				<liferay-ui:message key='<%= ("access-level-option-" + app.getAccessLevel()) %>' />
-			</liferay-ui:search-container-column-text>
+				value='<%= LanguageUtil.get(pageContext, "access-level-option-" + oAuthApplication.getAccessLevel()) %>'
+			/>
 
 			<liferay-ui:search-container-column-text
-				name="authorizations-count-short"
-				value="<%= String.valueOf(authorizationsCount) %>"
+				name="authorizations-count"
+				value="<%= String.valueOf(OAuthApplicationUserLocalServiceUtil.getApplicationUsersCount(oAuthApplication.getApplicationId())) %>"
 			/>
 
 			<liferay-ui:search-container-column-jsp

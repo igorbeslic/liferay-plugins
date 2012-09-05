@@ -35,7 +35,15 @@
 	<mapped-superclass class="com.liferay.portal.oauth.model.impl.OAuthApplicationUserModelImpl">
 		<attributes>
 			<id name="oaauId" />
+			<basic name="companyId" />
 			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
 			<basic name="applicationId" />
 			<basic name="accessToken" />
 			<basic name="accessSecret" />

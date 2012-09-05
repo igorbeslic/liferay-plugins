@@ -14,32 +14,32 @@
  */
 --%>
 
-<%@ page import="com.liferay.portal.security.permission.ActionKeys" %>
-
 <%@ include file="/html/init.jsp" %>
 
 <%
-String toolbarItem = ParamUtil.getString(request, OAuthConstants.TOOLBAR_ITEM, OAuthConstants.TOOLBAR_ITEM_VIEW_ALL);
-int myAppsCount = ParamUtil.getInteger(request, "myAppsCount", 0);
+String toolbarItem = ParamUtil.getString(request, "toolbarItem", "my-authorizations");
 %>
 
 <div class="lfr-portlet-toolbar">
-	<portlet:renderURL var="viewAppsURL">
-		<portlet:param name="jspPage" value="/html/authorization/view.jsp" />
-	</portlet:renderURL>
+	<c:if test="<%= permissionChecker.isCompanyAdmin() %>">
+		<portlet:renderURL var="viewAppsURL">
+			<portlet:param name="mvcPath" value="/html/authorization/view.jsp" />
+			<portlet:param name="referer" value="<%= currentURL %>" />
+			<portlet:param name="toolbarItem" value="view-all" />
+		</portlet:renderURL>
 
-	<span class="lfr-toolbar-button view-button <%= OAuthConstants.TOOLBAR_ITEM_VIEW_ALL.equals(toolbarItem) ? "current" : "" %>">
-		<a href="<%= viewAppsURL %>"><liferay-ui:message key="<%= adminUser ? OAuthConstants.TOOLBAR_ITEM_VIEW_ALL : OAuthConstants.TOOLBAR_ITEM_MY_AUTHORISATIONS %>" /></a>
-	</span>
-<c:if test="<%= myAppsCount > 0 %>">
+		<span class="lfr-toolbar-button view-button <%= toolbarItem.equals("view-all") ? "current" : "" %>">
+			<a href="<%= viewAppsURL %>"><liferay-ui:message key="view-all" /></a>
+		</span>
+	</c:if>
+
 	<portlet:renderURL var="myApplicationsURL">
-		<portlet:param name="jspPage" value="/html/authorization/view.jsp" />
+		<portlet:param name="mvcPath" value="/html/authorization/view.jsp" />
 		<portlet:param name="referer" value="<%= currentURL %>" />
-		<portlet:param name="toolbarItem" value="<%= OAuthConstants.TOOLBAR_ITEM_MY_APPS %>" />
+		<portlet:param name="toolbarItem" value="my-authorizations" />
 	</portlet:renderURL>
 
-	<span class="lfr-toolbar-button view-button <%= OAuthConstants.TOOLBAR_ITEM_MY_APPS.equals(toolbarItem) ? "current" : "" %>">
-		<a href="<%= myApplicationsURL %>"><liferay-ui:message key="<%= OAuthConstants.TOOLBAR_ITEM_MY_APPS %>" /></a>
+	<span class="lfr-toolbar-button view-button <%= toolbarItem.equals("my-authorizations") ? "current" : "" %>">
+		<a href="<%= myApplicationsURL %>"><liferay-ui:message key="my-authorizations" /></a>
 	</span>
-</c:if>
 </div>

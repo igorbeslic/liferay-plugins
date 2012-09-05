@@ -44,17 +44,18 @@ public class OAuthAuthorizeAction extends BaseStrutsAction {
 		throws Exception {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-				WebKeys.THEME_DISPLAY);
+			WebKeys.THEME_DISPLAY);
+
+		String oauthToken = ParamUtil.getString(
+			request, OAuthConstants.OAUTH_TOKEN);
 
 		PortletURL portletURL = PortletURLFactoryUtil.create(
-				request, PORTLET_ID, themeDisplay.getPlid(),
-				PortletRequest.RENDER_PHASE);
+			request, OAuthConstants.OAUTH_AUTHORIZE, themeDisplay.getPlid(),
+			PortletRequest.RENDER_PHASE);
 
 		portletURL.setWindowState(getWindowState(request));
 		portletURL.setPortletMode(PortletMode.VIEW);
-		portletURL.setParameter(
-			OAuthConstants.OAUTH_TOKEN,
-			request.getParameter(OAuthConstants.OAUTH_TOKEN));
+		portletURL.setParameter(OAuthConstants.OAUTH_TOKEN, oauthToken);
 		portletURL.setParameter("saveLastPath", "0");
 
 		String redirect = portletURL.toString();
@@ -75,7 +76,5 @@ public class OAuthAuthorizeAction extends BaseStrutsAction {
 
 		return windowState;
 	}
-
-	private static final String PORTLET_ID = "4_WAR_oauthportlet";
 
 }

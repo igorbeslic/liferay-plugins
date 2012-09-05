@@ -34,6 +34,7 @@ import java.io.Serializable;
 
 import java.sql.Types;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,13 +61,17 @@ public class OAuthApplicationUserModelImpl extends BaseModelImpl<OAuthApplicatio
 	public static final String TABLE_NAME = "OAuthApplicationUser";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "oaauId", Types.BIGINT },
+			{ "companyId", Types.BIGINT },
 			{ "userId", Types.BIGINT },
+			{ "userName", Types.VARCHAR },
+			{ "createDate", Types.TIMESTAMP },
+			{ "modifiedDate", Types.TIMESTAMP },
 			{ "applicationId", Types.BIGINT },
 			{ "accessToken", Types.VARCHAR },
 			{ "accessSecret", Types.VARCHAR },
 			{ "authorized", Types.BOOLEAN }
 		};
-	public static final String TABLE_SQL_CREATE = "create table OAuthApplicationUser (oaauId LONG not null primary key,userId LONG,applicationId LONG,accessToken VARCHAR(75) null,accessSecret VARCHAR(75) null,authorized BOOLEAN)";
+	public static final String TABLE_SQL_CREATE = "create table OAuthApplicationUser (oaauId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,applicationId LONG,accessToken VARCHAR(75) null,accessSecret VARCHAR(75) null,authorized BOOLEAN)";
 	public static final String TABLE_SQL_DROP = "drop table OAuthApplicationUser";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -83,7 +88,8 @@ public class OAuthApplicationUserModelImpl extends BaseModelImpl<OAuthApplicatio
 	public static long ACCESSTOKEN_COLUMN_BITMASK = 1L;
 	public static long APPLICATIONID_COLUMN_BITMASK = 2L;
 	public static long AUTHORIZED_COLUMN_BITMASK = 4L;
-	public static long USERID_COLUMN_BITMASK = 8L;
+	public static long COMPANYID_COLUMN_BITMASK = 8L;
+	public static long USERID_COLUMN_BITMASK = 16L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.portal.oauth.model.OAuthApplicationUser"));
 
@@ -119,7 +125,11 @@ public class OAuthApplicationUserModelImpl extends BaseModelImpl<OAuthApplicatio
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("oaauId", getOaauId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
+		attributes.put("createDate", getCreateDate());
+		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("applicationId", getApplicationId());
 		attributes.put("accessToken", getAccessToken());
 		attributes.put("accessSecret", getAccessSecret());
@@ -136,10 +146,34 @@ public class OAuthApplicationUserModelImpl extends BaseModelImpl<OAuthApplicatio
 			setOaauId(oaauId);
 		}
 
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
+		}
+
 		Long userId = (Long)attributes.get("userId");
 
 		if (userId != null) {
 			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
+		Date createDate = (Date)attributes.get("createDate");
+
+		if (createDate != null) {
+			setCreateDate(createDate);
+		}
+
+		Date modifiedDate = (Date)attributes.get("modifiedDate");
+
+		if (modifiedDate != null) {
+			setModifiedDate(modifiedDate);
 		}
 
 		Long applicationId = (Long)attributes.get("applicationId");
@@ -175,6 +209,26 @@ public class OAuthApplicationUserModelImpl extends BaseModelImpl<OAuthApplicatio
 		_oaauId = oaauId;
 	}
 
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
+		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
+	}
+
 	public long getUserId() {
 		return _userId;
 	}
@@ -201,6 +255,35 @@ public class OAuthApplicationUserModelImpl extends BaseModelImpl<OAuthApplicatio
 
 	public long getOriginalUserId() {
 		return _originalUserId;
+	}
+
+	public String getUserName() {
+		if (_userName == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		_createDate = createDate;
+	}
+
+	public Date getModifiedDate() {
+		return _modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		_modifiedDate = modifiedDate;
 	}
 
 	public long getApplicationId() {
@@ -289,7 +372,7 @@ public class OAuthApplicationUserModelImpl extends BaseModelImpl<OAuthApplicatio
 
 	@Override
 	public ExpandoBridge getExpandoBridge() {
-		return ExpandoBridgeFactoryUtil.getExpandoBridge(0,
+		return ExpandoBridgeFactoryUtil.getExpandoBridge(getCompanyId(),
 			OAuthApplicationUser.class.getName(), getPrimaryKey());
 	}
 
@@ -316,7 +399,11 @@ public class OAuthApplicationUserModelImpl extends BaseModelImpl<OAuthApplicatio
 		OAuthApplicationUserImpl oAuthApplicationUserImpl = new OAuthApplicationUserImpl();
 
 		oAuthApplicationUserImpl.setOaauId(getOaauId());
+		oAuthApplicationUserImpl.setCompanyId(getCompanyId());
 		oAuthApplicationUserImpl.setUserId(getUserId());
+		oAuthApplicationUserImpl.setUserName(getUserName());
+		oAuthApplicationUserImpl.setCreateDate(getCreateDate());
+		oAuthApplicationUserImpl.setModifiedDate(getModifiedDate());
 		oAuthApplicationUserImpl.setApplicationId(getApplicationId());
 		oAuthApplicationUserImpl.setAccessToken(getAccessToken());
 		oAuthApplicationUserImpl.setAccessSecret(getAccessSecret());
@@ -375,6 +462,10 @@ public class OAuthApplicationUserModelImpl extends BaseModelImpl<OAuthApplicatio
 	public void resetOriginalValues() {
 		OAuthApplicationUserModelImpl oAuthApplicationUserModelImpl = this;
 
+		oAuthApplicationUserModelImpl._originalCompanyId = oAuthApplicationUserModelImpl._companyId;
+
+		oAuthApplicationUserModelImpl._setOriginalCompanyId = false;
+
 		oAuthApplicationUserModelImpl._originalUserId = oAuthApplicationUserModelImpl._userId;
 
 		oAuthApplicationUserModelImpl._setOriginalUserId = false;
@@ -398,7 +489,35 @@ public class OAuthApplicationUserModelImpl extends BaseModelImpl<OAuthApplicatio
 
 		oAuthApplicationUserCacheModel.oaauId = getOaauId();
 
+		oAuthApplicationUserCacheModel.companyId = getCompanyId();
+
 		oAuthApplicationUserCacheModel.userId = getUserId();
+
+		oAuthApplicationUserCacheModel.userName = getUserName();
+
+		String userName = oAuthApplicationUserCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			oAuthApplicationUserCacheModel.userName = null;
+		}
+
+		Date createDate = getCreateDate();
+
+		if (createDate != null) {
+			oAuthApplicationUserCacheModel.createDate = createDate.getTime();
+		}
+		else {
+			oAuthApplicationUserCacheModel.createDate = Long.MIN_VALUE;
+		}
+
+		Date modifiedDate = getModifiedDate();
+
+		if (modifiedDate != null) {
+			oAuthApplicationUserCacheModel.modifiedDate = modifiedDate.getTime();
+		}
+		else {
+			oAuthApplicationUserCacheModel.modifiedDate = Long.MIN_VALUE;
+		}
 
 		oAuthApplicationUserCacheModel.applicationId = getApplicationId();
 
@@ -425,12 +544,20 @@ public class OAuthApplicationUserModelImpl extends BaseModelImpl<OAuthApplicatio
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{oaauId=");
 		sb.append(getOaauId());
+		sb.append(", companyId=");
+		sb.append(getCompanyId());
 		sb.append(", userId=");
 		sb.append(getUserId());
+		sb.append(", userName=");
+		sb.append(getUserName());
+		sb.append(", createDate=");
+		sb.append(getCreateDate());
+		sb.append(", modifiedDate=");
+		sb.append(getModifiedDate());
 		sb.append(", applicationId=");
 		sb.append(getApplicationId());
 		sb.append(", accessToken=");
@@ -445,7 +572,7 @@ public class OAuthApplicationUserModelImpl extends BaseModelImpl<OAuthApplicatio
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(22);
+		StringBundler sb = new StringBundler(34);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.portal.oauth.model.OAuthApplicationUser");
@@ -456,8 +583,24 @@ public class OAuthApplicationUserModelImpl extends BaseModelImpl<OAuthApplicatio
 		sb.append(getOaauId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>companyId</column-name><column-value><![CDATA[");
+		sb.append(getCompanyId());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>userId</column-name><column-value><![CDATA[");
 		sb.append(getUserId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userName</column-name><column-value><![CDATA[");
+		sb.append(getUserName());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>createDate</column-name><column-value><![CDATA[");
+		sb.append(getCreateDate());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
+		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>applicationId</column-name><column-value><![CDATA[");
@@ -486,10 +629,16 @@ public class OAuthApplicationUserModelImpl extends BaseModelImpl<OAuthApplicatio
 			OAuthApplicationUser.class
 		};
 	private long _oaauId;
+	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private long _userId;
 	private String _userUuid;
 	private long _originalUserId;
 	private boolean _setOriginalUserId;
+	private String _userName;
+	private Date _createDate;
+	private Date _modifiedDate;
 	private long _applicationId;
 	private long _originalApplicationId;
 	private boolean _setOriginalApplicationId;
