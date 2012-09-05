@@ -1,0 +1,45 @@
+<%--
+/**
+ * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<%@ include file="/html/init.jsp" %>
+
+<%
+String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");
+%>
+
+<div class="lfr-portlet-toolbar">
+	<portlet:renderURL var="viewAppsURL">
+		<portlet:param name="mvcPath" value="/html/admin/view.jsp" />
+		<portlet:param name="referer" value="<%= currentURL %>" />
+		<portlet:param name="toolbarItem" value="view-all" />
+	</portlet:renderURL>
+
+	<span class="lfr-toolbar-button view-button <%= toolbarItem.equals("view-all") ? "current" : "" %>">
+		<a href="<%= viewAppsURL %>"><liferay-ui:message key="view-all" /></a>
+	</span>
+
+	<c:if test='<%= permissionChecker.hasPermission(0, OAuthConstants.OAUTH_ADMIN, null, ActionKeys.ADD_ENTRY) %>'>
+		<portlet:renderURL var="addApplicationURL">
+			<portlet:param name="mvcPath" value="/html/admin/edit.jsp" />
+			<portlet:param name="referer" value="<%= currentURL %>" />
+			<portlet:param name="toolbarItem" value="view-all" />
+		</portlet:renderURL>
+
+		<span class="lfr-toolbar-button add-button <%= toolbarItem.equals("add") ? "current" : "" %>">
+			<a href="<%= addApplicationURL %>"><liferay-ui:message key="add" /></a>
+		</span>
+	</c:if>
+</div>
