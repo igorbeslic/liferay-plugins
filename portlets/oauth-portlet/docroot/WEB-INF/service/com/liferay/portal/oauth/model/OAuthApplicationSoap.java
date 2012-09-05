@@ -36,14 +36,13 @@ public class OAuthApplicationSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setOwnerId(model.getOwnerId());
 		soapModel.setName(model.getName());
 		soapModel.setDescription(model.getDescription());
 		soapModel.setWebsite(model.getWebsite());
-		soapModel.setConsumerKey(model.getConsumerKey());
-		soapModel.setConsumerSecret(model.getConsumerSecret());
 		soapModel.setCallBackURL(model.getCallBackURL());
 		soapModel.setAccessLevel(model.getAccessLevel());
+		soapModel.setConsumerKey(model.getConsumerKey());
+		soapModel.setConsumerSecret(model.getConsumerSecret());
 
 		return soapModel;
 	}
@@ -146,14 +145,6 @@ public class OAuthApplicationSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
-	public long getOwnerId() {
-		return _ownerId;
-	}
-
-	public void setOwnerId(long ownerId) {
-		_ownerId = ownerId;
-	}
-
 	public String getName() {
 		return _name;
 	}
@@ -178,22 +169,6 @@ public class OAuthApplicationSoap implements Serializable {
 		_website = website;
 	}
 
-	public String getConsumerKey() {
-		return _consumerKey;
-	}
-
-	public void setConsumerKey(String consumerKey) {
-		_consumerKey = consumerKey;
-	}
-
-	public String getConsumerSecret() {
-		return _consumerSecret;
-	}
-
-	public void setConsumerSecret(String consumerSecret) {
-		_consumerSecret = consumerSecret;
-	}
-
 	public String getCallBackURL() {
 		return _callBackURL;
 	}
@@ -210,18 +185,33 @@ public class OAuthApplicationSoap implements Serializable {
 		_accessLevel = accessLevel;
 	}
 
+	public String getConsumerKey() {
+		return _consumerKey;
+	}
+
+	public void setConsumerKey(String consumerKey) {
+		_consumerKey = consumerKey;
+	}
+
+	public String getConsumerSecret() {
+		return _consumerSecret;
+	}
+
+	public void setConsumerSecret(String consumerSecret) {
+		_consumerSecret = consumerSecret;
+	}
+
 	private long _applicationId;
 	private long _companyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private long _ownerId;
 	private String _name;
 	private String _description;
 	private String _website;
-	private String _consumerKey;
-	private String _consumerSecret;
 	private String _callBackURL;
 	private int _accessLevel;
+	private String _consumerKey;
+	private String _consumerSecret;
 }

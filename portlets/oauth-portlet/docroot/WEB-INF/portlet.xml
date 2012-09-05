@@ -3,12 +3,8 @@
 <portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
 	<portlet>
 		<portlet-name>1</portlet-name>
-		<display-name>1</display-name>
+		<display-name>OAuth Admin</display-name>
 		<portlet-class>com.liferay.portlet.oauth.mvc.OAuthApplicationAdminPortlet</portlet-class>
-		<init-param>
-			<name>config-jsp</name>
-			<value>/html/admin/config.jsp</value>
-		</init-param>
 		<init-param>
 			<name>copy-request-parameters</name>
 			<value>true</value>
@@ -21,13 +17,12 @@
 		<supports>
 			<mime-type>text/html</mime-type>
 			<portlet-mode>view</portlet-mode>
-			<portlet-mode>config</portlet-mode>
 		</supports>
-		<resource-bundle>content.Admin</resource-bundle>
+		<resource-bundle>content.Language</resource-bundle>
 		<portlet-info>
-			<title>OAUTH ADMINISTRATION</title>
-			<short-title>OAUTH ADMIN</short-title>
-			<keywords>OAUTH APPLICATION MANAGEMENT</keywords>
+			<title>OAuth Admin</title>
+			<short-title>OAuth Admin</short-title>
+			<keywords>OAuth Admin</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>
@@ -35,12 +30,8 @@
 	</portlet>
 	<portlet>
 		<portlet-name>2</portlet-name>
-		<display-name>2</display-name>
+		<display-name>OAuth Authorizations</display-name>
 		<portlet-class>com.liferay.portlet.oauth.mvc.OAuthApplicationAuthorizationPortlet</portlet-class>
-		<init-param>
-			<name>config-jsp</name>
-			<value>/html/authorization/config.jsp</value>
-		</init-param>
 		<init-param>
 			<name>copy-request-parameters</name>
 			<value>true</value>
@@ -53,13 +44,12 @@
 		<supports>
 			<mime-type>text/html</mime-type>
 			<portlet-mode>view</portlet-mode>
-			<portlet-mode>config</portlet-mode>
 		</supports>
-		<resource-bundle>content.Authorizations</resource-bundle>
+		<resource-bundle>content.Language</resource-bundle>
 		<portlet-info>
-			<title>OAUTH AUTHORIZATIONS</title>
-			<short-title>OAUTH AUTHORIZATIONS</short-title>
-			<keywords>OAUTH AUTHORIZATIONS MANAGEMENT</keywords>
+			<title>OAuth Authorizations</title>
+			<short-title>OAuth Authorizations</short-title>
+			<keywords>OAuth Authorizations</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>
@@ -76,12 +66,8 @@
 	</portlet>
 	<portlet>
 		<portlet-name>3</portlet-name>
-		<display-name>3</display-name>
+		<display-name>OAuth Simulation</display-name>
 		<portlet-class>com.liferay.portlet.oauth.mvc.OAuthSimulatorPortlet</portlet-class>
-		<init-param>
-			<name>config-jsp</name>
-			<value>/html/simulator/config.jsp</value>
-		</init-param>
 		<init-param>
 			<name>copy-request-parameters</name>
 			<value>true</value>
@@ -94,13 +80,12 @@
 		<supports>
 			<mime-type>text/html</mime-type>
 			<portlet-mode>view</portlet-mode>
-			<portlet-mode>config</portlet-mode>
 		</supports>
-		<resource-bundle>content.Simulations</resource-bundle>
+		<resource-bundle>content.Language</resource-bundle>
 		<portlet-info>
-			<title>OAUTH SIMULATION</title>
-			<short-title>OAUTH SIMULATION</short-title>
-			<keywords>OAUTH SIMULATION</keywords>
+			<title>OAuth Simulation</title>
+			<short-title>OAuth Simulation</short-title>
+			<keywords>OAuth Simulation</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>
@@ -117,7 +102,7 @@
 	</portlet>
 	<portlet>
 		<portlet-name>4</portlet-name>
-		<display-name>4</display-name>
+		<display-name>OAuth Authorize</display-name>
 		<portlet-class>com.liferay.portlet.oauth.mvc.OAuthAuthorizePortlet</portlet-class>
 		<init-param>
 			<name>copy-request-parameters</name>
@@ -134,9 +119,9 @@
 		</supports>
 		<resource-bundle>content.Language</resource-bundle>
 		<portlet-info>
-			<title>Authorize</title>
-			<short-title>Authorize</short-title>
-			<keywords>Authorize</keywords>
+			<title>OAuth Authorize</title>
+			<short-title>OAuth Authorize</short-title>
+			<keywords>OAuth Authorize</keywords>
 		</portlet-info>
 		<security-role-ref>
 			<role-name>administrator</role-name>

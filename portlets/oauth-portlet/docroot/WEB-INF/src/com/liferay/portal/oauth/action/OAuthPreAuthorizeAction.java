@@ -35,7 +35,8 @@ public class OAuthPreAuthorizeAction extends BaseStrutsAction {
 		String uri = request.getRequestURI();
 		String queryString = request.getQueryString();
 
-		StringBundler sb =new StringBundler();
+		StringBundler sb =new StringBundler(7);
+
 		sb.append(uri);
 		sb.append("/private?");
 		sb.append(queryString);

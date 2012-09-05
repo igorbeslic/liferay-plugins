@@ -23,11 +23,11 @@ public class OAuthAccessorImpl implements OAuthAccessor {
 		this(new net.oauth.OAuthAccessor(
 			(net.oauth.OAuthConsumer)oAuthConsumer.getWrappedOAuthConsumer()));
 
-		this._oAuthConsumer = oAuthConsumer;
+		_oAuthConsumer = oAuthConsumer;
 	}
 
 	public OAuthAccessorImpl(net.oauth.OAuthAccessor oAuthAccessor) {
-		this._oAuthAccessor = oAuthAccessor;
+		_oAuthAccessor = oAuthAccessor;
 	}
 
 	public String getAccessToken() {
@@ -57,19 +57,19 @@ public class OAuthAccessorImpl implements OAuthAccessor {
 	}
 
 	public void setAccessToken(String accesToken) {
-		this._oAuthAccessor.accessToken = accesToken;
+		_oAuthAccessor.accessToken = accesToken;
 	}
 
 	public void setProperty(String name, Object value) {
-		this._oAuthAccessor.setProperty(name, value);
+		_oAuthAccessor.setProperty(name, value);
 	}
 
 	public void setRequestToken(String requestToken) {
-		this._oAuthAccessor.requestToken = requestToken;
+		_oAuthAccessor.requestToken = requestToken;
 	}
 
 	public void setTokenSecret(String tokenSecret) {
-		this._oAuthAccessor.tokenSecret = tokenSecret;
+		_oAuthAccessor.tokenSecret = tokenSecret;
 	}
 
 	private net.oauth.OAuthAccessor _oAuthAccessor;

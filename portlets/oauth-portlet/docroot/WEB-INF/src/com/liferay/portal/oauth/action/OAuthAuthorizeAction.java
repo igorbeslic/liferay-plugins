@@ -19,9 +19,9 @@ import com.liferay.portal.kernel.struts.BaseStrutsAction;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.oauth.util.OAuthConstants;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.PortletURLFactoryUtil;
-import com.liferay.portlet.oauth.OAuthConstants;
 
 import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
@@ -46,8 +46,6 @@ public class OAuthAuthorizeAction extends BaseStrutsAction {
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		String redirect;
-
 		PortletURL portletURL = PortletURLFactoryUtil.create(
 				request, PORTLET_ID, themeDisplay.getPlid(),
 				PortletRequest.RENDER_PHASE);
@@ -59,7 +57,7 @@ public class OAuthAuthorizeAction extends BaseStrutsAction {
 			request.getParameter(OAuthConstants.OAUTH_TOKEN));
 		portletURL.setParameter("saveLastPath", "0");
 
-		redirect = portletURL.toString();
+		String redirect = portletURL.toString();
 
 		response.sendRedirect(redirect);
 

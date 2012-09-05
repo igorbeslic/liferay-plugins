@@ -109,69 +109,27 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByConsumerKey",
 			new String[] { String.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_OWNERID = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_USERID = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED,
 			OAuthApplicationImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-			"findByOwnerId",
+			"findByUserId",
 			new String[] {
 				Long.class.getName(),
 				
 			"java.lang.Integer", "java.lang.Integer",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OWNERID =
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID =
 		new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED,
 			OAuthApplicationImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByOwnerId",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUserId",
 			new String[] { Long.class.getName() },
-			OAuthApplicationModelImpl.OWNERID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_OWNERID = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthApplicationModelImpl.USERID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_USERID = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByOwnerId",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUserId",
 			new String[] { Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_WEBSITE = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED,
-			OAuthApplicationImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-			"findByWebsite",
-			new String[] {
-				String.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_COUNT_BY_WEBSITE = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByWebsite",
-			new String[] { String.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_C_N = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED,
-			OAuthApplicationImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-			"findByC_N",
-			new String[] {
-				Long.class.getName(), String.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_COUNT_BY_C_N = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByC_N",
-			new String[] { Long.class.getName(), String.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_O_N = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED,
-			OAuthApplicationImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-			"findByO_N",
-			new String[] {
-				Long.class.getName(), String.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_COUNT_BY_O_N = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByO_N",
-			new String[] { Long.class.getName(), String.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(OAuthApplicationModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthApplicationModelImpl.FINDER_CACHE_ENABLED,
 			OAuthApplicationImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
@@ -423,21 +381,21 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 			}
 
 			if ((oAuthApplicationModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OWNERID.getColumnBitmask()) != 0) {
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(oAuthApplicationModelImpl.getOriginalOwnerId())
+						Long.valueOf(oAuthApplicationModelImpl.getOriginalUserId())
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_OWNERID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OWNERID,
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID,
 					args);
 
 				args = new Object[] {
-						Long.valueOf(oAuthApplicationModelImpl.getOwnerId())
+						Long.valueOf(oAuthApplicationModelImpl.getUserId())
 					};
 
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_OWNERID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OWNERID,
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID,
 					args);
 			}
 		}
@@ -490,14 +448,13 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 		oAuthApplicationImpl.setUserName(oAuthApplication.getUserName());
 		oAuthApplicationImpl.setCreateDate(oAuthApplication.getCreateDate());
 		oAuthApplicationImpl.setModifiedDate(oAuthApplication.getModifiedDate());
-		oAuthApplicationImpl.setOwnerId(oAuthApplication.getOwnerId());
 		oAuthApplicationImpl.setName(oAuthApplication.getName());
 		oAuthApplicationImpl.setDescription(oAuthApplication.getDescription());
 		oAuthApplicationImpl.setWebsite(oAuthApplication.getWebsite());
-		oAuthApplicationImpl.setConsumerKey(oAuthApplication.getConsumerKey());
-		oAuthApplicationImpl.setConsumerSecret(oAuthApplication.getConsumerSecret());
 		oAuthApplicationImpl.setCallBackURL(oAuthApplication.getCallBackURL());
 		oAuthApplicationImpl.setAccessLevel(oAuthApplication.getAccessLevel());
+		oAuthApplicationImpl.setConsumerKey(oAuthApplication.getConsumerKey());
+		oAuthApplicationImpl.setConsumerSecret(oAuthApplication.getConsumerSecret());
 
 		return oAuthApplicationImpl;
 	}
@@ -734,10 +691,6 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	/**
 	 * Returns the first o auth application in the ordered set where companyId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching o auth application
@@ -747,32 +700,47 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	public OAuthApplication findByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchApplicationException, SystemException {
+		OAuthApplication oAuthApplication = fetchByCompanyId_First(companyId,
+				orderByComparator);
+
+		if (oAuthApplication != null) {
+			return oAuthApplication;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchApplicationException(msg.toString());
+	}
+
+	/**
+	 * Returns the first o auth application in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching o auth application, or <code>null</code> if a matching o auth application could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OAuthApplication fetchByCompanyId_First(long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<OAuthApplication> list = findByCompanyId(companyId, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchApplicationException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last o auth application in the ordered set where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param companyId the company ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -783,34 +751,49 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	public OAuthApplication findByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchApplicationException, SystemException {
+		OAuthApplication oAuthApplication = fetchByCompanyId_Last(companyId,
+				orderByComparator);
+
+		if (oAuthApplication != null) {
+			return oAuthApplication;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchApplicationException(msg.toString());
+	}
+
+	/**
+	 * Returns the last o auth application in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching o auth application, or <code>null</code> if a matching o auth application could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OAuthApplication fetchByCompanyId_Last(long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
 
 		List<OAuthApplication> list = findByCompanyId(companyId, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchApplicationException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the o auth applications before and after the current o auth application in the ordered set where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param applicationId the primary key of the current o auth application
 	 * @param companyId the company ID
@@ -1398,62 +1381,62 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns all the o auth applications where ownerId = &#63;.
+	 * Returns all the o auth applications where userId = &#63;.
 	 *
-	 * @param ownerId the owner ID
+	 * @param userId the user ID
 	 * @return the matching o auth applications
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<OAuthApplication> findByOwnerId(long ownerId)
+	public List<OAuthApplication> findByUserId(long userId)
 		throws SystemException {
-		return findByOwnerId(ownerId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+		return findByUserId(userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns a range of all the o auth applications where ownerId = &#63;.
+	 * Returns a range of all the o auth applications where userId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param ownerId the owner ID
+	 * @param userId the user ID
 	 * @param start the lower bound of the range of o auth applications
 	 * @param end the upper bound of the range of o auth applications (not inclusive)
 	 * @return the range of matching o auth applications
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<OAuthApplication> findByOwnerId(long ownerId, int start, int end)
+	public List<OAuthApplication> findByUserId(long userId, int start, int end)
 		throws SystemException {
-		return findByOwnerId(ownerId, start, end, null);
+		return findByUserId(userId, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the o auth applications where ownerId = &#63;.
+	 * Returns an ordered range of all the o auth applications where userId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param ownerId the owner ID
+	 * @param userId the user ID
 	 * @param start the lower bound of the range of o auth applications
 	 * @param end the upper bound of the range of o auth applications (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching o auth applications
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<OAuthApplication> findByOwnerId(long ownerId, int start,
-		int end, OrderByComparator orderByComparator) throws SystemException {
+	public List<OAuthApplication> findByUserId(long userId, int start, int end,
+		OrderByComparator orderByComparator) throws SystemException {
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 				(orderByComparator == null)) {
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OWNERID;
-			finderArgs = new Object[] { ownerId };
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID;
+			finderArgs = new Object[] { userId };
 		}
 		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_OWNERID;
-			finderArgs = new Object[] { ownerId, start, end, orderByComparator };
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_USERID;
+			finderArgs = new Object[] { userId, start, end, orderByComparator };
 		}
 
 		List<OAuthApplication> list = (List<OAuthApplication>)FinderCacheUtil.getResult(finderPath,
@@ -1461,7 +1444,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 
 		if ((list != null) && !list.isEmpty()) {
 			for (OAuthApplication oAuthApplication : list) {
-				if ((ownerId != oAuthApplication.getOwnerId())) {
+				if ((userId != oAuthApplication.getUserId())) {
 					list = null;
 
 					break;
@@ -1482,7 +1465,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 
 			query.append(_SQL_SELECT_OAUTHAPPLICATION_WHERE);
 
-			query.append(_FINDER_COLUMN_OWNERID_OWNERID_2);
+			query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
@@ -1500,7 +1483,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(ownerId);
+				qPos.add(userId);
 
 				list = (List<OAuthApplication>)QueryUtil.list(q, getDialect(),
 						start, end);
@@ -1526,95 +1509,121 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the first o auth application in the ordered set where ownerId = &#63;.
+	 * Returns the first o auth application in the ordered set where userId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param ownerId the owner ID
+	 * @param userId the user ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching o auth application
 	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplication findByOwnerId_First(long ownerId,
+	public OAuthApplication findByUserId_First(long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchApplicationException, SystemException {
-		List<OAuthApplication> list = findByOwnerId(ownerId, 0, 1,
+		OAuthApplication oAuthApplication = fetchByUserId_First(userId,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("ownerId=");
-			msg.append(ownerId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchApplicationException(msg.toString());
+		if (oAuthApplication != null) {
+			return oAuthApplication;
 		}
-		else {
-			return list.get(0);
-		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("userId=");
+		msg.append(userId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchApplicationException(msg.toString());
 	}
 
 	/**
-	 * Returns the last o auth application in the ordered set where ownerId = &#63;.
+	 * Returns the first o auth application in the ordered set where userId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching o auth application, or <code>null</code> if a matching o auth application could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OAuthApplication fetchByUserId_First(long userId,
+		OrderByComparator orderByComparator) throws SystemException {
+		List<OAuthApplication> list = findByUserId(userId, 0, 1,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last o auth application in the ordered set where userId = &#63;.
 	 *
-	 * @param ownerId the owner ID
+	 * @param userId the user ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the last matching o auth application
 	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplication findByOwnerId_Last(long ownerId,
+	public OAuthApplication findByUserId_Last(long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchApplicationException, SystemException {
-		int count = countByOwnerId(ownerId);
-
-		List<OAuthApplication> list = findByOwnerId(ownerId, count - 1, count,
+		OAuthApplication oAuthApplication = fetchByUserId_Last(userId,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("ownerId=");
-			msg.append(ownerId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchApplicationException(msg.toString());
+		if (oAuthApplication != null) {
+			return oAuthApplication;
 		}
-		else {
-			return list.get(0);
-		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("userId=");
+		msg.append(userId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchApplicationException(msg.toString());
 	}
 
 	/**
-	 * Returns the o auth applications before and after the current o auth application in the ordered set where ownerId = &#63;.
+	 * Returns the last o auth application in the ordered set where userId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
+	 * @param userId the user ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching o auth application, or <code>null</code> if a matching o auth application could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public OAuthApplication fetchByUserId_Last(long userId,
+		OrderByComparator orderByComparator) throws SystemException {
+		int count = countByUserId(userId);
+
+		List<OAuthApplication> list = findByUserId(userId, count - 1, count,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the o auth applications before and after the current o auth application in the ordered set where userId = &#63;.
 	 *
 	 * @param applicationId the primary key of the current o auth application
-	 * @param ownerId the owner ID
+	 * @param userId the user ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next o auth application
 	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplication[] findByOwnerId_PrevAndNext(long applicationId,
-		long ownerId, OrderByComparator orderByComparator)
+	public OAuthApplication[] findByUserId_PrevAndNext(long applicationId,
+		long userId, OrderByComparator orderByComparator)
 		throws NoSuchApplicationException, SystemException {
 		OAuthApplication oAuthApplication = findByPrimaryKey(applicationId);
 
@@ -1625,13 +1634,13 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 
 			OAuthApplication[] array = new OAuthApplicationImpl[3];
 
-			array[0] = getByOwnerId_PrevAndNext(session, oAuthApplication,
-					ownerId, orderByComparator, true);
+			array[0] = getByUserId_PrevAndNext(session, oAuthApplication,
+					userId, orderByComparator, true);
 
 			array[1] = oAuthApplication;
 
-			array[2] = getByOwnerId_PrevAndNext(session, oAuthApplication,
-					ownerId, orderByComparator, false);
+			array[2] = getByUserId_PrevAndNext(session, oAuthApplication,
+					userId, orderByComparator, false);
 
 			return array;
 		}
@@ -1643,8 +1652,8 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 		}
 	}
 
-	protected OAuthApplication getByOwnerId_PrevAndNext(Session session,
-		OAuthApplication oAuthApplication, long ownerId,
+	protected OAuthApplication getByUserId_PrevAndNext(Session session,
+		OAuthApplication oAuthApplication, long userId,
 		OrderByComparator orderByComparator, boolean previous) {
 		StringBundler query = null;
 
@@ -1658,7 +1667,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 
 		query.append(_SQL_SELECT_OAUTHAPPLICATION_WHERE);
 
-		query.append(_FINDER_COLUMN_OWNERID_OWNERID_2);
+		query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 		if (orderByComparator != null) {
 			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
@@ -1725,7 +1734,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 
 		QueryPos qPos = QueryPos.getInstance(q);
 
-		qPos.add(ownerId);
+		qPos.add(userId);
 
 		if (orderByComparator != null) {
 			Object[] values = orderByComparator.getOrderByConditionValues(oAuthApplication);
@@ -1746,54 +1755,54 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns all the o auth applications that the user has permission to view where ownerId = &#63;.
+	 * Returns all the o auth applications that the user has permission to view where userId = &#63;.
 	 *
-	 * @param ownerId the owner ID
+	 * @param userId the user ID
 	 * @return the matching o auth applications that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<OAuthApplication> filterFindByOwnerId(long ownerId)
+	public List<OAuthApplication> filterFindByUserId(long userId)
 		throws SystemException {
-		return filterFindByOwnerId(ownerId, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
+		return filterFindByUserId(userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
 	}
 
 	/**
-	 * Returns a range of all the o auth applications that the user has permission to view where ownerId = &#63;.
+	 * Returns a range of all the o auth applications that the user has permission to view where userId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param ownerId the owner ID
+	 * @param userId the user ID
 	 * @param start the lower bound of the range of o auth applications
 	 * @param end the upper bound of the range of o auth applications (not inclusive)
 	 * @return the range of matching o auth applications that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<OAuthApplication> filterFindByOwnerId(long ownerId, int start,
+	public List<OAuthApplication> filterFindByUserId(long userId, int start,
 		int end) throws SystemException {
-		return filterFindByOwnerId(ownerId, start, end, null);
+		return filterFindByUserId(userId, start, end, null);
 	}
 
 	/**
-	 * Returns an ordered range of all the o auth applications that the user has permissions to view where ownerId = &#63;.
+	 * Returns an ordered range of all the o auth applications that the user has permissions to view where userId = &#63;.
 	 *
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	 * </p>
 	 *
-	 * @param ownerId the owner ID
+	 * @param userId the user ID
 	 * @param start the lower bound of the range of o auth applications
 	 * @param end the upper bound of the range of o auth applications (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching o auth applications that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
-	public List<OAuthApplication> filterFindByOwnerId(long ownerId, int start,
+	public List<OAuthApplication> filterFindByUserId(long userId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled()) {
-			return findByOwnerId(ownerId, start, end, orderByComparator);
+			return findByUserId(userId, start, end, orderByComparator);
 		}
 
 		StringBundler query = null;
@@ -1813,7 +1822,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		query.append(_FINDER_COLUMN_OWNERID_OWNERID_2);
+		query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 		if (!getDB().isSupportsInlineDistinct()) {
 			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_2);
@@ -1850,7 +1859,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			qPos.add(ownerId);
+			qPos.add(userId);
 
 			return (List<OAuthApplication>)QueryUtil.list(q, getDialect(),
 				start, end);
@@ -1864,20 +1873,20 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where ownerId = &#63;.
+	 * Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where userId = &#63;.
 	 *
 	 * @param applicationId the primary key of the current o auth application
-	 * @param ownerId the owner ID
+	 * @param userId the user ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the previous, current, and next o auth application
 	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public OAuthApplication[] filterFindByOwnerId_PrevAndNext(
-		long applicationId, long ownerId, OrderByComparator orderByComparator)
+	public OAuthApplication[] filterFindByUserId_PrevAndNext(
+		long applicationId, long userId, OrderByComparator orderByComparator)
 		throws NoSuchApplicationException, SystemException {
 		if (!InlineSQLHelperUtil.isEnabled()) {
-			return findByOwnerId_PrevAndNext(applicationId, ownerId,
+			return findByUserId_PrevAndNext(applicationId, userId,
 				orderByComparator);
 		}
 
@@ -1890,13 +1899,13 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 
 			OAuthApplication[] array = new OAuthApplicationImpl[3];
 
-			array[0] = filterGetByOwnerId_PrevAndNext(session,
-					oAuthApplication, ownerId, orderByComparator, true);
+			array[0] = filterGetByUserId_PrevAndNext(session, oAuthApplication,
+					userId, orderByComparator, true);
 
 			array[1] = oAuthApplication;
 
-			array[2] = filterGetByOwnerId_PrevAndNext(session,
-					oAuthApplication, ownerId, orderByComparator, false);
+			array[2] = filterGetByUserId_PrevAndNext(session, oAuthApplication,
+					userId, orderByComparator, false);
 
 			return array;
 		}
@@ -1908,8 +1917,8 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 		}
 	}
 
-	protected OAuthApplication filterGetByOwnerId_PrevAndNext(Session session,
-		OAuthApplication oAuthApplication, long ownerId,
+	protected OAuthApplication filterGetByUserId_PrevAndNext(Session session,
+		OAuthApplication oAuthApplication, long userId,
 		OrderByComparator orderByComparator, boolean previous) {
 		StringBundler query = null;
 
@@ -1928,7 +1937,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_1);
 		}
 
-		query.append(_FINDER_COLUMN_OWNERID_OWNERID_2);
+		query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 		if (!getDB().isSupportsInlineDistinct()) {
 			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_2);
@@ -2020,2132 +2029,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 
 		QueryPos qPos = QueryPos.getInstance(q);
 
-		qPos.add(ownerId);
-
-		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(oAuthApplication);
-
-			for (Object value : values) {
-				qPos.add(value);
-			}
-		}
-
-		List<OAuthApplication> list = q.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * Returns all the o auth applications where website LIKE &#63;.
-	 *
-	 * @param website the website
-	 * @return the matching o auth applications
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> findByWebsite(String website)
-		throws SystemException {
-		return findByWebsite(website, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
-	}
-
-	/**
-	 * Returns a range of all the o auth applications where website LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param website the website
-	 * @param start the lower bound of the range of o auth applications
-	 * @param end the upper bound of the range of o auth applications (not inclusive)
-	 * @return the range of matching o auth applications
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> findByWebsite(String website, int start,
-		int end) throws SystemException {
-		return findByWebsite(website, start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the o auth applications where website LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param website the website
-	 * @param start the lower bound of the range of o auth applications
-	 * @param end the upper bound of the range of o auth applications (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching o auth applications
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> findByWebsite(String website, int start,
-		int end, OrderByComparator orderByComparator) throws SystemException {
-		FinderPath finderPath = null;
-		Object[] finderArgs = null;
-
-		finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_WEBSITE;
-		finderArgs = new Object[] { website, start, end, orderByComparator };
-
-		List<OAuthApplication> list = (List<OAuthApplication>)FinderCacheUtil.getResult(finderPath,
-				finderArgs, this);
-
-		if ((list != null) && !list.isEmpty()) {
-			for (OAuthApplication oAuthApplication : list) {
-				if (!Validator.equals(website, oAuthApplication.getWebsite())) {
-					list = null;
-
-					break;
-				}
-			}
-		}
-
-		if (list == null) {
-			StringBundler query = null;
-
-			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 3));
-			}
-			else {
-				query = new StringBundler(2);
-			}
-
-			query.append(_SQL_SELECT_OAUTHAPPLICATION_WHERE);
-
-			if (website == null) {
-				query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_1);
-			}
-			else {
-				if (website.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_2);
-				}
-			}
-
-			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (website != null) {
-					qPos.add(website);
-				}
-
-				list = (List<OAuthApplication>)QueryUtil.list(q, getDialect(),
-						start, end);
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(finderPath, finderArgs);
-				}
-				else {
-					cacheResult(list);
-
-					FinderCacheUtil.putResult(finderPath, finderArgs, list);
-				}
-
-				closeSession(session);
-			}
-		}
-
-		return list;
-	}
-
-	/**
-	 * Returns the first o auth application in the ordered set where website LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param website the website
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching o auth application
-	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthApplication findByWebsite_First(String website,
-		OrderByComparator orderByComparator)
-		throws NoSuchApplicationException, SystemException {
-		List<OAuthApplication> list = findByWebsite(website, 0, 1,
-				orderByComparator);
-
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("website=");
-			msg.append(website);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchApplicationException(msg.toString());
-		}
-		else {
-			return list.get(0);
-		}
-	}
-
-	/**
-	 * Returns the last o auth application in the ordered set where website LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param website the website
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching o auth application
-	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthApplication findByWebsite_Last(String website,
-		OrderByComparator orderByComparator)
-		throws NoSuchApplicationException, SystemException {
-		int count = countByWebsite(website);
-
-		List<OAuthApplication> list = findByWebsite(website, count - 1, count,
-				orderByComparator);
-
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("website=");
-			msg.append(website);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchApplicationException(msg.toString());
-		}
-		else {
-			return list.get(0);
-		}
-	}
-
-	/**
-	 * Returns the o auth applications before and after the current o auth application in the ordered set where website LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param applicationId the primary key of the current o auth application
-	 * @param website the website
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next o auth application
-	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthApplication[] findByWebsite_PrevAndNext(long applicationId,
-		String website, OrderByComparator orderByComparator)
-		throws NoSuchApplicationException, SystemException {
-		OAuthApplication oAuthApplication = findByPrimaryKey(applicationId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			OAuthApplication[] array = new OAuthApplicationImpl[3];
-
-			array[0] = getByWebsite_PrevAndNext(session, oAuthApplication,
-					website, orderByComparator, true);
-
-			array[1] = oAuthApplication;
-
-			array[2] = getByWebsite_PrevAndNext(session, oAuthApplication,
-					website, orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected OAuthApplication getByWebsite_PrevAndNext(Session session,
-		OAuthApplication oAuthApplication, String website,
-		OrderByComparator orderByComparator, boolean previous) {
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(6 +
-					(orderByComparator.getOrderByFields().length * 6));
-		}
-		else {
-			query = new StringBundler(3);
-		}
-
-		query.append(_SQL_SELECT_OAUTHAPPLICATION_WHERE);
-
-		if (website == null) {
-			query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_1);
-		}
-		else {
-			if (website.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_3);
-			}
-			else {
-				query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_2);
-			}
-		}
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
-			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN);
-					}
-				}
-			}
-
-			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
-					}
-					else {
-						query.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-
-		String sql = query.toString();
-
-		Query q = session.createQuery(sql);
-
-		q.setFirstResult(0);
-		q.setMaxResults(2);
-
-		QueryPos qPos = QueryPos.getInstance(q);
-
-		if (website != null) {
-			qPos.add(website);
-		}
-
-		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(oAuthApplication);
-
-			for (Object value : values) {
-				qPos.add(value);
-			}
-		}
-
-		List<OAuthApplication> list = q.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * Returns all the o auth applications that the user has permission to view where website LIKE &#63;.
-	 *
-	 * @param website the website
-	 * @return the matching o auth applications that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> filterFindByWebsite(String website)
-		throws SystemException {
-		return filterFindByWebsite(website, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
-	}
-
-	/**
-	 * Returns a range of all the o auth applications that the user has permission to view where website LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param website the website
-	 * @param start the lower bound of the range of o auth applications
-	 * @param end the upper bound of the range of o auth applications (not inclusive)
-	 * @return the range of matching o auth applications that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> filterFindByWebsite(String website,
-		int start, int end) throws SystemException {
-		return filterFindByWebsite(website, start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the o auth applications that the user has permissions to view where website LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param website the website
-	 * @param start the lower bound of the range of o auth applications
-	 * @param end the upper bound of the range of o auth applications (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching o auth applications that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> filterFindByWebsite(String website,
-		int start, int end, OrderByComparator orderByComparator)
-		throws SystemException {
-		if (!InlineSQLHelperUtil.isEnabled()) {
-			return findByWebsite(website, start, end, orderByComparator);
-		}
-
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(3 +
-					(orderByComparator.getOrderByFields().length * 3));
-		}
-		else {
-			query = new StringBundler(2);
-		}
-
-		if (getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_WHERE);
-		}
-		else {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_1);
-		}
-
-		if (website == null) {
-			query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_1);
-		}
-		else {
-			if (website.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_3);
-			}
-			else {
-				query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_2);
-			}
-		}
-
-		if (!getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_2);
-		}
-
-		if (orderByComparator != null) {
-			if (getDB().isSupportsInlineDistinct()) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
-			}
-			else {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
-					orderByComparator);
-			}
-		}
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				OAuthApplication.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			SQLQuery q = session.createSQLQuery(sql);
-
-			if (getDB().isSupportsInlineDistinct()) {
-				q.addEntity(_FILTER_ENTITY_ALIAS, OAuthApplicationImpl.class);
-			}
-			else {
-				q.addEntity(_FILTER_ENTITY_TABLE, OAuthApplicationImpl.class);
-			}
-
-			QueryPos qPos = QueryPos.getInstance(q);
-
-			if (website != null) {
-				qPos.add(website);
-			}
-
-			return (List<OAuthApplication>)QueryUtil.list(q, getDialect(),
-				start, end);
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	/**
-	 * Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where website LIKE &#63;.
-	 *
-	 * @param applicationId the primary key of the current o auth application
-	 * @param website the website
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next o auth application
-	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthApplication[] filterFindByWebsite_PrevAndNext(
-		long applicationId, String website, OrderByComparator orderByComparator)
-		throws NoSuchApplicationException, SystemException {
-		if (!InlineSQLHelperUtil.isEnabled()) {
-			return findByWebsite_PrevAndNext(applicationId, website,
-				orderByComparator);
-		}
-
-		OAuthApplication oAuthApplication = findByPrimaryKey(applicationId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			OAuthApplication[] array = new OAuthApplicationImpl[3];
-
-			array[0] = filterGetByWebsite_PrevAndNext(session,
-					oAuthApplication, website, orderByComparator, true);
-
-			array[1] = oAuthApplication;
-
-			array[2] = filterGetByWebsite_PrevAndNext(session,
-					oAuthApplication, website, orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected OAuthApplication filterGetByWebsite_PrevAndNext(Session session,
-		OAuthApplication oAuthApplication, String website,
-		OrderByComparator orderByComparator, boolean previous) {
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(6 +
-					(orderByComparator.getOrderByFields().length * 6));
-		}
-		else {
-			query = new StringBundler(3);
-		}
-
-		if (getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_WHERE);
-		}
-		else {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_1);
-		}
-
-		if (website == null) {
-			query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_1);
-		}
-		else {
-			if (website.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_3);
-			}
-			else {
-				query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_2);
-			}
-		}
-
-		if (!getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_2);
-		}
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
-			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				if (getDB().isSupportsInlineDistinct()) {
-					query.append(_ORDER_BY_ENTITY_ALIAS);
-				}
-				else {
-					query.append(_ORDER_BY_ENTITY_TABLE);
-				}
-
-				query.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN);
-					}
-				}
-			}
-
-			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				if (getDB().isSupportsInlineDistinct()) {
-					query.append(_ORDER_BY_ENTITY_ALIAS);
-				}
-				else {
-					query.append(_ORDER_BY_ENTITY_TABLE);
-				}
-
-				query.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
-					}
-					else {
-						query.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				OAuthApplication.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
-
-		SQLQuery q = session.createSQLQuery(sql);
-
-		q.setFirstResult(0);
-		q.setMaxResults(2);
-
-		if (getDB().isSupportsInlineDistinct()) {
-			q.addEntity(_FILTER_ENTITY_ALIAS, OAuthApplicationImpl.class);
-		}
-		else {
-			q.addEntity(_FILTER_ENTITY_TABLE, OAuthApplicationImpl.class);
-		}
-
-		QueryPos qPos = QueryPos.getInstance(q);
-
-		if (website != null) {
-			qPos.add(website);
-		}
-
-		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(oAuthApplication);
-
-			for (Object value : values) {
-				qPos.add(value);
-			}
-		}
-
-		List<OAuthApplication> list = q.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * Returns all the o auth applications where companyId = &#63; and name LIKE &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param name the name
-	 * @return the matching o auth applications
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> findByC_N(long companyId, String name)
-		throws SystemException {
-		return findByC_N(companyId, name, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
-	}
-
-	/**
-	 * Returns a range of all the o auth applications where companyId = &#63; and name LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param companyId the company ID
-	 * @param name the name
-	 * @param start the lower bound of the range of o auth applications
-	 * @param end the upper bound of the range of o auth applications (not inclusive)
-	 * @return the range of matching o auth applications
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> findByC_N(long companyId, String name,
-		int start, int end) throws SystemException {
-		return findByC_N(companyId, name, start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the o auth applications where companyId = &#63; and name LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param companyId the company ID
-	 * @param name the name
-	 * @param start the lower bound of the range of o auth applications
-	 * @param end the upper bound of the range of o auth applications (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching o auth applications
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> findByC_N(long companyId, String name,
-		int start, int end, OrderByComparator orderByComparator)
-		throws SystemException {
-		FinderPath finderPath = null;
-		Object[] finderArgs = null;
-
-		finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_C_N;
-		finderArgs = new Object[] { companyId, name, start, end, orderByComparator };
-
-		List<OAuthApplication> list = (List<OAuthApplication>)FinderCacheUtil.getResult(finderPath,
-				finderArgs, this);
-
-		if ((list != null) && !list.isEmpty()) {
-			for (OAuthApplication oAuthApplication : list) {
-				if ((companyId != oAuthApplication.getCompanyId()) ||
-						!Validator.equals(name, oAuthApplication.getName())) {
-					list = null;
-
-					break;
-				}
-			}
-		}
-
-		if (list == null) {
-			StringBundler query = null;
-
-			if (orderByComparator != null) {
-				query = new StringBundler(4 +
-						(orderByComparator.getOrderByFields().length * 3));
-			}
-			else {
-				query = new StringBundler(3);
-			}
-
-			query.append(_SQL_SELECT_OAUTHAPPLICATION_WHERE);
-
-			query.append(_FINDER_COLUMN_C_N_COMPANYID_2);
-
-			if (name == null) {
-				query.append(_FINDER_COLUMN_C_N_NAME_1);
-			}
-			else {
-				if (name.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_C_N_NAME_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_C_N_NAME_2);
-				}
-			}
-
-			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(companyId);
-
-				if (name != null) {
-					qPos.add(name);
-				}
-
-				list = (List<OAuthApplication>)QueryUtil.list(q, getDialect(),
-						start, end);
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(finderPath, finderArgs);
-				}
-				else {
-					cacheResult(list);
-
-					FinderCacheUtil.putResult(finderPath, finderArgs, list);
-				}
-
-				closeSession(session);
-			}
-		}
-
-		return list;
-	}
-
-	/**
-	 * Returns the first o auth application in the ordered set where companyId = &#63; and name LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param companyId the company ID
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching o auth application
-	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthApplication findByC_N_First(long companyId, String name,
-		OrderByComparator orderByComparator)
-		throws NoSuchApplicationException, SystemException {
-		List<OAuthApplication> list = findByC_N(companyId, name, 0, 1,
-				orderByComparator);
-
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(", name=");
-			msg.append(name);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchApplicationException(msg.toString());
-		}
-		else {
-			return list.get(0);
-		}
-	}
-
-	/**
-	 * Returns the last o auth application in the ordered set where companyId = &#63; and name LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param companyId the company ID
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching o auth application
-	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthApplication findByC_N_Last(long companyId, String name,
-		OrderByComparator orderByComparator)
-		throws NoSuchApplicationException, SystemException {
-		int count = countByC_N(companyId, name);
-
-		List<OAuthApplication> list = findByC_N(companyId, name, count - 1,
-				count, orderByComparator);
-
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(", name=");
-			msg.append(name);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchApplicationException(msg.toString());
-		}
-		else {
-			return list.get(0);
-		}
-	}
-
-	/**
-	 * Returns the o auth applications before and after the current o auth application in the ordered set where companyId = &#63; and name LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param applicationId the primary key of the current o auth application
-	 * @param companyId the company ID
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next o auth application
-	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthApplication[] findByC_N_PrevAndNext(long applicationId,
-		long companyId, String name, OrderByComparator orderByComparator)
-		throws NoSuchApplicationException, SystemException {
-		OAuthApplication oAuthApplication = findByPrimaryKey(applicationId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			OAuthApplication[] array = new OAuthApplicationImpl[3];
-
-			array[0] = getByC_N_PrevAndNext(session, oAuthApplication,
-					companyId, name, orderByComparator, true);
-
-			array[1] = oAuthApplication;
-
-			array[2] = getByC_N_PrevAndNext(session, oAuthApplication,
-					companyId, name, orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected OAuthApplication getByC_N_PrevAndNext(Session session,
-		OAuthApplication oAuthApplication, long companyId, String name,
-		OrderByComparator orderByComparator, boolean previous) {
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(6 +
-					(orderByComparator.getOrderByFields().length * 6));
-		}
-		else {
-			query = new StringBundler(3);
-		}
-
-		query.append(_SQL_SELECT_OAUTHAPPLICATION_WHERE);
-
-		query.append(_FINDER_COLUMN_C_N_COMPANYID_2);
-
-		if (name == null) {
-			query.append(_FINDER_COLUMN_C_N_NAME_1);
-		}
-		else {
-			if (name.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_C_N_NAME_3);
-			}
-			else {
-				query.append(_FINDER_COLUMN_C_N_NAME_2);
-			}
-		}
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
-			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN);
-					}
-				}
-			}
-
-			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
-					}
-					else {
-						query.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-
-		String sql = query.toString();
-
-		Query q = session.createQuery(sql);
-
-		q.setFirstResult(0);
-		q.setMaxResults(2);
-
-		QueryPos qPos = QueryPos.getInstance(q);
-
-		qPos.add(companyId);
-
-		if (name != null) {
-			qPos.add(name);
-		}
-
-		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(oAuthApplication);
-
-			for (Object value : values) {
-				qPos.add(value);
-			}
-		}
-
-		List<OAuthApplication> list = q.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * Returns all the o auth applications that the user has permission to view where companyId = &#63; and name LIKE &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param name the name
-	 * @return the matching o auth applications that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> filterFindByC_N(long companyId, String name)
-		throws SystemException {
-		return filterFindByC_N(companyId, name, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
-	}
-
-	/**
-	 * Returns a range of all the o auth applications that the user has permission to view where companyId = &#63; and name LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param companyId the company ID
-	 * @param name the name
-	 * @param start the lower bound of the range of o auth applications
-	 * @param end the upper bound of the range of o auth applications (not inclusive)
-	 * @return the range of matching o auth applications that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> filterFindByC_N(long companyId, String name,
-		int start, int end) throws SystemException {
-		return filterFindByC_N(companyId, name, start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the o auth applications that the user has permissions to view where companyId = &#63; and name LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param companyId the company ID
-	 * @param name the name
-	 * @param start the lower bound of the range of o auth applications
-	 * @param end the upper bound of the range of o auth applications (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching o auth applications that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> filterFindByC_N(long companyId, String name,
-		int start, int end, OrderByComparator orderByComparator)
-		throws SystemException {
-		if (!InlineSQLHelperUtil.isEnabled()) {
-			return findByC_N(companyId, name, start, end, orderByComparator);
-		}
-
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByFields().length * 3));
-		}
-		else {
-			query = new StringBundler(3);
-		}
-
-		if (getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_WHERE);
-		}
-		else {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_1);
-		}
-
-		query.append(_FINDER_COLUMN_C_N_COMPANYID_2);
-
-		if (name == null) {
-			query.append(_FINDER_COLUMN_C_N_NAME_1);
-		}
-		else {
-			if (name.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_C_N_NAME_3);
-			}
-			else {
-				query.append(_FINDER_COLUMN_C_N_NAME_2);
-			}
-		}
-
-		if (!getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_2);
-		}
-
-		if (orderByComparator != null) {
-			if (getDB().isSupportsInlineDistinct()) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
-			}
-			else {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
-					orderByComparator);
-			}
-		}
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				OAuthApplication.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			SQLQuery q = session.createSQLQuery(sql);
-
-			if (getDB().isSupportsInlineDistinct()) {
-				q.addEntity(_FILTER_ENTITY_ALIAS, OAuthApplicationImpl.class);
-			}
-			else {
-				q.addEntity(_FILTER_ENTITY_TABLE, OAuthApplicationImpl.class);
-			}
-
-			QueryPos qPos = QueryPos.getInstance(q);
-
-			qPos.add(companyId);
-
-			if (name != null) {
-				qPos.add(name);
-			}
-
-			return (List<OAuthApplication>)QueryUtil.list(q, getDialect(),
-				start, end);
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	/**
-	 * Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where companyId = &#63; and name LIKE &#63;.
-	 *
-	 * @param applicationId the primary key of the current o auth application
-	 * @param companyId the company ID
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next o auth application
-	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthApplication[] filterFindByC_N_PrevAndNext(long applicationId,
-		long companyId, String name, OrderByComparator orderByComparator)
-		throws NoSuchApplicationException, SystemException {
-		if (!InlineSQLHelperUtil.isEnabled()) {
-			return findByC_N_PrevAndNext(applicationId, companyId, name,
-				orderByComparator);
-		}
-
-		OAuthApplication oAuthApplication = findByPrimaryKey(applicationId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			OAuthApplication[] array = new OAuthApplicationImpl[3];
-
-			array[0] = filterGetByC_N_PrevAndNext(session, oAuthApplication,
-					companyId, name, orderByComparator, true);
-
-			array[1] = oAuthApplication;
-
-			array[2] = filterGetByC_N_PrevAndNext(session, oAuthApplication,
-					companyId, name, orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected OAuthApplication filterGetByC_N_PrevAndNext(Session session,
-		OAuthApplication oAuthApplication, long companyId, String name,
-		OrderByComparator orderByComparator, boolean previous) {
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(6 +
-					(orderByComparator.getOrderByFields().length * 6));
-		}
-		else {
-			query = new StringBundler(3);
-		}
-
-		if (getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_WHERE);
-		}
-		else {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_1);
-		}
-
-		query.append(_FINDER_COLUMN_C_N_COMPANYID_2);
-
-		if (name == null) {
-			query.append(_FINDER_COLUMN_C_N_NAME_1);
-		}
-		else {
-			if (name.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_C_N_NAME_3);
-			}
-			else {
-				query.append(_FINDER_COLUMN_C_N_NAME_2);
-			}
-		}
-
-		if (!getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_2);
-		}
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
-			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				if (getDB().isSupportsInlineDistinct()) {
-					query.append(_ORDER_BY_ENTITY_ALIAS);
-				}
-				else {
-					query.append(_ORDER_BY_ENTITY_TABLE);
-				}
-
-				query.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN);
-					}
-				}
-			}
-
-			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				if (getDB().isSupportsInlineDistinct()) {
-					query.append(_ORDER_BY_ENTITY_ALIAS);
-				}
-				else {
-					query.append(_ORDER_BY_ENTITY_TABLE);
-				}
-
-				query.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
-					}
-					else {
-						query.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				OAuthApplication.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
-
-		SQLQuery q = session.createSQLQuery(sql);
-
-		q.setFirstResult(0);
-		q.setMaxResults(2);
-
-		if (getDB().isSupportsInlineDistinct()) {
-			q.addEntity(_FILTER_ENTITY_ALIAS, OAuthApplicationImpl.class);
-		}
-		else {
-			q.addEntity(_FILTER_ENTITY_TABLE, OAuthApplicationImpl.class);
-		}
-
-		QueryPos qPos = QueryPos.getInstance(q);
-
-		qPos.add(companyId);
-
-		if (name != null) {
-			qPos.add(name);
-		}
-
-		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(oAuthApplication);
-
-			for (Object value : values) {
-				qPos.add(value);
-			}
-		}
-
-		List<OAuthApplication> list = q.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * Returns all the o auth applications where ownerId = &#63; and name LIKE &#63;.
-	 *
-	 * @param ownerId the owner ID
-	 * @param name the name
-	 * @return the matching o auth applications
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> findByO_N(long ownerId, String name)
-		throws SystemException {
-		return findByO_N(ownerId, name, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
-	}
-
-	/**
-	 * Returns a range of all the o auth applications where ownerId = &#63; and name LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param ownerId the owner ID
-	 * @param name the name
-	 * @param start the lower bound of the range of o auth applications
-	 * @param end the upper bound of the range of o auth applications (not inclusive)
-	 * @return the range of matching o auth applications
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> findByO_N(long ownerId, String name,
-		int start, int end) throws SystemException {
-		return findByO_N(ownerId, name, start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the o auth applications where ownerId = &#63; and name LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param ownerId the owner ID
-	 * @param name the name
-	 * @param start the lower bound of the range of o auth applications
-	 * @param end the upper bound of the range of o auth applications (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching o auth applications
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> findByO_N(long ownerId, String name,
-		int start, int end, OrderByComparator orderByComparator)
-		throws SystemException {
-		FinderPath finderPath = null;
-		Object[] finderArgs = null;
-
-		finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_O_N;
-		finderArgs = new Object[] { ownerId, name, start, end, orderByComparator };
-
-		List<OAuthApplication> list = (List<OAuthApplication>)FinderCacheUtil.getResult(finderPath,
-				finderArgs, this);
-
-		if ((list != null) && !list.isEmpty()) {
-			for (OAuthApplication oAuthApplication : list) {
-				if ((ownerId != oAuthApplication.getOwnerId()) ||
-						!Validator.equals(name, oAuthApplication.getName())) {
-					list = null;
-
-					break;
-				}
-			}
-		}
-
-		if (list == null) {
-			StringBundler query = null;
-
-			if (orderByComparator != null) {
-				query = new StringBundler(4 +
-						(orderByComparator.getOrderByFields().length * 3));
-			}
-			else {
-				query = new StringBundler(3);
-			}
-
-			query.append(_SQL_SELECT_OAUTHAPPLICATION_WHERE);
-
-			query.append(_FINDER_COLUMN_O_N_OWNERID_2);
-
-			if (name == null) {
-				query.append(_FINDER_COLUMN_O_N_NAME_1);
-			}
-			else {
-				if (name.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_O_N_NAME_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_O_N_NAME_2);
-				}
-			}
-
-			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(ownerId);
-
-				if (name != null) {
-					qPos.add(name);
-				}
-
-				list = (List<OAuthApplication>)QueryUtil.list(q, getDialect(),
-						start, end);
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(finderPath, finderArgs);
-				}
-				else {
-					cacheResult(list);
-
-					FinderCacheUtil.putResult(finderPath, finderArgs, list);
-				}
-
-				closeSession(session);
-			}
-		}
-
-		return list;
-	}
-
-	/**
-	 * Returns the first o auth application in the ordered set where ownerId = &#63; and name LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param ownerId the owner ID
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching o auth application
-	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthApplication findByO_N_First(long ownerId, String name,
-		OrderByComparator orderByComparator)
-		throws NoSuchApplicationException, SystemException {
-		List<OAuthApplication> list = findByO_N(ownerId, name, 0, 1,
-				orderByComparator);
-
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("ownerId=");
-			msg.append(ownerId);
-
-			msg.append(", name=");
-			msg.append(name);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchApplicationException(msg.toString());
-		}
-		else {
-			return list.get(0);
-		}
-	}
-
-	/**
-	 * Returns the last o auth application in the ordered set where ownerId = &#63; and name LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param ownerId the owner ID
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching o auth application
-	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthApplication findByO_N_Last(long ownerId, String name,
-		OrderByComparator orderByComparator)
-		throws NoSuchApplicationException, SystemException {
-		int count = countByO_N(ownerId, name);
-
-		List<OAuthApplication> list = findByO_N(ownerId, name, count - 1,
-				count, orderByComparator);
-
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("ownerId=");
-			msg.append(ownerId);
-
-			msg.append(", name=");
-			msg.append(name);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchApplicationException(msg.toString());
-		}
-		else {
-			return list.get(0);
-		}
-	}
-
-	/**
-	 * Returns the o auth applications before and after the current o auth application in the ordered set where ownerId = &#63; and name LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param applicationId the primary key of the current o auth application
-	 * @param ownerId the owner ID
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next o auth application
-	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthApplication[] findByO_N_PrevAndNext(long applicationId,
-		long ownerId, String name, OrderByComparator orderByComparator)
-		throws NoSuchApplicationException, SystemException {
-		OAuthApplication oAuthApplication = findByPrimaryKey(applicationId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			OAuthApplication[] array = new OAuthApplicationImpl[3];
-
-			array[0] = getByO_N_PrevAndNext(session, oAuthApplication, ownerId,
-					name, orderByComparator, true);
-
-			array[1] = oAuthApplication;
-
-			array[2] = getByO_N_PrevAndNext(session, oAuthApplication, ownerId,
-					name, orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected OAuthApplication getByO_N_PrevAndNext(Session session,
-		OAuthApplication oAuthApplication, long ownerId, String name,
-		OrderByComparator orderByComparator, boolean previous) {
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(6 +
-					(orderByComparator.getOrderByFields().length * 6));
-		}
-		else {
-			query = new StringBundler(3);
-		}
-
-		query.append(_SQL_SELECT_OAUTHAPPLICATION_WHERE);
-
-		query.append(_FINDER_COLUMN_O_N_OWNERID_2);
-
-		if (name == null) {
-			query.append(_FINDER_COLUMN_O_N_NAME_1);
-		}
-		else {
-			if (name.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_O_N_NAME_3);
-			}
-			else {
-				query.append(_FINDER_COLUMN_O_N_NAME_2);
-			}
-		}
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
-			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN);
-					}
-				}
-			}
-
-			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
-					}
-					else {
-						query.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-
-		String sql = query.toString();
-
-		Query q = session.createQuery(sql);
-
-		q.setFirstResult(0);
-		q.setMaxResults(2);
-
-		QueryPos qPos = QueryPos.getInstance(q);
-
-		qPos.add(ownerId);
-
-		if (name != null) {
-			qPos.add(name);
-		}
-
-		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(oAuthApplication);
-
-			for (Object value : values) {
-				qPos.add(value);
-			}
-		}
-
-		List<OAuthApplication> list = q.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * Returns all the o auth applications that the user has permission to view where ownerId = &#63; and name LIKE &#63;.
-	 *
-	 * @param ownerId the owner ID
-	 * @param name the name
-	 * @return the matching o auth applications that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> filterFindByO_N(long ownerId, String name)
-		throws SystemException {
-		return filterFindByO_N(ownerId, name, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
-	}
-
-	/**
-	 * Returns a range of all the o auth applications that the user has permission to view where ownerId = &#63; and name LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param ownerId the owner ID
-	 * @param name the name
-	 * @param start the lower bound of the range of o auth applications
-	 * @param end the upper bound of the range of o auth applications (not inclusive)
-	 * @return the range of matching o auth applications that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> filterFindByO_N(long ownerId, String name,
-		int start, int end) throws SystemException {
-		return filterFindByO_N(ownerId, name, start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the o auth applications that the user has permissions to view where ownerId = &#63; and name LIKE &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param ownerId the owner ID
-	 * @param name the name
-	 * @param start the lower bound of the range of o auth applications
-	 * @param end the upper bound of the range of o auth applications (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching o auth applications that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthApplication> filterFindByO_N(long ownerId, String name,
-		int start, int end, OrderByComparator orderByComparator)
-		throws SystemException {
-		if (!InlineSQLHelperUtil.isEnabled()) {
-			return findByO_N(ownerId, name, start, end, orderByComparator);
-		}
-
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(4 +
-					(orderByComparator.getOrderByFields().length * 3));
-		}
-		else {
-			query = new StringBundler(3);
-		}
-
-		if (getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_WHERE);
-		}
-		else {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_1);
-		}
-
-		query.append(_FINDER_COLUMN_O_N_OWNERID_2);
-
-		if (name == null) {
-			query.append(_FINDER_COLUMN_O_N_NAME_1);
-		}
-		else {
-			if (name.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_O_N_NAME_3);
-			}
-			else {
-				query.append(_FINDER_COLUMN_O_N_NAME_2);
-			}
-		}
-
-		if (!getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_2);
-		}
-
-		if (orderByComparator != null) {
-			if (getDB().isSupportsInlineDistinct()) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
-			}
-			else {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
-					orderByComparator);
-			}
-		}
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				OAuthApplication.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			SQLQuery q = session.createSQLQuery(sql);
-
-			if (getDB().isSupportsInlineDistinct()) {
-				q.addEntity(_FILTER_ENTITY_ALIAS, OAuthApplicationImpl.class);
-			}
-			else {
-				q.addEntity(_FILTER_ENTITY_TABLE, OAuthApplicationImpl.class);
-			}
-
-			QueryPos qPos = QueryPos.getInstance(q);
-
-			qPos.add(ownerId);
-
-			if (name != null) {
-				qPos.add(name);
-			}
-
-			return (List<OAuthApplication>)QueryUtil.list(q, getDialect(),
-				start, end);
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	/**
-	 * Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where ownerId = &#63; and name LIKE &#63;.
-	 *
-	 * @param applicationId the primary key of the current o auth application
-	 * @param ownerId the owner ID
-	 * @param name the name
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next o auth application
-	 * @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthApplication[] filterFindByO_N_PrevAndNext(long applicationId,
-		long ownerId, String name, OrderByComparator orderByComparator)
-		throws NoSuchApplicationException, SystemException {
-		if (!InlineSQLHelperUtil.isEnabled()) {
-			return findByO_N_PrevAndNext(applicationId, ownerId, name,
-				orderByComparator);
-		}
-
-		OAuthApplication oAuthApplication = findByPrimaryKey(applicationId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			OAuthApplication[] array = new OAuthApplicationImpl[3];
-
-			array[0] = filterGetByO_N_PrevAndNext(session, oAuthApplication,
-					ownerId, name, orderByComparator, true);
-
-			array[1] = oAuthApplication;
-
-			array[2] = filterGetByO_N_PrevAndNext(session, oAuthApplication,
-					ownerId, name, orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected OAuthApplication filterGetByO_N_PrevAndNext(Session session,
-		OAuthApplication oAuthApplication, long ownerId, String name,
-		OrderByComparator orderByComparator, boolean previous) {
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(6 +
-					(orderByComparator.getOrderByFields().length * 6));
-		}
-		else {
-			query = new StringBundler(3);
-		}
-
-		if (getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_WHERE);
-		}
-		else {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_1);
-		}
-
-		query.append(_FINDER_COLUMN_O_N_OWNERID_2);
-
-		if (name == null) {
-			query.append(_FINDER_COLUMN_O_N_NAME_1);
-		}
-		else {
-			if (name.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_O_N_NAME_3);
-			}
-			else {
-				query.append(_FINDER_COLUMN_O_N_NAME_2);
-			}
-		}
-
-		if (!getDB().isSupportsInlineDistinct()) {
-			query.append(_FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_2);
-		}
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
-			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				if (getDB().isSupportsInlineDistinct()) {
-					query.append(_ORDER_BY_ENTITY_ALIAS);
-				}
-				else {
-					query.append(_ORDER_BY_ENTITY_TABLE);
-				}
-
-				query.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN);
-					}
-				}
-			}
-
-			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				if (getDB().isSupportsInlineDistinct()) {
-					query.append(_ORDER_BY_ENTITY_ALIAS);
-				}
-				else {
-					query.append(_ORDER_BY_ENTITY_TABLE);
-				}
-
-				query.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
-					}
-					else {
-						query.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				OAuthApplication.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
-
-		SQLQuery q = session.createSQLQuery(sql);
-
-		q.setFirstResult(0);
-		q.setMaxResults(2);
-
-		if (getDB().isSupportsInlineDistinct()) {
-			q.addEntity(_FILTER_ENTITY_ALIAS, OAuthApplicationImpl.class);
-		}
-		else {
-			q.addEntity(_FILTER_ENTITY_TABLE, OAuthApplicationImpl.class);
-		}
-
-		QueryPos qPos = QueryPos.getInstance(q);
-
-		qPos.add(ownerId);
-
-		if (name != null) {
-			qPos.add(name);
-		}
+		qPos.add(userId);
 
 		if (orderByComparator != null) {
 			Object[] values = orderByComparator.getOrderByConditionValues(oAuthApplication);
@@ -4307,53 +2191,13 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Removes all the o auth applications where ownerId = &#63; from the database.
+	 * Removes all the o auth applications where userId = &#63; from the database.
 	 *
-	 * @param ownerId the owner ID
+	 * @param userId the user ID
 	 * @throws SystemException if a system exception occurred
 	 */
-	public void removeByOwnerId(long ownerId) throws SystemException {
-		for (OAuthApplication oAuthApplication : findByOwnerId(ownerId)) {
-			remove(oAuthApplication);
-		}
-	}
-
-	/**
-	 * Removes all the o auth applications where website LIKE &#63; from the database.
-	 *
-	 * @param website the website
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByWebsite(String website) throws SystemException {
-		for (OAuthApplication oAuthApplication : findByWebsite(website)) {
-			remove(oAuthApplication);
-		}
-	}
-
-	/**
-	 * Removes all the o auth applications where companyId = &#63; and name LIKE &#63; from the database.
-	 *
-	 * @param companyId the company ID
-	 * @param name the name
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByC_N(long companyId, String name)
-		throws SystemException {
-		for (OAuthApplication oAuthApplication : findByC_N(companyId, name)) {
-			remove(oAuthApplication);
-		}
-	}
-
-	/**
-	 * Removes all the o auth applications where ownerId = &#63; and name LIKE &#63; from the database.
-	 *
-	 * @param ownerId the owner ID
-	 * @param name the name
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByO_N(long ownerId, String name)
-		throws SystemException {
-		for (OAuthApplication oAuthApplication : findByO_N(ownerId, name)) {
+	public void removeByUserId(long userId) throws SystemException {
+		for (OAuthApplication oAuthApplication : findByUserId(userId)) {
 			remove(oAuthApplication);
 		}
 	}
@@ -4536,16 +2380,16 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the number of o auth applications where ownerId = &#63;.
+	 * Returns the number of o auth applications where userId = &#63;.
 	 *
-	 * @param ownerId the owner ID
+	 * @param userId the user ID
 	 * @return the number of matching o auth applications
 	 * @throws SystemException if a system exception occurred
 	 */
-	public int countByOwnerId(long ownerId) throws SystemException {
-		Object[] finderArgs = new Object[] { ownerId };
+	public int countByUserId(long userId) throws SystemException {
+		Object[] finderArgs = new Object[] { userId };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_OWNERID,
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_USERID,
 				finderArgs, this);
 
 		if (count == null) {
@@ -4553,7 +2397,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 
 			query.append(_SQL_COUNT_OAUTHAPPLICATION_WHERE);
 
-			query.append(_FINDER_COLUMN_OWNERID_OWNERID_2);
+			query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 			String sql = query.toString();
 
@@ -4566,7 +2410,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(ownerId);
+				qPos.add(userId);
 
 				count = (Long)q.uniqueResult();
 			}
@@ -4578,7 +2422,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 					count = Long.valueOf(0);
 				}
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_OWNERID,
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_USERID,
 					finderArgs, count);
 
 				closeSession(session);
@@ -4589,22 +2433,22 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	}
 
 	/**
-	 * Returns the number of o auth applications that the user has permission to view where ownerId = &#63;.
+	 * Returns the number of o auth applications that the user has permission to view where userId = &#63;.
 	 *
-	 * @param ownerId the owner ID
+	 * @param userId the user ID
 	 * @return the number of matching o auth applications that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
-	public int filterCountByOwnerId(long ownerId) throws SystemException {
+	public int filterCountByUserId(long userId) throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled()) {
-			return countByOwnerId(ownerId);
+			return countByUserId(userId);
 		}
 
 		StringBundler query = new StringBundler(2);
 
 		query.append(_FILTER_SQL_COUNT_OAUTHAPPLICATION_WHERE);
 
-		query.append(_FINDER_COLUMN_OWNERID_OWNERID_2);
+		query.append(_FINDER_COLUMN_USERID_USERID_2);
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
 				OAuthApplication.class.getName(),
@@ -4622,405 +2466,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 
 			QueryPos qPos = QueryPos.getInstance(q);
 
-			qPos.add(ownerId);
-
-			Long count = (Long)q.uniqueResult();
-
-			return count.intValue();
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	/**
-	 * Returns the number of o auth applications where website LIKE &#63;.
-	 *
-	 * @param website the website
-	 * @return the number of matching o auth applications
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByWebsite(String website) throws SystemException {
-		Object[] finderArgs = new Object[] { website };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_WEBSITE,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_OAUTHAPPLICATION_WHERE);
-
-			if (website == null) {
-				query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_1);
-			}
-			else {
-				if (website.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_2);
-				}
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (website != null) {
-					qPos.add(website);
-				}
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_WEBSITE,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of o auth applications that the user has permission to view where website LIKE &#63;.
-	 *
-	 * @param website the website
-	 * @return the number of matching o auth applications that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int filterCountByWebsite(String website) throws SystemException {
-		if (!InlineSQLHelperUtil.isEnabled()) {
-			return countByWebsite(website);
-		}
-
-		StringBundler query = new StringBundler(2);
-
-		query.append(_FILTER_SQL_COUNT_OAUTHAPPLICATION_WHERE);
-
-		if (website == null) {
-			query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_1);
-		}
-		else {
-			if (website.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_3);
-			}
-			else {
-				query.append(_FINDER_COLUMN_WEBSITE_WEBSITE_2);
-			}
-		}
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				OAuthApplication.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			SQLQuery q = session.createSQLQuery(sql);
-
-			q.addScalar(COUNT_COLUMN_NAME,
-				com.liferay.portal.kernel.dao.orm.Type.LONG);
-
-			QueryPos qPos = QueryPos.getInstance(q);
-
-			if (website != null) {
-				qPos.add(website);
-			}
-
-			Long count = (Long)q.uniqueResult();
-
-			return count.intValue();
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	/**
-	 * Returns the number of o auth applications where companyId = &#63; and name LIKE &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param name the name
-	 * @return the number of matching o auth applications
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByC_N(long companyId, String name)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { companyId, name };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_C_N,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_COUNT_OAUTHAPPLICATION_WHERE);
-
-			query.append(_FINDER_COLUMN_C_N_COMPANYID_2);
-
-			if (name == null) {
-				query.append(_FINDER_COLUMN_C_N_NAME_1);
-			}
-			else {
-				if (name.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_C_N_NAME_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_C_N_NAME_2);
-				}
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(companyId);
-
-				if (name != null) {
-					qPos.add(name);
-				}
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_C_N,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of o auth applications that the user has permission to view where companyId = &#63; and name LIKE &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param name the name
-	 * @return the number of matching o auth applications that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int filterCountByC_N(long companyId, String name)
-		throws SystemException {
-		if (!InlineSQLHelperUtil.isEnabled()) {
-			return countByC_N(companyId, name);
-		}
-
-		StringBundler query = new StringBundler(3);
-
-		query.append(_FILTER_SQL_COUNT_OAUTHAPPLICATION_WHERE);
-
-		query.append(_FINDER_COLUMN_C_N_COMPANYID_2);
-
-		if (name == null) {
-			query.append(_FINDER_COLUMN_C_N_NAME_1);
-		}
-		else {
-			if (name.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_C_N_NAME_3);
-			}
-			else {
-				query.append(_FINDER_COLUMN_C_N_NAME_2);
-			}
-		}
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				OAuthApplication.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			SQLQuery q = session.createSQLQuery(sql);
-
-			q.addScalar(COUNT_COLUMN_NAME,
-				com.liferay.portal.kernel.dao.orm.Type.LONG);
-
-			QueryPos qPos = QueryPos.getInstance(q);
-
-			qPos.add(companyId);
-
-			if (name != null) {
-				qPos.add(name);
-			}
-
-			Long count = (Long)q.uniqueResult();
-
-			return count.intValue();
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	/**
-	 * Returns the number of o auth applications where ownerId = &#63; and name LIKE &#63;.
-	 *
-	 * @param ownerId the owner ID
-	 * @param name the name
-	 * @return the number of matching o auth applications
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByO_N(long ownerId, String name) throws SystemException {
-		Object[] finderArgs = new Object[] { ownerId, name };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_O_N,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_COUNT_OAUTHAPPLICATION_WHERE);
-
-			query.append(_FINDER_COLUMN_O_N_OWNERID_2);
-
-			if (name == null) {
-				query.append(_FINDER_COLUMN_O_N_NAME_1);
-			}
-			else {
-				if (name.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_O_N_NAME_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_O_N_NAME_2);
-				}
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(ownerId);
-
-				if (name != null) {
-					qPos.add(name);
-				}
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_WITH_PAGINATION_COUNT_BY_O_N,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of o auth applications that the user has permission to view where ownerId = &#63; and name LIKE &#63;.
-	 *
-	 * @param ownerId the owner ID
-	 * @param name the name
-	 * @return the number of matching o auth applications that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int filterCountByO_N(long ownerId, String name)
-		throws SystemException {
-		if (!InlineSQLHelperUtil.isEnabled()) {
-			return countByO_N(ownerId, name);
-		}
-
-		StringBundler query = new StringBundler(3);
-
-		query.append(_FILTER_SQL_COUNT_OAUTHAPPLICATION_WHERE);
-
-		query.append(_FINDER_COLUMN_O_N_OWNERID_2);
-
-		if (name == null) {
-			query.append(_FINDER_COLUMN_O_N_NAME_1);
-		}
-		else {
-			if (name.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_O_N_NAME_3);
-			}
-			else {
-				query.append(_FINDER_COLUMN_O_N_NAME_2);
-			}
-		}
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				OAuthApplication.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			SQLQuery q = session.createSQLQuery(sql);
-
-			q.addScalar(COUNT_COLUMN_NAME,
-				com.liferay.portal.kernel.dao.orm.Type.LONG);
-
-			QueryPos qPos = QueryPos.getInstance(q);
-
-			qPos.add(ownerId);
-
-			if (name != null) {
-				qPos.add(name);
-			}
+			qPos.add(userId);
 
 			Long count = (Long)q.uniqueResult();
 
@@ -5105,8 +2551,8 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 
 	@BeanReference(type = OAuthApplicationPersistence.class)
 	protected OAuthApplicationPersistence oAuthApplicationPersistence;
-	@BeanReference(type = OAuthApplications_UsersPersistence.class)
-	protected OAuthApplications_UsersPersistence oAuthApplications_UsersPersistence;
+	@BeanReference(type = OAuthApplicationUserPersistence.class)
+	protected OAuthApplicationUserPersistence oAuthApplicationUserPersistence;
 	@BeanReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
 	private static final String _SQL_SELECT_OAUTHAPPLICATION = "SELECT oAuthApplication FROM OAuthApplication oAuthApplication";
@@ -5117,18 +2563,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 	private static final String _FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_1 = "oAuthApplication.consumerKey IS NULL";
 	private static final String _FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_2 = "oAuthApplication.consumerKey = ?";
 	private static final String _FINDER_COLUMN_CONSUMERKEY_CONSUMERKEY_3 = "(oAuthApplication.consumerKey IS NULL OR oAuthApplication.consumerKey = ?)";
-	private static final String _FINDER_COLUMN_OWNERID_OWNERID_2 = "oAuthApplication.ownerId = ?";
-	private static final String _FINDER_COLUMN_WEBSITE_WEBSITE_1 = "oAuthApplication.website LIKE NULL";
-	private static final String _FINDER_COLUMN_WEBSITE_WEBSITE_2 = "oAuthApplication.website LIKE ?";
-	private static final String _FINDER_COLUMN_WEBSITE_WEBSITE_3 = "(oAuthApplication.website IS NULL OR oAuthApplication.website LIKE ?)";
-	private static final String _FINDER_COLUMN_C_N_COMPANYID_2 = "oAuthApplication.companyId = ? AND ";
-	private static final String _FINDER_COLUMN_C_N_NAME_1 = "oAuthApplication.name LIKE NULL";
-	private static final String _FINDER_COLUMN_C_N_NAME_2 = "oAuthApplication.name LIKE ?";
-	private static final String _FINDER_COLUMN_C_N_NAME_3 = "(oAuthApplication.name IS NULL OR oAuthApplication.name LIKE ?)";
-	private static final String _FINDER_COLUMN_O_N_OWNERID_2 = "oAuthApplication.ownerId = ? AND ";
-	private static final String _FINDER_COLUMN_O_N_NAME_1 = "oAuthApplication.name LIKE NULL";
-	private static final String _FINDER_COLUMN_O_N_NAME_2 = "oAuthApplication.name LIKE ?";
-	private static final String _FINDER_COLUMN_O_N_NAME_3 = "(oAuthApplication.name IS NULL OR oAuthApplication.name LIKE ?)";
+	private static final String _FINDER_COLUMN_USERID_USERID_2 = "oAuthApplication.userId = ?";
 	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN = "oAuthApplication.applicationId";
 	private static final String _FILTER_SQL_SELECT_OAUTHAPPLICATION_WHERE = "SELECT DISTINCT {oAuthApplication.*} FROM OAuthApplication oAuthApplication WHERE ";
 	private static final String _FILTER_SQL_SELECT_OAUTHAPPLICATION_NO_INLINE_DISTINCT_WHERE_1 =

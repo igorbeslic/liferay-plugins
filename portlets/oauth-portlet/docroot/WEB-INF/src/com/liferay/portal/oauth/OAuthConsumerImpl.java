@@ -27,11 +27,11 @@ public class OAuthConsumerImpl implements OAuthConsumer {
 			oAuthApplication.getConsumerKey(),
 			oAuthApplication.getConsumerSecret(), null));
 
-		this._oAuthApplication = oAuthApplication;
+		_oAuthApplication = oAuthApplication;
 	}
 
 	public OAuthConsumerImpl(net.oauth.OAuthConsumer oAuthConsumer) {
-		this._oAuthConsumer = oAuthConsumer;
+		_oAuthConsumer = oAuthConsumer;
 	}
 
 	public String getCallbackURL() {
@@ -51,7 +51,7 @@ public class OAuthConsumerImpl implements OAuthConsumer {
 	}
 
 	public void setWrappedOAuthConsumer(Object oAuthConsumer) {
-		this._oAuthConsumer = (net.oauth.OAuthConsumer)oAuthConsumer;
+		_oAuthConsumer = (net.oauth.OAuthConsumer)oAuthConsumer;
 	}
 
 	private OAuthApplication _oAuthApplication;

@@ -247,10 +247,6 @@ public class OAuthApplicationUtil {
 	/**
 	* Returns the first o auth application in the ordered set where companyId = &#63;.
 	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
 	* @param companyId the company ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching o auth application
@@ -267,11 +263,23 @@ public class OAuthApplicationUtil {
 	}
 
 	/**
-	* Returns the last o auth application in the ordered set where companyId = &#63;.
+	* Returns the first o auth application in the ordered set where companyId = &#63;.
 	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching o auth application, or <code>null</code> if a matching o auth application could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.oauth.model.OAuthApplication fetchByCompanyId_First(
+		long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchByCompanyId_First(companyId, orderByComparator);
+	}
+
+	/**
+	* Returns the last o auth application in the ordered set where companyId = &#63;.
 	*
 	* @param companyId the company ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -289,11 +297,23 @@ public class OAuthApplicationUtil {
 	}
 
 	/**
-	* Returns the o auth applications before and after the current o auth application in the ordered set where companyId = &#63;.
+	* Returns the last o auth application in the ordered set where companyId = &#63;.
 	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching o auth application, or <code>null</code> if a matching o auth application could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.oauth.model.OAuthApplication fetchByCompanyId_Last(
+		long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchByCompanyId_Last(companyId, orderByComparator);
+	}
+
+	/**
+	* Returns the o auth applications before and after the current o auth application in the ordered set where companyId = &#63;.
 	*
 	* @param applicationId the primary key of the current o auth application
 	* @param companyId the company ID
@@ -431,801 +451,212 @@ public class OAuthApplicationUtil {
 	}
 
 	/**
-	* Returns all the o auth applications where ownerId = &#63;.
+	* Returns all the o auth applications where userId = &#63;.
 	*
-	* @param ownerId the owner ID
+	* @param userId the user ID
 	* @return the matching o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByOwnerId(
-		long ownerId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByOwnerId(ownerId);
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByUserId(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByUserId(userId);
 	}
 
 	/**
-	* Returns a range of all the o auth applications where ownerId = &#63;.
+	* Returns a range of all the o auth applications where userId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param ownerId the owner ID
+	* @param userId the user ID
 	* @param start the lower bound of the range of o auth applications
 	* @param end the upper bound of the range of o auth applications (not inclusive)
 	* @return the range of matching o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByOwnerId(
-		long ownerId, int start, int end)
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByUserId(
+		long userId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByOwnerId(ownerId, start, end);
+		return getPersistence().findByUserId(userId, start, end);
 	}
 
 	/**
-	* Returns an ordered range of all the o auth applications where ownerId = &#63;.
+	* Returns an ordered range of all the o auth applications where userId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param ownerId the owner ID
+	* @param userId the user ID
 	* @param start the lower bound of the range of o auth applications
 	* @param end the upper bound of the range of o auth applications (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByOwnerId(
-		long ownerId, int start, int end,
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByUserId(
+		long userId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .findByOwnerId(ownerId, start, end, orderByComparator);
+				   .findByUserId(userId, start, end, orderByComparator);
 	}
 
 	/**
-	* Returns the first o auth application in the ordered set where ownerId = &#63;.
+	* Returns the first o auth application in the ordered set where userId = &#63;.
 	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param ownerId the owner ID
+	* @param userId the user ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching o auth application
 	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication findByOwnerId_First(
-		long ownerId,
+	public static com.liferay.portal.oauth.model.OAuthApplication findByUserId_First(
+		long userId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence().findByOwnerId_First(ownerId, orderByComparator);
+		return getPersistence().findByUserId_First(userId, orderByComparator);
 	}
 
 	/**
-	* Returns the last o auth application in the ordered set where ownerId = &#63;.
+	* Returns the first o auth application in the ordered set where userId = &#63;.
 	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching o auth application, or <code>null</code> if a matching o auth application could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.oauth.model.OAuthApplication fetchByUserId_First(
+		long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByUserId_First(userId, orderByComparator);
+	}
+
+	/**
+	* Returns the last o auth application in the ordered set where userId = &#63;.
 	*
-	* @param ownerId the owner ID
+	* @param userId the user ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching o auth application
 	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication findByOwnerId_Last(
-		long ownerId,
+	public static com.liferay.portal.oauth.model.OAuthApplication findByUserId_Last(
+		long userId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence().findByOwnerId_Last(ownerId, orderByComparator);
+		return getPersistence().findByUserId_Last(userId, orderByComparator);
 	}
 
 	/**
-	* Returns the o auth applications before and after the current o auth application in the ordered set where ownerId = &#63;.
+	* Returns the last o auth application in the ordered set where userId = &#63;.
 	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching o auth application, or <code>null</code> if a matching o auth application could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.oauth.model.OAuthApplication fetchByUserId_Last(
+		long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByUserId_Last(userId, orderByComparator);
+	}
+
+	/**
+	* Returns the o auth applications before and after the current o auth application in the ordered set where userId = &#63;.
 	*
 	* @param applicationId the primary key of the current o auth application
-	* @param ownerId the owner ID
+	* @param userId the user ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next o auth application
 	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication[] findByOwnerId_PrevAndNext(
-		long applicationId, long ownerId,
+	public static com.liferay.portal.oauth.model.OAuthApplication[] findByUserId_PrevAndNext(
+		long applicationId, long userId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplicationException {
 		return getPersistence()
-				   .findByOwnerId_PrevAndNext(applicationId, ownerId,
+				   .findByUserId_PrevAndNext(applicationId, userId,
 			orderByComparator);
 	}
 
 	/**
-	* Returns all the o auth applications that the user has permission to view where ownerId = &#63;.
+	* Returns all the o auth applications that the user has permission to view where userId = &#63;.
 	*
-	* @param ownerId the owner ID
+	* @param userId the user ID
 	* @return the matching o auth applications that the user has permission to view
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByOwnerId(
-		long ownerId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().filterFindByOwnerId(ownerId);
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByUserId(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().filterFindByUserId(userId);
 	}
 
 	/**
-	* Returns a range of all the o auth applications that the user has permission to view where ownerId = &#63;.
+	* Returns a range of all the o auth applications that the user has permission to view where userId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param ownerId the owner ID
+	* @param userId the user ID
 	* @param start the lower bound of the range of o auth applications
 	* @param end the upper bound of the range of o auth applications (not inclusive)
 	* @return the range of matching o auth applications that the user has permission to view
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByOwnerId(
-		long ownerId, int start, int end)
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByUserId(
+		long userId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().filterFindByOwnerId(ownerId, start, end);
+		return getPersistence().filterFindByUserId(userId, start, end);
 	}
 
 	/**
-	* Returns an ordered range of all the o auth applications that the user has permissions to view where ownerId = &#63;.
+	* Returns an ordered range of all the o auth applications that the user has permissions to view where userId = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
-	* @param ownerId the owner ID
+	* @param userId the user ID
 	* @param start the lower bound of the range of o auth applications
 	* @param end the upper bound of the range of o auth applications (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching o auth applications that the user has permission to view
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByOwnerId(
-		long ownerId, int start, int end,
+	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByUserId(
+		long userId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .filterFindByOwnerId(ownerId, start, end, orderByComparator);
+				   .filterFindByUserId(userId, start, end, orderByComparator);
 	}
 
 	/**
-	* Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where ownerId = &#63;.
+	* Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where userId = &#63;.
 	*
 	* @param applicationId the primary key of the current o auth application
-	* @param ownerId the owner ID
+	* @param userId the user ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next o auth application
 	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication[] filterFindByOwnerId_PrevAndNext(
-		long applicationId, long ownerId,
+	public static com.liferay.portal.oauth.model.OAuthApplication[] filterFindByUserId_PrevAndNext(
+		long applicationId, long userId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplicationException {
 		return getPersistence()
-				   .filterFindByOwnerId_PrevAndNext(applicationId, ownerId,
-			orderByComparator);
-	}
-
-	/**
-	* Returns all the o auth applications where website LIKE &#63;.
-	*
-	* @param website the website
-	* @return the matching o auth applications
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByWebsite(
-		java.lang.String website)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByWebsite(website);
-	}
-
-	/**
-	* Returns a range of all the o auth applications where website LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param website the website
-	* @param start the lower bound of the range of o auth applications
-	* @param end the upper bound of the range of o auth applications (not inclusive)
-	* @return the range of matching o auth applications
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByWebsite(
-		java.lang.String website, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByWebsite(website, start, end);
-	}
-
-	/**
-	* Returns an ordered range of all the o auth applications where website LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param website the website
-	* @param start the lower bound of the range of o auth applications
-	* @param end the upper bound of the range of o auth applications (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	* @return the ordered range of matching o auth applications
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByWebsite(
-		java.lang.String website, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence()
-				   .findByWebsite(website, start, end, orderByComparator);
-	}
-
-	/**
-	* Returns the first o auth application in the ordered set where website LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param website the website
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the first matching o auth application
-	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication findByWebsite_First(
-		java.lang.String website,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence().findByWebsite_First(website, orderByComparator);
-	}
-
-	/**
-	* Returns the last o auth application in the ordered set where website LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param website the website
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the last matching o auth application
-	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication findByWebsite_Last(
-		java.lang.String website,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence().findByWebsite_Last(website, orderByComparator);
-	}
-
-	/**
-	* Returns the o auth applications before and after the current o auth application in the ordered set where website LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param applicationId the primary key of the current o auth application
-	* @param website the website
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the previous, current, and next o auth application
-	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication[] findByWebsite_PrevAndNext(
-		long applicationId, java.lang.String website,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence()
-				   .findByWebsite_PrevAndNext(applicationId, website,
-			orderByComparator);
-	}
-
-	/**
-	* Returns all the o auth applications that the user has permission to view where website LIKE &#63;.
-	*
-	* @param website the website
-	* @return the matching o auth applications that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByWebsite(
-		java.lang.String website)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().filterFindByWebsite(website);
-	}
-
-	/**
-	* Returns a range of all the o auth applications that the user has permission to view where website LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param website the website
-	* @param start the lower bound of the range of o auth applications
-	* @param end the upper bound of the range of o auth applications (not inclusive)
-	* @return the range of matching o auth applications that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByWebsite(
-		java.lang.String website, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().filterFindByWebsite(website, start, end);
-	}
-
-	/**
-	* Returns an ordered range of all the o auth applications that the user has permissions to view where website LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param website the website
-	* @param start the lower bound of the range of o auth applications
-	* @param end the upper bound of the range of o auth applications (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	* @return the ordered range of matching o auth applications that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByWebsite(
-		java.lang.String website, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence()
-				   .filterFindByWebsite(website, start, end, orderByComparator);
-	}
-
-	/**
-	* Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where website LIKE &#63;.
-	*
-	* @param applicationId the primary key of the current o auth application
-	* @param website the website
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the previous, current, and next o auth application
-	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication[] filterFindByWebsite_PrevAndNext(
-		long applicationId, java.lang.String website,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence()
-				   .filterFindByWebsite_PrevAndNext(applicationId, website,
-			orderByComparator);
-	}
-
-	/**
-	* Returns all the o auth applications where companyId = &#63; and name LIKE &#63;.
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @return the matching o auth applications
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByC_N(
-		long companyId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByC_N(companyId, name);
-	}
-
-	/**
-	* Returns a range of all the o auth applications where companyId = &#63; and name LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @param start the lower bound of the range of o auth applications
-	* @param end the upper bound of the range of o auth applications (not inclusive)
-	* @return the range of matching o auth applications
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByC_N(
-		long companyId, java.lang.String name, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByC_N(companyId, name, start, end);
-	}
-
-	/**
-	* Returns an ordered range of all the o auth applications where companyId = &#63; and name LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @param start the lower bound of the range of o auth applications
-	* @param end the upper bound of the range of o auth applications (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	* @return the ordered range of matching o auth applications
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByC_N(
-		long companyId, java.lang.String name, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence()
-				   .findByC_N(companyId, name, start, end, orderByComparator);
-	}
-
-	/**
-	* Returns the first o auth application in the ordered set where companyId = &#63; and name LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the first matching o auth application
-	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication findByC_N_First(
-		long companyId, java.lang.String name,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence()
-				   .findByC_N_First(companyId, name, orderByComparator);
-	}
-
-	/**
-	* Returns the last o auth application in the ordered set where companyId = &#63; and name LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the last matching o auth application
-	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication findByC_N_Last(
-		long companyId, java.lang.String name,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence()
-				   .findByC_N_Last(companyId, name, orderByComparator);
-	}
-
-	/**
-	* Returns the o auth applications before and after the current o auth application in the ordered set where companyId = &#63; and name LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param applicationId the primary key of the current o auth application
-	* @param companyId the company ID
-	* @param name the name
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the previous, current, and next o auth application
-	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication[] findByC_N_PrevAndNext(
-		long applicationId, long companyId, java.lang.String name,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence()
-				   .findByC_N_PrevAndNext(applicationId, companyId, name,
-			orderByComparator);
-	}
-
-	/**
-	* Returns all the o auth applications that the user has permission to view where companyId = &#63; and name LIKE &#63;.
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @return the matching o auth applications that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByC_N(
-		long companyId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().filterFindByC_N(companyId, name);
-	}
-
-	/**
-	* Returns a range of all the o auth applications that the user has permission to view where companyId = &#63; and name LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @param start the lower bound of the range of o auth applications
-	* @param end the upper bound of the range of o auth applications (not inclusive)
-	* @return the range of matching o auth applications that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByC_N(
-		long companyId, java.lang.String name, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().filterFindByC_N(companyId, name, start, end);
-	}
-
-	/**
-	* Returns an ordered range of all the o auth applications that the user has permissions to view where companyId = &#63; and name LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @param start the lower bound of the range of o auth applications
-	* @param end the upper bound of the range of o auth applications (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	* @return the ordered range of matching o auth applications that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByC_N(
-		long companyId, java.lang.String name, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence()
-				   .filterFindByC_N(companyId, name, start, end,
-			orderByComparator);
-	}
-
-	/**
-	* Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where companyId = &#63; and name LIKE &#63;.
-	*
-	* @param applicationId the primary key of the current o auth application
-	* @param companyId the company ID
-	* @param name the name
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the previous, current, and next o auth application
-	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication[] filterFindByC_N_PrevAndNext(
-		long applicationId, long companyId, java.lang.String name,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence()
-				   .filterFindByC_N_PrevAndNext(applicationId, companyId, name,
-			orderByComparator);
-	}
-
-	/**
-	* Returns all the o auth applications where ownerId = &#63; and name LIKE &#63;.
-	*
-	* @param ownerId the owner ID
-	* @param name the name
-	* @return the matching o auth applications
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByO_N(
-		long ownerId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByO_N(ownerId, name);
-	}
-
-	/**
-	* Returns a range of all the o auth applications where ownerId = &#63; and name LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param ownerId the owner ID
-	* @param name the name
-	* @param start the lower bound of the range of o auth applications
-	* @param end the upper bound of the range of o auth applications (not inclusive)
-	* @return the range of matching o auth applications
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByO_N(
-		long ownerId, java.lang.String name, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByO_N(ownerId, name, start, end);
-	}
-
-	/**
-	* Returns an ordered range of all the o auth applications where ownerId = &#63; and name LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param ownerId the owner ID
-	* @param name the name
-	* @param start the lower bound of the range of o auth applications
-	* @param end the upper bound of the range of o auth applications (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	* @return the ordered range of matching o auth applications
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> findByO_N(
-		long ownerId, java.lang.String name, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence()
-				   .findByO_N(ownerId, name, start, end, orderByComparator);
-	}
-
-	/**
-	* Returns the first o auth application in the ordered set where ownerId = &#63; and name LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param ownerId the owner ID
-	* @param name the name
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the first matching o auth application
-	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication findByO_N_First(
-		long ownerId, java.lang.String name,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence().findByO_N_First(ownerId, name, orderByComparator);
-	}
-
-	/**
-	* Returns the last o auth application in the ordered set where ownerId = &#63; and name LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param ownerId the owner ID
-	* @param name the name
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the last matching o auth application
-	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a matching o auth application could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication findByO_N_Last(
-		long ownerId, java.lang.String name,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence().findByO_N_Last(ownerId, name, orderByComparator);
-	}
-
-	/**
-	* Returns the o auth applications before and after the current o auth application in the ordered set where ownerId = &#63; and name LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param applicationId the primary key of the current o auth application
-	* @param ownerId the owner ID
-	* @param name the name
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the previous, current, and next o auth application
-	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication[] findByO_N_PrevAndNext(
-		long applicationId, long ownerId, java.lang.String name,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence()
-				   .findByO_N_PrevAndNext(applicationId, ownerId, name,
-			orderByComparator);
-	}
-
-	/**
-	* Returns all the o auth applications that the user has permission to view where ownerId = &#63; and name LIKE &#63;.
-	*
-	* @param ownerId the owner ID
-	* @param name the name
-	* @return the matching o auth applications that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByO_N(
-		long ownerId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().filterFindByO_N(ownerId, name);
-	}
-
-	/**
-	* Returns a range of all the o auth applications that the user has permission to view where ownerId = &#63; and name LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param ownerId the owner ID
-	* @param name the name
-	* @param start the lower bound of the range of o auth applications
-	* @param end the upper bound of the range of o auth applications (not inclusive)
-	* @return the range of matching o auth applications that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByO_N(
-		long ownerId, java.lang.String name, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().filterFindByO_N(ownerId, name, start, end);
-	}
-
-	/**
-	* Returns an ordered range of all the o auth applications that the user has permissions to view where ownerId = &#63; and name LIKE &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param ownerId the owner ID
-	* @param name the name
-	* @param start the lower bound of the range of o auth applications
-	* @param end the upper bound of the range of o auth applications (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	* @return the ordered range of matching o auth applications that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public static java.util.List<com.liferay.portal.oauth.model.OAuthApplication> filterFindByO_N(
-		long ownerId, java.lang.String name, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence()
-				   .filterFindByO_N(ownerId, name, start, end, orderByComparator);
-	}
-
-	/**
-	* Returns the o auth applications before and after the current o auth application in the ordered set of o auth applications that the user has permission to view where ownerId = &#63; and name LIKE &#63;.
-	*
-	* @param applicationId the primary key of the current o auth application
-	* @param ownerId the owner ID
-	* @param name the name
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the previous, current, and next o auth application
-	* @throws com.liferay.portal.oauth.NoSuchApplicationException if a o auth application with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.oauth.model.OAuthApplication[] filterFindByO_N_PrevAndNext(
-		long applicationId, long ownerId, java.lang.String name,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.oauth.NoSuchApplicationException {
-		return getPersistence()
-				   .filterFindByO_N_PrevAndNext(applicationId, ownerId, name,
+				   .filterFindByUserId_PrevAndNext(applicationId, userId,
 			orderByComparator);
 	}
 
@@ -1304,49 +735,14 @@ public class OAuthApplicationUtil {
 	}
 
 	/**
-	* Removes all the o auth applications where ownerId = &#63; from the database.
+	* Removes all the o auth applications where userId = &#63; from the database.
 	*
-	* @param ownerId the owner ID
+	* @param userId the user ID
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void removeByOwnerId(long ownerId)
+	public static void removeByUserId(long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByOwnerId(ownerId);
-	}
-
-	/**
-	* Removes all the o auth applications where website LIKE &#63; from the database.
-	*
-	* @param website the website
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByWebsite(java.lang.String website)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByWebsite(website);
-	}
-
-	/**
-	* Removes all the o auth applications where companyId = &#63; and name LIKE &#63; from the database.
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByC_N(long companyId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByC_N(companyId, name);
-	}
-
-	/**
-	* Removes all the o auth applications where ownerId = &#63; and name LIKE &#63; from the database.
-	*
-	* @param ownerId the owner ID
-	* @param name the name
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByO_N(long ownerId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByO_N(ownerId, name);
+		getPersistence().removeByUserId(userId);
 	}
 
 	/**
@@ -1396,103 +792,27 @@ public class OAuthApplicationUtil {
 	}
 
 	/**
-	* Returns the number of o auth applications where ownerId = &#63;.
+	* Returns the number of o auth applications where userId = &#63;.
 	*
-	* @param ownerId the owner ID
+	* @param userId the user ID
 	* @return the number of matching o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByOwnerId(long ownerId)
+	public static int countByUserId(long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByOwnerId(ownerId);
+		return getPersistence().countByUserId(userId);
 	}
 
 	/**
-	* Returns the number of o auth applications that the user has permission to view where ownerId = &#63;.
+	* Returns the number of o auth applications that the user has permission to view where userId = &#63;.
 	*
-	* @param ownerId the owner ID
+	* @param userId the user ID
 	* @return the number of matching o auth applications that the user has permission to view
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int filterCountByOwnerId(long ownerId)
+	public static int filterCountByUserId(long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().filterCountByOwnerId(ownerId);
-	}
-
-	/**
-	* Returns the number of o auth applications where website LIKE &#63;.
-	*
-	* @param website the website
-	* @return the number of matching o auth applications
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByWebsite(java.lang.String website)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByWebsite(website);
-	}
-
-	/**
-	* Returns the number of o auth applications that the user has permission to view where website LIKE &#63;.
-	*
-	* @param website the website
-	* @return the number of matching o auth applications that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int filterCountByWebsite(java.lang.String website)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().filterCountByWebsite(website);
-	}
-
-	/**
-	* Returns the number of o auth applications where companyId = &#63; and name LIKE &#63;.
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @return the number of matching o auth applications
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByC_N(long companyId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByC_N(companyId, name);
-	}
-
-	/**
-	* Returns the number of o auth applications that the user has permission to view where companyId = &#63; and name LIKE &#63;.
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @return the number of matching o auth applications that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int filterCountByC_N(long companyId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().filterCountByC_N(companyId, name);
-	}
-
-	/**
-	* Returns the number of o auth applications where ownerId = &#63; and name LIKE &#63;.
-	*
-	* @param ownerId the owner ID
-	* @param name the name
-	* @return the number of matching o auth applications
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByO_N(long ownerId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByO_N(ownerId, name);
-	}
-
-	/**
-	* Returns the number of o auth applications that the user has permission to view where ownerId = &#63; and name LIKE &#63;.
-	*
-	* @param ownerId the owner ID
-	* @param name the name
-	* @return the number of matching o auth applications that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int filterCountByO_N(long ownerId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().filterCountByO_N(ownerId, name);
+		return getPersistence().filterCountByUserId(userId);
 	}
 
 	/**

@@ -52,14 +52,13 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("ownerId", getOwnerId());
 		attributes.put("name", getName());
 		attributes.put("description", getDescription());
 		attributes.put("website", getWebsite());
-		attributes.put("consumerKey", getConsumerKey());
-		attributes.put("consumerSecret", getConsumerSecret());
 		attributes.put("callBackURL", getCallBackURL());
 		attributes.put("accessLevel", getAccessLevel());
+		attributes.put("consumerKey", getConsumerKey());
+		attributes.put("consumerSecret", getConsumerSecret());
 
 		return attributes;
 	}
@@ -101,12 +100,6 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 			setModifiedDate(modifiedDate);
 		}
 
-		Long ownerId = (Long)attributes.get("ownerId");
-
-		if (ownerId != null) {
-			setOwnerId(ownerId);
-		}
-
 		String name = (String)attributes.get("name");
 
 		if (name != null) {
@@ -125,18 +118,6 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 			setWebsite(website);
 		}
 
-		String consumerKey = (String)attributes.get("consumerKey");
-
-		if (consumerKey != null) {
-			setConsumerKey(consumerKey);
-		}
-
-		String consumerSecret = (String)attributes.get("consumerSecret");
-
-		if (consumerSecret != null) {
-			setConsumerSecret(consumerSecret);
-		}
-
 		String callBackURL = (String)attributes.get("callBackURL");
 
 		if (callBackURL != null) {
@@ -147,6 +128,18 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 
 		if (accessLevel != null) {
 			setAccessLevel(accessLevel);
+		}
+
+		String consumerKey = (String)attributes.get("consumerKey");
+
+		if (consumerKey != null) {
+			setConsumerKey(consumerKey);
+		}
+
+		String consumerSecret = (String)attributes.get("consumerSecret");
+
+		if (consumerSecret != null) {
+			setConsumerSecret(consumerSecret);
 		}
 	}
 
@@ -297,24 +290,6 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	}
 
 	/**
-	* Returns the owner ID of this o auth application.
-	*
-	* @return the owner ID of this o auth application
-	*/
-	public long getOwnerId() {
-		return _oAuthApplication.getOwnerId();
-	}
-
-	/**
-	* Sets the owner ID of this o auth application.
-	*
-	* @param ownerId the owner ID of this o auth application
-	*/
-	public void setOwnerId(long ownerId) {
-		_oAuthApplication.setOwnerId(ownerId);
-	}
-
-	/**
 	* Returns the name of this o auth application.
 	*
 	* @return the name of this o auth application
@@ -369,42 +344,6 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	}
 
 	/**
-	* Returns the consumer key of this o auth application.
-	*
-	* @return the consumer key of this o auth application
-	*/
-	public java.lang.String getConsumerKey() {
-		return _oAuthApplication.getConsumerKey();
-	}
-
-	/**
-	* Sets the consumer key of this o auth application.
-	*
-	* @param consumerKey the consumer key of this o auth application
-	*/
-	public void setConsumerKey(java.lang.String consumerKey) {
-		_oAuthApplication.setConsumerKey(consumerKey);
-	}
-
-	/**
-	* Returns the consumer secret of this o auth application.
-	*
-	* @return the consumer secret of this o auth application
-	*/
-	public java.lang.String getConsumerSecret() {
-		return _oAuthApplication.getConsumerSecret();
-	}
-
-	/**
-	* Sets the consumer secret of this o auth application.
-	*
-	* @param consumerSecret the consumer secret of this o auth application
-	*/
-	public void setConsumerSecret(java.lang.String consumerSecret) {
-		_oAuthApplication.setConsumerSecret(consumerSecret);
-	}
-
-	/**
 	* Returns the call back u r l of this o auth application.
 	*
 	* @return the call back u r l of this o auth application
@@ -438,6 +377,42 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*/
 	public void setAccessLevel(int accessLevel) {
 		_oAuthApplication.setAccessLevel(accessLevel);
+	}
+
+	/**
+	* Returns the consumer key of this o auth application.
+	*
+	* @return the consumer key of this o auth application
+	*/
+	public java.lang.String getConsumerKey() {
+		return _oAuthApplication.getConsumerKey();
+	}
+
+	/**
+	* Sets the consumer key of this o auth application.
+	*
+	* @param consumerKey the consumer key of this o auth application
+	*/
+	public void setConsumerKey(java.lang.String consumerKey) {
+		_oAuthApplication.setConsumerKey(consumerKey);
+	}
+
+	/**
+	* Returns the consumer secret of this o auth application.
+	*
+	* @return the consumer secret of this o auth application
+	*/
+	public java.lang.String getConsumerSecret() {
+		return _oAuthApplication.getConsumerSecret();
+	}
+
+	/**
+	* Sets the consumer secret of this o auth application.
+	*
+	* @param consumerSecret the consumer secret of this o auth application
+	*/
+	public void setConsumerSecret(java.lang.String consumerSecret) {
+		_oAuthApplication.setConsumerSecret(consumerSecret);
 	}
 
 	public boolean isNew() {

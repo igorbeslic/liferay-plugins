@@ -34,7 +34,7 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 	Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{applicationId=");
 		sb.append(applicationId);
@@ -48,22 +48,20 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", ownerId=");
-		sb.append(ownerId);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append(", description=");
 		sb.append(description);
 		sb.append(", website=");
 		sb.append(website);
-		sb.append(", consumerKey=");
-		sb.append(consumerKey);
-		sb.append(", consumerSecret=");
-		sb.append(consumerSecret);
 		sb.append(", callBackURL=");
 		sb.append(callBackURL);
 		sb.append(", accessLevel=");
 		sb.append(accessLevel);
+		sb.append(", consumerKey=");
+		sb.append(consumerKey);
+		sb.append(", consumerSecret=");
+		sb.append(consumerSecret);
 		sb.append("}");
 
 		return sb.toString();
@@ -97,8 +95,6 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 			oAuthApplicationImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		oAuthApplicationImpl.setOwnerId(ownerId);
-
 		if (name == null) {
 			oAuthApplicationImpl.setName(StringPool.BLANK);
 		}
@@ -120,6 +116,15 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 			oAuthApplicationImpl.setWebsite(website);
 		}
 
+		if (callBackURL == null) {
+			oAuthApplicationImpl.setCallBackURL(StringPool.BLANK);
+		}
+		else {
+			oAuthApplicationImpl.setCallBackURL(callBackURL);
+		}
+
+		oAuthApplicationImpl.setAccessLevel(accessLevel);
+
 		if (consumerKey == null) {
 			oAuthApplicationImpl.setConsumerKey(StringPool.BLANK);
 		}
@@ -134,15 +139,6 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 			oAuthApplicationImpl.setConsumerSecret(consumerSecret);
 		}
 
-		if (callBackURL == null) {
-			oAuthApplicationImpl.setCallBackURL(StringPool.BLANK);
-		}
-		else {
-			oAuthApplicationImpl.setCallBackURL(callBackURL);
-		}
-
-		oAuthApplicationImpl.setAccessLevel(accessLevel);
-
 		oAuthApplicationImpl.resetOriginalValues();
 
 		return oAuthApplicationImpl;
@@ -154,12 +150,11 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
-	public long ownerId;
 	public String name;
 	public String description;
 	public String website;
-	public String consumerKey;
-	public String consumerSecret;
 	public String callBackURL;
 	public int accessLevel;
+	public String consumerKey;
+	public String consumerSecret;
 }

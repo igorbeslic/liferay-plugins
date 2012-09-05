@@ -163,20 +163,6 @@ public interface OAuthApplicationModel extends AuditedModel,
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
-	 * Returns the owner ID of this o auth application.
-	 *
-	 * @return the owner ID of this o auth application
-	 */
-	public long getOwnerId();
-
-	/**
-	 * Sets the owner ID of this o auth application.
-	 *
-	 * @param ownerId the owner ID of this o auth application
-	 */
-	public void setOwnerId(long ownerId);
-
-	/**
 	 * Returns the name of this o auth application.
 	 *
 	 * @return the name of this o auth application
@@ -222,6 +208,35 @@ public interface OAuthApplicationModel extends AuditedModel,
 	public void setWebsite(String website);
 
 	/**
+	 * Returns the call back u r l of this o auth application.
+	 *
+	 * @return the call back u r l of this o auth application
+	 */
+	@AutoEscape
+	public String getCallBackURL();
+
+	/**
+	 * Sets the call back u r l of this o auth application.
+	 *
+	 * @param callBackURL the call back u r l of this o auth application
+	 */
+	public void setCallBackURL(String callBackURL);
+
+	/**
+	 * Returns the access level of this o auth application.
+	 *
+	 * @return the access level of this o auth application
+	 */
+	public int getAccessLevel();
+
+	/**
+	 * Sets the access level of this o auth application.
+	 *
+	 * @param accessLevel the access level of this o auth application
+	 */
+	public void setAccessLevel(int accessLevel);
+
+	/**
 	 * Returns the consumer key of this o auth application.
 	 *
 	 * @return the consumer key of this o auth application
@@ -250,35 +265,6 @@ public interface OAuthApplicationModel extends AuditedModel,
 	 * @param consumerSecret the consumer secret of this o auth application
 	 */
 	public void setConsumerSecret(String consumerSecret);
-
-	/**
-	 * Returns the call back u r l of this o auth application.
-	 *
-	 * @return the call back u r l of this o auth application
-	 */
-	@AutoEscape
-	public String getCallBackURL();
-
-	/**
-	 * Sets the call back u r l of this o auth application.
-	 *
-	 * @param callBackURL the call back u r l of this o auth application
-	 */
-	public void setCallBackURL(String callBackURL);
-
-	/**
-	 * Returns the access level of this o auth application.
-	 *
-	 * @return the access level of this o auth application
-	 */
-	public int getAccessLevel();
-
-	/**
-	 * Sets the access level of this o auth application.
-	 *
-	 * @param accessLevel the access level of this o auth application
-	 */
-	public void setAccessLevel(int accessLevel);
 
 	public boolean isNew();
 

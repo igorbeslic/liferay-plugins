@@ -17,43 +17,49 @@
 <%@ include file="/html/init.jsp" %>
 
 <%
-OAuthApplication oAuthApplication = (OAuthApplication)request.getAttribute(OAuthConstants.WEB_APP_BEAN);
+OAuthApplication oAuthApplication = (OAuthApplication)request.getAttribute(OAuthConstants.BEAN_ID);
 
-String actionName = "addOAuthApp";
-if ((null != oAuthApplication) && (0L != oAuthApplication.getApplicationId())) {
-	actionName = "editOAuthApp";
+String actionName = "addApplication";
+
+if ((oAuthApplication != null) && (oAuthApplication.getApplicationId() != 0)) {
+	actionName = "editApplication";
 }
 
 String backURL = ParamUtil.getString(request, "referer");
 %>
 
-<liferay-ui:error-marker key="errorSection" value="details" />
+<liferay-ui:header
+	backURL="<%= backURL %>"
+	title='<%= actionName.equals("addApplication") ? "new-application" : oAuthApplication.getName() %>'
+/>
 
 <aui:model-context bean="<%= oAuthApplication %>" model="<%= OAuthApplication.class %>" />
 
-<liferay-ui:error exception="<%=RequiredFieldException.class %>" message="this-field-is-required" />
-<liferay-ui:error exception="<%=MalformedURLException.class %>" message="please-enter-a-valid-url" />
+<liferay-ui:error-marker key="errorSection" value="details" />
+
+<liferay-ui:error exception="<%= RequiredFieldException.class %>" message="this-field-is-required" />
+<liferay-ui:error exception="<%= MalformedURLException.class %>" message="please-enter-a-valid-url" />
 
 <liferay-portlet:actionURL name="<%= actionName %>" var="addApplicationURL">
-	<portlet:param name="jspPage" value="/html/admin/edit.jsp" />
+	<portlet:param name="mvcPath" value="/html/admin/edit.jsp" />
 	<portlet:param name="referer" value="<%= backURL %>" />
 </liferay-portlet:actionURL>
 
-<aui:a href="<%= backURL %>">back</aui:a>
 <aui:form action="<%= addApplicationURL %>" method="post">
-	<aui:fieldset>
-		<aui:input id="applicationId" name="applicationId" type="hidden" />
-		<aui:input id="<%= OAuthConstants.WEB_APP_NAME_ID %>" label="name" name="<%= OAuthConstants.WEB_APP_NAME %>" showRequiredLabel="true" />
-		<aui:input label="description" name="<%= OAuthConstants.WEB_APP_DESCRIPTION %>" type="textarea" />
-		<aui:input id="<%= OAuthConstants.WEB_APP_WEBSITE_ID %>" label="website" name="<%= OAuthConstants.WEB_APP_WEBSITE %>" showRequiredLabel="true"  />
-		<aui:input id="<%= OAuthConstants.WEB_APP_CALLBACKURL_ID %>" label="callback-url" name="<%= OAuthConstants.WEB_APP_CALLBACKURL %>" showRequiredLabel="true" />
+	<aui:input id="applicationId" name="applicationId" type="hidden" />
 
-		<aui:select helpMessage="access-level-description" label="access-level" name="<%= OAuthConstants.WEB_APP_ACCESS_TYPE %>">
-			<aui:option label="<%= OAuthConstants.WEB_APP_LANG_KEY_ACCESS_TYPE_OPTION.concat(Integer.toString(OAuthConstants.ACCESS_TYPE_READ)) %>" value="<%= OAuthConstants.ACCESS_TYPE_READ %>"></aui:option>
-			<aui:option label="<%= OAuthConstants.WEB_APP_LANG_KEY_ACCESS_TYPE_OPTION.concat(Integer.toString(OAuthConstants.ACCESS_TYPE_WRITE)) %>" value="<%= OAuthConstants.ACCESS_TYPE_WRITE %>"></aui:option>
+	<aui:fieldset>
+		<aui:input label="name" name="<%= OAuthConstants.NAME%>" showRequiredLabel="true" />
+		<aui:input label="description" name="<%= OAuthConstants.DESCRIPTION%>" type="textarea" />
+		<aui:input label="website" name="<%= OAuthConstants.WEBSITE %>" showRequiredLabel="true"  />
+		<aui:input label="callback-url" name="<%= OAuthConstants.CALLBACK_URL%>" showRequiredLabel="true" />
+
+		<aui:select helpMessage="access-level-description" label="access-level" name="<%= OAuthConstants.ACCESS_TYPE %>">
+			<aui:option label='access-level-option-0' value="<%= OAuthConstants.ACCESS_TYPE_READ %>"></aui:option>
+			<aui:option label='access-level-option-1' value="<%= OAuthConstants.ACCESS_TYPE_WRITE %>"></aui:option>
 		</aui:select>
 
-		<c:if test="<%= (null != oAuthApplication) && (null != oAuthApplication.getConsumerKey()) %>">
+		<c:if test="<%= (oAuthApplication != null) && (Validator.isNotNull(oAuthApplication.getConsumerKey())) %>">
 			<aui:field-wrapper helpMessage="application-credentials-description" label="application-credentials">
 				<liferay-ui:message key="application-key" />: <%= oAuthApplication.getConsumerKey() %> <br />
 				<liferay-ui:message key="application-secret" />: <%= oAuthApplication.getConsumerSecret() %>
@@ -61,8 +67,8 @@ String backURL = ParamUtil.getString(request, "referer");
 		</c:if>
 
 		<aui:button-row>
-		<aui:button type="submit" />
-		<aui:button href="<%= backURL %>" value="cancel" />
+			<aui:button type="submit" />
+			<aui:button href="<%= backURL %>" value="cancel" />
 		</aui:button-row>
 	</aui:fieldset>
 </aui:form>

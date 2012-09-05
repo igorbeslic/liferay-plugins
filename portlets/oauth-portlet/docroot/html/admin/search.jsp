@@ -14,13 +14,11 @@
  */
 --%>
 
-<%@ page import="com.liferay.portlet.oauth.search.OAuthApplicationDisplayTerms" %>
-<%@ page import="com.liferay.portlet.oauth.search.OAuthApplicationSearch" %>
-
 <%@ include file="/html/init.jsp" %>
 
 <%
 OAuthApplicationSearch searchContainer = (OAuthApplicationSearch)request.getAttribute("liferay-ui:search:searchContainer");
+
 boolean showAddButton = GetterUtil.getBoolean((String)request.getAttribute("liferay-ui:search:showAddButton"));
 
 OAuthApplicationDisplayTerms displayTerms = (OAuthApplicationDisplayTerms)searchContainer.getDisplayTerms();
@@ -31,4 +29,5 @@ OAuthApplicationDisplayTerms displayTerms = (OAuthApplicationDisplayTerms)search
 
 	<aui:button type="submit" value="search" />
 </span>
+
 <div class="separator"><!-- --></div>

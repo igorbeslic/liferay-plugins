@@ -14,12 +14,12 @@
 
 package com.liferay.portal.oauth;
 
-import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.oauth.OAuthException;
 
 /**
  * @author Ivica Cardic
  */
-public class OAuthProblemException extends PortalException {
+public class OAuthProblemException extends OAuthException {
 
 	public static final String NONCE_USED = "nonce_used";
 	public static final String PARAMETER_REJECTED = "parameter_rejected";
@@ -34,6 +34,7 @@ public class OAuthProblemException extends PortalException {
 		_oAuthProblemException = new net.oauth.OAuthProblemException(problem);
 	}
 
+	@Override
 	public Throwable getCause() {
 		return _oAuthProblemException;
 	}

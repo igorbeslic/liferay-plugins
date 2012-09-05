@@ -14,98 +14,90 @@
  */
 --%>
 
-<%@ page import="com.liferay.portal.kernel.servlet.SessionMessages" %>
-<%@ page import="com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil" %>
-<%@ page import="com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil" %>
-<%@ page import="com.liferay.portlet.oauth.search.OAuthApplicationDisplayTerms" %>
-<%@ page import="com.liferay.portlet.oauth.search.OAuthApplicationSearch" %>
-<%@ page import="com.liferay.portlet.oauth.search.OAuthApplicationSearchTerms" %>
-
-<%@ page import="java.util.List" %>
-
 <%@ include file="/html/init.jsp" %>
 
-<c:if test="<%= SessionMessages.contains(request, OAuthConstants.WEB_APP_REQ_PROCESSED) %>">
-	<liferay-ui:success key="<%= OAuthConstants.WEB_APP_REQ_PROCESSED %>" message="your-request-completed-successfully"></liferay-ui:success>
-</c:if>
-
 <portlet:actionURL var="searchActionURL">
+	<portlet:param name="mvcPath" value="/admin/view.jsp" />
 </portlet:actionURL>
 
-<aui:form action="<%= searchActionURL %>" name="fm">
-
-<%
-String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");
-String replaceParm0 = "{0}";
-%>
-
-<liferay-util:include page="/html/admin/toolbar.jsp" servletContext="<%= application %>">
-		<liferay-util:param name="toolbarItem" value="view-all" />
-</liferay-util:include>
-
-<liferay-ui:search-container delta="5" searchContainer="<%= new OAuthApplicationSearch(renderRequest, currentURLObj) %>">
-
-	<liferay-ui:search-form page="/html/admin/search.jsp" servletContext="<%= application %>"
-			/>
+<aui:form action="<%= searchActionURL %>" method="get" name="fm">
+	<liferay-portlet:renderURLParams varImpl="searchURL" />
 
 	<%
-		String name = ((OAuthApplicationSearchTerms)searchContainer.getSearchTerms()).getName();
+	String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");
+	%>
 
+	<liferay-util:include page="/html/admin/toolbar.jsp" servletContext="<%= application %>">
+		<liferay-util:param name="toolbarItem" value="view-all" />
+	</liferay-util:include>
+
+	<liferay-ui:search-container delta="5" searchContainer="<%= new OAuthApplicationSearch(renderRequest, currentURLObj) %>">
+
+		<liferay-ui:search-form page="/html/admin/search.jsp" servletContext="<%= application %>" />
+
+		<%
 		List<OAuthApplication> oAuthApps = null;
 		int oAuthAppsCnt = 0;
 
 		if (adminUser) {
-			oAuthApps = OAuthApplicationLocalServiceUtil.getApplications(themeDisplay.getCompanyId(), name, searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
-			oAuthAppsCnt = OAuthApplicationLocalServiceUtil.getApplicationsByCNCount(themeDisplay.getCompanyId(), name);
-		} else {
-			oAuthApps = OAuthApplicationLocalServiceUtil.getApplicationsByON(themeDisplay.getUserId(), name, searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
-			oAuthAppsCnt = OAuthApplicationLocalServiceUtil.getApplicationsByONCount(themeDisplay.getUserId(), name);
+			oAuthApps = OAuthApplicationLocalServiceUtil.getApplications(themeDisplay.getCompanyId(), searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
+			oAuthAppsCnt = OAuthApplicationLocalServiceUtil.getApplicationsCount(themeDisplay.getCompanyId());
 		}
-	%>
-
-	<liferay-ui:search-container-results
-	results="<%= oAuthApps %>"
-	total="<%= oAuthAppsCnt %>"
-	 />
-
-	<liferay-ui:search-container-row
-		className="com.liferay.portal.oauth.model.OAuthApplication"
-		keyProperty="applicationId"
-		modelVar="app">
-
-		<%
-		int authorizationsCount = OAuthApplications_UsersLocalServiceUtil.countByApplicationId(app.getApplicationId());
+		else {
+			oAuthApps = OAuthApplicationLocalServiceUtil.getApplicationsByUserId(themeDisplay.getUserId(), searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
+			oAuthAppsCnt = OAuthApplicationLocalServiceUtil.getApplicationsByUserIdCount(themeDisplay.getUserId());
+		}
 		%>
 
-		<liferay-ui:search-container-column-text
-					name="id"
-					orderable="<%= true %>"
-					value="<%= String.valueOf(app.getApplicationId()) %>"
-				/>
-		<liferay-ui:search-container-column-text
-					name="name"
-					orderable="<%= true %>"
-					value="<%= app.getName() %>"
-				/>
-		<liferay-ui:search-container-column-text
-					name="website"
-				/>
-		<liferay-ui:search-container-column-text
-					name="access-level"
-				>
-				<liferay-ui:message key="<%= OAuthConstants.WEB_APP_LANG_KEY_ACCESS_TYPE_SHORT.replace(replaceParm0, String.valueOf(app.getAccessLevel())) %>" />
-		</liferay-ui:search-container-column-text>
-		<liferay-ui:search-container-column-text
-					name="authorizations-count-short"
-					value="<%= String.valueOf(authorizationsCount) %>"
-				/>
-		<liferay-ui:search-container-column-jsp
-					align="right"
-					path="/html/admin/actions.jsp"
-				/>
-	</liferay-ui:search-container-row>
+		<liferay-ui:search-container-results
+			results="<%= oAuthApps %>"
+			total="<%= oAuthAppsCnt %>"
+		/>
 
-	<liferay-ui:search-iterator />
+		<liferay-ui:search-container-row
+			className="com.liferay.portal.oauth.model.OAuthApplication"
+			keyProperty="applicationId"
+			modelVar="app"
+		>
 
-</liferay-ui:search-container>
+			<%
+			int authorizationsCount = OAuthApplicationUserLocalServiceUtil.getApplicationUsersCount(app.getApplicationId());
+			%>
+
+			<liferay-ui:search-container-column-text
+				name="id"
+				orderable="<%= true %>"
+				value="<%= String.valueOf(app.getApplicationId()) %>"
+			/>
+
+			<liferay-ui:search-container-column-text
+				name="name"
+				orderable="<%= true %>"
+				value="<%= app.getName() %>"
+			/>
+
+			<liferay-ui:search-container-column-text
+				name="website"
+			/>
+
+			<liferay-ui:search-container-column-text
+				name="access-level"
+			>
+				<liferay-ui:message key='<%= ("access-level-option-" + app.getAccessLevel()) %>' />
+			</liferay-ui:search-container-column-text>
+
+			<liferay-ui:search-container-column-text
+				name="authorizations-count-short"
+				value="<%= String.valueOf(authorizationsCount) %>"
+			/>
+
+			<liferay-ui:search-container-column-jsp
+				align="right"
+				path="/html/admin/actions.jsp"
+			/>
+
+		</liferay-ui:search-container-row>
+
+		<liferay-ui:search-iterator />
+	</liferay-ui:search-container>
 </aui:form>

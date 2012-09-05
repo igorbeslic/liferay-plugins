@@ -30,10 +30,9 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.PersistedModel;
 import com.liferay.portal.oauth.model.OAuthApplication;
 import com.liferay.portal.oauth.service.OAuthApplicationLocalService;
-import com.liferay.portal.oauth.service.OAuthApplications_UsersLocalService;
+import com.liferay.portal.oauth.service.OAuthApplicationUserLocalService;
 import com.liferay.portal.oauth.service.persistence.OAuthApplicationPersistence;
-import com.liferay.portal.oauth.service.persistence.OAuthApplications_UsersFinder;
-import com.liferay.portal.oauth.service.persistence.OAuthApplications_UsersPersistence;
+import com.liferay.portal.oauth.service.persistence.OAuthApplicationUserPersistence;
 import com.liferay.portal.service.BaseLocalServiceImpl;
 import com.liferay.portal.service.PersistedModelLocalServiceRegistryUtil;
 import com.liferay.portal.service.ResourceLocalService;
@@ -312,60 +311,41 @@ public abstract class OAuthApplicationLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the o auth applications_ users local service.
+	 * Returns the o auth application user local service.
 	 *
-	 * @return the o auth applications_ users local service
+	 * @return the o auth application user local service
 	 */
-	public OAuthApplications_UsersLocalService getOAuthApplications_UsersLocalService() {
-		return oAuthApplications_UsersLocalService;
+	public OAuthApplicationUserLocalService getOAuthApplicationUserLocalService() {
+		return oAuthApplicationUserLocalService;
 	}
 
 	/**
-	 * Sets the o auth applications_ users local service.
+	 * Sets the o auth application user local service.
 	 *
-	 * @param oAuthApplications_UsersLocalService the o auth applications_ users local service
+	 * @param oAuthApplicationUserLocalService the o auth application user local service
 	 */
-	public void setOAuthApplications_UsersLocalService(
-		OAuthApplications_UsersLocalService oAuthApplications_UsersLocalService) {
-		this.oAuthApplications_UsersLocalService = oAuthApplications_UsersLocalService;
+	public void setOAuthApplicationUserLocalService(
+		OAuthApplicationUserLocalService oAuthApplicationUserLocalService) {
+		this.oAuthApplicationUserLocalService = oAuthApplicationUserLocalService;
 	}
 
 	/**
-	 * Returns the o auth applications_ users persistence.
+	 * Returns the o auth application user persistence.
 	 *
-	 * @return the o auth applications_ users persistence
+	 * @return the o auth application user persistence
 	 */
-	public OAuthApplications_UsersPersistence getOAuthApplications_UsersPersistence() {
-		return oAuthApplications_UsersPersistence;
+	public OAuthApplicationUserPersistence getOAuthApplicationUserPersistence() {
+		return oAuthApplicationUserPersistence;
 	}
 
 	/**
-	 * Sets the o auth applications_ users persistence.
+	 * Sets the o auth application user persistence.
 	 *
-	 * @param oAuthApplications_UsersPersistence the o auth applications_ users persistence
+	 * @param oAuthApplicationUserPersistence the o auth application user persistence
 	 */
-	public void setOAuthApplications_UsersPersistence(
-		OAuthApplications_UsersPersistence oAuthApplications_UsersPersistence) {
-		this.oAuthApplications_UsersPersistence = oAuthApplications_UsersPersistence;
-	}
-
-	/**
-	 * Returns the o auth applications_ users finder.
-	 *
-	 * @return the o auth applications_ users finder
-	 */
-	public OAuthApplications_UsersFinder getOAuthApplications_UsersFinder() {
-		return oAuthApplications_UsersFinder;
-	}
-
-	/**
-	 * Sets the o auth applications_ users finder.
-	 *
-	 * @param oAuthApplications_UsersFinder the o auth applications_ users finder
-	 */
-	public void setOAuthApplications_UsersFinder(
-		OAuthApplications_UsersFinder oAuthApplications_UsersFinder) {
-		this.oAuthApplications_UsersFinder = oAuthApplications_UsersFinder;
+	public void setOAuthApplicationUserPersistence(
+		OAuthApplicationUserPersistence oAuthApplicationUserPersistence) {
+		this.oAuthApplicationUserPersistence = oAuthApplicationUserPersistence;
 	}
 
 	/**
@@ -460,6 +440,10 @@ public abstract class OAuthApplicationLocalServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
+		Class<?> clazz = getClass();
+
+		_classLoader = clazz.getClassLoader();
+
 		PersistedModelLocalServiceRegistryUtil.register("com.liferay.portal.oauth.model.OAuthApplication",
 			oAuthApplicationLocalService);
 	}
@@ -489,7 +473,22 @@ public abstract class OAuthApplicationLocalServiceBaseImpl
 
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
-		return _clpInvoker.invokeMethod(name, parameterTypes, arguments);
+		Thread currentThread = Thread.currentThread();
+
+		ClassLoader contextClassLoader = currentThread.getContextClassLoader();
+
+		if (contextClassLoader != _classLoader) {
+			currentThread.setContextClassLoader(_classLoader);
+		}
+
+		try {
+			return _clpInvoker.invokeMethod(name, parameterTypes, arguments);
+		}
+		finally {
+			if (contextClassLoader != _classLoader) {
+				currentThread.setContextClassLoader(contextClassLoader);
+			}
+		}
 	}
 
 	protected Class<?> getModelClass() {
@@ -523,12 +522,10 @@ public abstract class OAuthApplicationLocalServiceBaseImpl
 	protected OAuthApplicationLocalService oAuthApplicationLocalService;
 	@BeanReference(type = OAuthApplicationPersistence.class)
 	protected OAuthApplicationPersistence oAuthApplicationPersistence;
-	@BeanReference(type = OAuthApplications_UsersLocalService.class)
-	protected OAuthApplications_UsersLocalService oAuthApplications_UsersLocalService;
-	@BeanReference(type = OAuthApplications_UsersPersistence.class)
-	protected OAuthApplications_UsersPersistence oAuthApplications_UsersPersistence;
-	@BeanReference(type = OAuthApplications_UsersFinder.class)
-	protected OAuthApplications_UsersFinder oAuthApplications_UsersFinder;
+	@BeanReference(type = OAuthApplicationUserLocalService.class)
+	protected OAuthApplicationUserLocalService oAuthApplicationUserLocalService;
+	@BeanReference(type = OAuthApplicationUserPersistence.class)
+	protected OAuthApplicationUserPersistence oAuthApplicationUserPersistence;
 	@BeanReference(type = CounterLocalService.class)
 	protected CounterLocalService counterLocalService;
 	@BeanReference(type = ResourceLocalService.class)
@@ -540,5 +537,6 @@ public abstract class OAuthApplicationLocalServiceBaseImpl
 	@BeanReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
 	private String _beanIdentifier;
+	private ClassLoader _classLoader;
 	private OAuthApplicationLocalServiceClpInvoker _clpInvoker = new OAuthApplicationLocalServiceClpInvoker();
 }

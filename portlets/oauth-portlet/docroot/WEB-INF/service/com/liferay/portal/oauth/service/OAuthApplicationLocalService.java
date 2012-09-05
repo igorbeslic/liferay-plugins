@@ -261,21 +261,34 @@ public interface OAuthApplicationLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
-	/**
-	* Delete OAuth application designated by applicationId. Method will
-	* delete all application user's authorizations, application and
-	* corresponding resource entries.
-	*/
 	public com.liferay.portal.oauth.model.OAuthApplication deleteApplication(
-		long applicationId, long userId,
+		com.liferay.portal.oauth.model.OAuthApplication application,
 		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.portal.oauth.model.OAuthApplication deleteApplication(
+		long applicationId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.portal.oauth.model.OAuthApplication fetchApplication(
+		java.lang.String consumerKey)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.portal.oauth.model.OAuthApplication getApplication(
+		long applicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portal.oauth.model.OAuthApplication getApplication(
 		java.lang.String consumerKey)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> getApplications(
@@ -289,43 +302,13 @@ public interface OAuthApplicationLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> getApplications(
-		long companyId, java.lang.String name, int start, int end,
+	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> getApplicationsByUserId(
+		long userId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> getApplicationsByCN(
-		long companyId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> getApplicationsByON(
-		long ownerId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> getApplicationsByON(
-		long ownerId, java.lang.String name, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.portal.oauth.model.OAuthApplication> getApplicationsByOwner(
-		long ownerId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getApplicationsByCNCount(long companyId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getApplicationsByONCount(long ownerId, java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getApplicationsByOwnerCount(long ownerId)
+	public int getApplicationsByUserIdCount(long userId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -338,9 +321,9 @@ public interface OAuthApplicationLocalService extends BaseLocalService,
 	* access level.
 	*/
 	public com.liferay.portal.oauth.model.OAuthApplication updateApplication(
-		long applicationId, long userId, java.lang.String name,
+		long userId, long applicationId, java.lang.String name,
 		java.lang.String description, java.lang.String website,
-		java.lang.String callBackURL, int accessLevel,
+		java.lang.String callBackURL,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;

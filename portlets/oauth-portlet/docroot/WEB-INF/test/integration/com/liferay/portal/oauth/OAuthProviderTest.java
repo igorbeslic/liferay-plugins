@@ -239,7 +239,7 @@ public class OAuthProviderTest {
 			pstmt.close();
 
 			pstmt = _connection.prepareStatement(
-				DELETE_STATEMENT_OAUTHAPPLICATIONS_USERS);
+				DELETE_STATEMENT_OAuthApplicationUser);
 
 			pstmt.setInt(1, (Integer) data[i][0]);
 
@@ -345,8 +345,8 @@ public class OAuthProviderTest {
 
 	private static final String DELETE_STATEMENT_OAUTHAPPLICATION =
 			"delete from oauthapplication where applicationId=?";
-	private static final String DELETE_STATEMENT_OAUTHAPPLICATIONS_USERS =
-			"delete from oauthapplications_users where applicationId=?";
+	private static final String DELETE_STATEMENT_OAuthApplicationUser =
+			"delete from OAuthApplicationUser where applicationId=?";
 	private static final String INSERT_STATEMENT_OAUTHAPPLICATION =
 		"INSERT INTO oauthapplication VALUES " +
 			"(? ,? ,? ,? ,? ,? , ?, ?, ?, ?, ?, ?, ?, ?)";

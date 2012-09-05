@@ -17,16 +17,16 @@ package com.liferay.portal.oauth.service.impl;
 import com.liferay.portal.RequiredFieldException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
+import com.liferay.portal.oauth.OAuthUtil;
 import com.liferay.portal.oauth.model.OAuthApplication;
 import com.liferay.portal.oauth.service.base.OAuthApplicationLocalServiceBaseImpl;
+import com.liferay.portal.oauth.util.OAuthConstants;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.portlet.oauth.OAuthConstants;
 
 import java.net.MalformedURLException;
 
@@ -83,72 +83,87 @@ public class OAuthApplicationLocalServiceImpl
 		application.setUserName(user.getFullName());
 		application.setCreateDate(serviceContext.getCreateDate(now));
 		application.setModifiedDate(serviceContext.getModifiedDate(now));
-		application.setOwnerId(user.getUserId());
 		application.setName(name);
 		application.setDescription(description);
 		application.setWebsite(website);
-		application.setConsumerKey(PortalUUIDUtil.generate());
-
-		String secretSeed = application.getConsumerKey().concat(
-			String.valueOf(System.nanoTime()));
-
-		application.setConsumerSecret(DigesterUtil.digestHex(secretSeed));
 		application.setCallBackURL(callBackURL);
 		application.setAccessLevel(accessLevel);
 
-		oAuthApplicationPersistence.update(application, true);
+		// Generated values
+
+		// This is to support potential import
+
+		String consumerKey = serviceContext.getUuid();
+
+		if (Validator.isNull(consumerKey)) {
+			consumerKey = PortalUUIDUtil.generate();
+		}
+
+		String consumerSecret = OAuthUtil.randomizeToken(consumerKey);
+
+		application.setConsumerKey(consumerKey);
+		application.setConsumerSecret(consumerSecret);
+
+		oAuthApplicationPersistence.update(application, false);
 
 		// Resources
 
-		resourceLocalService.addModelResources(application, serviceContext);
+		resourceLocalService.addResources(
+			application.getCompanyId(), 0, userId,
+			OAuthApplication.class.getName(), application.getApplicationId(),
+			false, false, false);
 
 		return application;
 	}
 
-	/**
-	 * Delete OAuth application designated by applicationId. Method will
-	 * delete all application user's authorizations, application and
-	 * corresponding resource entries.
-	 */
 	public OAuthApplication deleteApplication(
-			long applicationId, long userId, ServiceContext serviceContext)
+			OAuthApplication application, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		// Application user's authorizations
-		oAuthApplications_UsersPersistence
-			.removeByApplicationId(applicationId);
+		// Applications
 
-		// TODO remove resorces when ivica is done with his code...
-
-		// Application
-
-		User user = userPersistence.findByPrimaryKey(userId);
-
-		Date now = new Date();
-
-		OAuthApplication application =
-				oAuthApplicationPersistence.findByPrimaryKey(applicationId);
-
-		application.setUserId(user.getUserId());
-		application.setUserName(user.getFullName());
-		application.setModifiedDate(serviceContext.getModifiedDate(now));
+		oAuthApplicationUserPersistence.removeByApplicationId(
+			application.getApplicationId());
 
 		// Resources
 
 		resourceLocalService.deleteResource(
-				application, ResourceConstants.SCOPE_COMPANY);
+			application.getCompanyId(), OAuthApplication.class.getName(),
+			ResourceConstants.SCOPE_INDIVIDUAL, application.getApplicationId());
 
 		// Application
 
-		application = oAuthApplicationPersistence.remove(application);
+		oAuthApplicationPersistence.remove(application);
 
 		return application;
 	}
 
-	public OAuthApplication getApplication(String consumerKey)
+	public OAuthApplication deleteApplication(
+			long applicationId, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		OAuthApplication application =
+			oAuthApplicationPersistence.findByPrimaryKey(applicationId);
+
+		return deleteApplication(application, serviceContext);
+	}
+
+	public OAuthApplication fetchApplication(String consumerKey)
 		throws SystemException {
 
 		return oAuthApplicationPersistence.fetchByConsumerKey(consumerKey);
+	}
+
+	public OAuthApplication getApplication(long applicationId)
+		throws PortalException, SystemException {
+
+		return oAuthApplicationPersistence.findByPrimaryKey(applicationId);
+	}
+
+	public OAuthApplication getApplication(String consumerKey)
+		throws PortalException, SystemException {
+
+		return oAuthApplicationPersistence.findByConsumerKey(consumerKey);
 	}
 
 	public List<OAuthApplication> getApplications(long companyId)
@@ -162,82 +177,24 @@ public class OAuthApplicationLocalServiceImpl
 			OrderByComparator orderByComparator)
 		throws SystemException {
 
-		return oAuthApplicationPersistence.filterFindByCompanyId(
-					companyId, start, end, orderByComparator);
+		return oAuthApplicationPersistence.findByCompanyId(
+			companyId, start, end, orderByComparator);
 	}
 
-	public List<OAuthApplication> getApplications(
-			long companyId, String name, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
-		if (null == name) {
-			name = "%";
-		}
-
-		return oAuthApplicationPersistence.findByC_N(
-			companyId, name, start, end, orderByComparator);
-	}
-
-	public List<OAuthApplication> getApplicationsByCN(
-			long companyId, String name)
-		throws SystemException {
-
-		return oAuthApplicationPersistence.findByC_N(companyId, name);
-	}
-
-	public int getApplicationsByCNCount(long companyId, String name)
-		throws SystemException {
-		if (null == name) {
-			name = "%";
-		}
-
-		return oAuthApplicationPersistence.countByC_N(companyId, name);
-	}
-
-	public List<OAuthApplication> getApplicationsByON(long ownerId, String name)
-		throws SystemException {
-		if (null == name) {
-			name = "%";
-		}
-
-		return oAuthApplicationPersistence.findByO_N(ownerId, name);
-	}
-
-	public List<OAuthApplication> getApplicationsByON(
-			long ownerId, String name, int start, int end,
-			OrderByComparator orderByComparator)
-		throws SystemException {
-		if (null == name) {
-			name = "%";
-		}
-
-		return oAuthApplicationPersistence.findByO_N(
-			ownerId, name, start, end, orderByComparator);
-	}
-
-	public int getApplicationsByONCount(long ownerId, String name)
-			throws SystemException {
-			if (null == name) {
-				name = "%";
-			}
-
-			return oAuthApplicationPersistence.countByO_N(ownerId, name);
-		}
-
-	public List<OAuthApplication> getApplicationsByOwner(
-			long ownerId, int start, int end,
+	public List<OAuthApplication> getApplicationsByUserId(
+			long userId, int start, int end,
 			OrderByComparator orderByComparator)
 		throws SystemException {
 
-		return oAuthApplicationPersistence.findByOwnerId(
-					ownerId, start, end, orderByComparator);
+		return oAuthApplicationPersistence.findByUserId(
+			userId, start, end, orderByComparator);
 	}
 
-	public int getApplicationsByOwnerCount(long ownerId)
-			throws SystemException {
+	public int getApplicationsByUserIdCount(long userId)
+		throws SystemException {
 
-			return oAuthApplicationPersistence.countByOwnerId(ownerId);
-		}
+		return oAuthApplicationPersistence.countByUserId(userId);
+	}
 
 	public int getApplicationsCount(long companyId) throws SystemException {
 		return oAuthApplicationPersistence.countByCompanyId(companyId);
@@ -249,37 +206,26 @@ public class OAuthApplicationLocalServiceImpl
 	 * access level.
 	 */
 	public OAuthApplication updateApplication(
-			long applicationId, long userId, String name, String description,
-			String website, String callBackURL, int accessLevel,
-			ServiceContext serviceContext)
+			long userId, long applicationId, String name, String description,
+			String website, String callBackURL, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		// Application
-
-		User user = userPersistence.findByPrimaryKey(userId);
 
 		validate(name, website, callBackURL);
 
 		Date now = new Date();
 
 		OAuthApplication application =
-				oAuthApplicationPersistence.findByPrimaryKey(applicationId);
+			oAuthApplicationPersistence.findByPrimaryKey(applicationId);
 
-		application.setUserId(user.getUserId());
-		application.setUserName(user.getFullName());
 		application.setModifiedDate(serviceContext.getModifiedDate(now));
 		application.setName(name);
 		application.setDescription(description);
 		application.setWebsite(website);
 		application.setCallBackURL(callBackURL);
 
-		// TODO: Ray/Mike - we probably shouldn't allow access level change?
-		application.setAccessLevel(accessLevel);
-
-		oAuthApplicationPersistence.update(application, true);
-
-		// Resources
-		// TODO: Ray/Mike does update requires resource updates?
+		oAuthApplicationPersistence.update(application, false);
 
 		return application;
 	}
@@ -289,12 +235,12 @@ public class OAuthApplicationLocalServiceImpl
 
 		if (Validator.isNull(name)) {
 			throw new RequiredFieldException(
-				"required-field", OAuthConstants.WEB_APP_NAME_ID);
+				"required-field", OAuthConstants.NAME);
 		}
 
 		if (Validator.isNull(callBackURL)) {
 			throw new RequiredFieldException(
-				"required-field", OAuthConstants.WEB_APP_CALLBACKURL_ID);
+				"required-field", OAuthConstants.CALLBACK_URL);
 		}
 
 		if (!Validator.isUrl(callBackURL)) {
@@ -303,7 +249,7 @@ public class OAuthApplicationLocalServiceImpl
 
 		if (Validator.isNull(website)) {
 			throw new RequiredFieldException(
-				"required-field", OAuthConstants.WEB_APP_WEBSITE_ID);
+				"required-field", OAuthConstants.WEBSITE);
 		}
 
 		if (!Validator.isUrl(website)) {

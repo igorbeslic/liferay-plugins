@@ -22,7 +22,7 @@ import java.io.IOException;
 public class OAuthMessageImpl implements OAuthMessage {
 
 	public OAuthMessageImpl(net.oauth.OAuthMessage oAuthMessage) {
-		this._oAuthMessage = oAuthMessage;
+		_oAuthMessage = oAuthMessage;
 	}
 
 	public String getConsumerKey() throws IOException {

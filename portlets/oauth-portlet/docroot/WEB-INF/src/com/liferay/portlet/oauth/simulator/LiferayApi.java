@@ -25,14 +25,12 @@ public class LiferayApi extends DefaultApi10a {
 		"http://localhost:8080/c/portal/oauth/authorize?oauth_token=%s";
 
 	@Override
-	public String getAccessTokenEndpoint()
-	{
+	public String getAccessTokenEndpoint() {
 		return "http://localhost:8080/c/portal/oauth/access_token";
 	}
 
 	@Override
-	public String getRequestTokenEndpoint()
-	{
+	public String getRequestTokenEndpoint() {
 		return "http://localhost:8080/c/portal/oauth/request_token";
 	}
 

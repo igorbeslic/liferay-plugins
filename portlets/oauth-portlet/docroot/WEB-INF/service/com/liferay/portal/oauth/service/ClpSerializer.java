@@ -14,7 +14,6 @@
 
 package com.liferay.portal.oauth.service;
 
-import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
@@ -26,7 +25,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.oauth.model.OAuthApplicationClp;
-import com.liferay.portal.oauth.model.OAuthApplications_UsersClp;
+import com.liferay.portal.oauth.model.OAuthApplicationUserClp;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -107,8 +106,8 @@ public class ClpSerializer {
 			return translateInputOAuthApplication(oldModel);
 		}
 
-		if (oldModelClassName.equals(OAuthApplications_UsersClp.class.getName())) {
-			return translateInputOAuthApplications_Users(oldModel);
+		if (oldModelClassName.equals(OAuthApplicationUserClp.class.getName())) {
+			return translateInputOAuthApplicationUser(oldModel);
 		}
 
 		return oldModel;
@@ -136,11 +135,11 @@ public class ClpSerializer {
 		return newModel;
 	}
 
-	public static Object translateInputOAuthApplications_Users(
+	public static Object translateInputOAuthApplicationUser(
 		BaseModel<?> oldModel) {
-		OAuthApplications_UsersClp oldClpModel = (OAuthApplications_UsersClp)oldModel;
+		OAuthApplicationUserClp oldClpModel = (OAuthApplicationUserClp)oldModel;
 
-		BaseModel<?> newModel = oldClpModel.getOAuthApplications_UsersRemoteModel();
+		BaseModel<?> newModel = oldClpModel.getOAuthApplicationUserRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -170,8 +169,8 @@ public class ClpSerializer {
 		}
 
 		if (oldModelClassName.equals(
-					"com.liferay.portal.oauth.model.impl.OAuthApplications_UsersImpl")) {
-			return translateOutputOAuthApplications_Users(oldModel);
+					"com.liferay.portal.oauth.model.impl.OAuthApplicationUserImpl")) {
+			return translateOutputOAuthApplicationUser(oldModel);
 		}
 
 		return oldModel;
@@ -204,11 +203,6 @@ public class ClpSerializer {
 	public static Throwable translateThrowable(Throwable throwable) {
 		if (_useReflectionToTranslateThrowable) {
 			try {
-				if (_classLoader == null) {
-					_classLoader = (ClassLoader)PortletBeanLocatorUtil.locate(_servletContextName,
-							"portletClassLoader");
-				}
-
 				UnsyncByteArrayOutputStream unsyncByteArrayOutputStream = new UnsyncByteArrayOutputStream();
 				ObjectOutputStream objectOutputStream = new ObjectOutputStream(unsyncByteArrayOutputStream);
 
@@ -219,8 +213,13 @@ public class ClpSerializer {
 
 				UnsyncByteArrayInputStream unsyncByteArrayInputStream = new UnsyncByteArrayInputStream(unsyncByteArrayOutputStream.unsafeGetByteArray(),
 						0, unsyncByteArrayOutputStream.size());
+
+				Thread currentThread = Thread.currentThread();
+
+				ClassLoader contextClassLoader = currentThread.getContextClassLoader();
+
 				ObjectInputStream objectInputStream = new ClassLoaderObjectInputStream(unsyncByteArrayInputStream,
-						_classLoader);
+						contextClassLoader);
 
 				throwable = (Throwable)objectInputStream.readObject();
 
@@ -260,8 +259,8 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
-					"com.liferay.portal.oauth.NoSuchApplications_UsersException")) {
-			return new com.liferay.portal.oauth.NoSuchApplications_UsersException();
+					"com.liferay.portal.oauth.NoSuchApplicationUserException")) {
+			return new com.liferay.portal.oauth.NoSuchApplicationUserException();
 		}
 
 		return throwable;
@@ -277,19 +276,18 @@ public class ClpSerializer {
 		return newModel;
 	}
 
-	public static Object translateOutputOAuthApplications_Users(
+	public static Object translateOutputOAuthApplicationUser(
 		BaseModel<?> oldModel) {
-		OAuthApplications_UsersClp newModel = new OAuthApplications_UsersClp();
+		OAuthApplicationUserClp newModel = new OAuthApplicationUserClp();
 
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
-		newModel.setOAuthApplications_UsersRemoteModel(oldModel);
+		newModel.setOAuthApplicationUserRemoteModel(oldModel);
 
 		return newModel;
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(ClpSerializer.class);
-	private static ClassLoader _classLoader;
 	private static String _servletContextName;
 	private static boolean _useReflectionToTranslateThrowable = true;
 }

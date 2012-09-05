@@ -15,126 +15,132 @@
 package com.liferay.portlet.oauth.mvc;
 
 import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.oauth.OAuthAccessor;
+import com.liferay.portal.oauth.OAuthConsumer;
 import com.liferay.portal.oauth.OAuthMessage;
 import com.liferay.portal.oauth.OAuthProblemException;
-import com.liferay.portal.oauth.OAuthProviderManagerUtil;
+import com.liferay.portal.oauth.OAuthUtil;
+import com.liferay.portal.oauth.util.OAuthConstants;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portlet.oauth.OAuthConstants;
-import com.liferay.portlet.oauth.OAuthWebKeys;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.io.IOException;
 
-import javax.portlet.*;
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+public class OAuthAuthorizePortlet extends MVCPortlet
+	implements OAuthConstants {
 
-import org.apache.commons.codec.digest.DigestUtils;
-public class OAuthAuthorizePortlet extends MVCPortlet {
+	public void authorize(
+		ActionRequest actionRequest, ActionResponse actionResponse) {
 
-	public void authorize(ActionRequest request, ActionResponse response) {
-		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		OAuthMessage requestMessage = OAuthProviderManagerUtil.getMessage(
-				request, null);
+		OAuthMessage requestMessage = OAuthUtil.getMessage(
+			actionRequest, null);
 
 		try {
-			OAuthAccessor accessor = OAuthProviderManagerUtil.getAccessor(
+			OAuthAccessor accessor = OAuthUtil.getAccessor(
 				requestMessage);
 
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(
-					request);
+				actionRequest);
 
-			OAuthProviderManagerUtil.markAsAuthorized(
-					accessor, serviceContext.getUserId(), serviceContext);
+			OAuthUtil.authorize(
+				accessor, serviceContext.getUserId(), serviceContext);
 
-			returnToConsumer(request, response, accessor);
+			returnToConsumer(actionRequest, actionResponse, accessor);
 		}
 		catch (Exception e) {
 			if (e instanceof OAuthProblemException) {
+				OAuthProblemException authProblemException =
+					(OAuthProblemException)e;
+
 				SessionErrors.add(
-						request, ((OAuthProblemException) e).getProblem());
+					actionRequest, authProblemException.getProblem());
 			}
 			else {
-				SessionErrors.add(request, e.getClass());
+				SessionErrors.add(actionRequest, e.getClass());
 			}
 		}
 	}
 
 	@Override
-	public void render(RenderRequest request, RenderResponse response)
+	public void render(
+			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws PortletException, IOException {
 
-		OAuthMessage requestMessage = OAuthProviderManagerUtil.getMessage(
-			request, null);
+		OAuthMessage requestMessage = OAuthUtil.getMessage(
+			renderRequest, null);
 
 		try {
-			OAuthAccessor accessor = OAuthProviderManagerUtil.getAccessor(
+			OAuthAccessor accessor = OAuthUtil.getAccessor(
 				requestMessage);
 
-			request.setAttribute(OAuthWebKeys.OAUTH_ACCESSOR, accessor);
+			renderRequest.setAttribute(OAUTH_ACCESSOR, accessor);
 
-			if (Boolean.TRUE.equals(
-				accessor.getProperty(OAuthConstants.AUTHORIZED))) {
-
-				SessionErrors.add(request, OAuthConstants.ALREADY_AUTHORIZED);
+			if (Boolean.TRUE.equals(accessor.getProperty(AUTHORIZED))) {
+				SessionErrors.add(renderRequest, "already-authorized");
 			}
 		}
 		catch (Exception e) {
 			if (e instanceof OAuthProblemException) {
+				OAuthProblemException authProblemException =
+					(OAuthProblemException)e;
+
 				SessionErrors.add(
-					request, OAuthProblemException.class,
-					((OAuthProblemException) e).getProblem());
+					renderRequest, OAuthProblemException.class,
+					authProblemException.getProblem());
 			}
 			else {
-				SessionErrors.add(request, e.getClass());
+				SessionErrors.add(renderRequest, e.getClass());
 			}
 		}
 
-		super.render(request, response);
+		super.render(renderRequest, renderResponse);
 	}
 
 	private void returnToConsumer(
-			ActionRequest request, ActionResponse response,
+			ActionRequest actionRequest, ActionResponse actionResponse,
 			OAuthAccessor accessor)
 		throws Exception {
 
 		// send the user back to site's callBackUrl
-		String callback = request.getParameter(OAuthConstants.OAUTH_CALLBACK);
 
-		if (OAuthConstants.NONE.equals(callback) &&
-			(accessor.getConsumer().getCallbackURL() != null) &&
-			(accessor.getConsumer().getCallbackURL().length() > 0)) {
+		String callback = ParamUtil.getString(actionRequest, OAUTH_CALLBACK);
+
+		OAuthConsumer consumer = accessor.getConsumer();
+
+		String callbackURL = consumer.getCallbackURL();
+
+		if (NONE.equals(callback) &&
+			Validator.isNotNull(callbackURL)) {
 
 			// first check if we have something in our properties file
-			callback = accessor.getConsumer().getCallbackURL();
+
+			callback = callbackURL;
 		}
 
 		String token = accessor.getRequestToken();
 
-		// for now use md5 of name + current time + token as secret
-		String secretData = callback + System.nanoTime() + token;
-		String verifier = DigestUtils.md5Hex(secretData);
+		String verifier = OAuthUtil.randomizeToken(callback.concat(token));
 
-		if (OAuthConstants.NONE.equals(callback) ) {
-			request.setAttribute(OAuthWebKeys.VERIFIER, verifier);
-			request.setAttribute(OAuthWebKeys.OAUTH_ACCESSOR, accessor);
-		} else {
-			// if callback is not passed in, use the callback from config
-			if ((callback == null) || (callback.length() <= 0)) {
-				callback = accessor.getConsumer().getCallbackURL();
-			}
-
+		if (NONE.equals(callback)) {
+			actionRequest.setAttribute(OAUTH_ACCESSOR, accessor);
+			actionRequest.setAttribute(VERIFIER, verifier);
+		}
+		else {
 			if (token != null) {
-				callback = OAuthProviderManagerUtil.addParameters(
-					callback, OAuthConstants.OAUTH_TOKEN, token,
-					OAuthConstants.OAUTH_VERIFIER, verifier);
+				callback = OAuthUtil.addParameters(
+					callback, OAUTH_TOKEN, token,
+					OAUTH_VERIFIER, verifier);
 			}
 
-			response.sendRedirect(callback);
+			actionResponse.sendRedirect(callback);
 		}
 	}
 

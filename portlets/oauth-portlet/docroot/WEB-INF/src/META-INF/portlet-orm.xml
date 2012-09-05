@@ -19,28 +19,27 @@
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
-			<basic name="ownerId" />
 			<basic name="name" />
 			<basic name="description" />
 			<basic name="website" />
-			<basic name="consumerKey" />
-			<basic name="consumerSecret" />
 			<basic name="callBackURL" />
 			<basic name="accessLevel" />
+			<basic name="consumerKey" />
+			<basic name="consumerSecret" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
-	<mapped-superclass class="com.liferay.portal.oauth.model.impl.OAuthApplications_UsersModelImpl">
+	<mapped-superclass class="com.liferay.portal.oauth.model.impl.OAuthApplicationUserModelImpl">
 		<attributes>
-			<id name="oaauid" />
+			<id name="oaauId" />
+			<basic name="userId" />
+			<basic name="applicationId" />
 			<basic name="accessToken" />
 			<basic name="accessSecret" />
-			<basic name="applicationId" />
 			<basic name="authorized" />
-			<basic name="userId" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -51,8 +50,8 @@
 		<table name="OAuthApplication" />
 		<attributes />
 	</entity>
-	<entity class="com.liferay.portal.oauth.model.impl.OAuthApplications_UsersImpl" name="OAuthApplications_Users">
-		<table name="OAuthApplications_Users" />
+	<entity class="com.liferay.portal.oauth.model.impl.OAuthApplicationUserImpl" name="OAuthApplicationUser">
+		<table name="OAuthApplicationUser" />
 		<attributes />
 	</entity>
 </entity-mappings>

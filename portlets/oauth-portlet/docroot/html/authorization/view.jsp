@@ -15,9 +15,9 @@
 --%>
 
 <%@ page import="com.liferay.portal.kernel.servlet.SessionMessages" %>
-<%@ page import="com.liferay.portal.oauth.model.OAuthApplications_Users" %>
+<%@ page import="com.liferay.portal.oauth.model.OAuthApplicationUser" %>
 <%@ page import="com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil" %>
-<%@ page import="com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil" %>
+<%@ page import="com.liferay.portal.oauth.service.OAuthApplicationUserLocalServiceUtil" %>
 <%@ page import="com.liferay.portlet.oauth.search.OAuthApplicationDisplayTerms" %>
 <%@ page import="com.liferay.portlet.oauth.search.OAuthApplicationSearchTerms" %>
 <%@ page import="com.liferay.portlet.oauth.search.OAuthApplicationUserSearch" %>
@@ -69,7 +69,7 @@ if (!adminUser) {
 	<%
 		String name = ((OAuthApplicationSearchTerms)searchContainer.getSearchTerms()).getName();
 
-		List<OAuthApplications_Users> oAuthApps = null;
+		List<OAuthApplicationUser> oAuthApps = null;
 		int oAuthAppsCnt = 0;
 
 		boolean renderRevokeAction = false;
@@ -77,18 +77,18 @@ if (!adminUser) {
 		if (adminUser) {
 			renderRevokeAction = true;
 
-			oAuthApps = OAuthApplications_UsersLocalServiceUtil.getOAuthApplications_Userses(searchContainer.getStart(), searchContainer.getEnd());
-			oAuthAppsCnt = OAuthApplications_UsersLocalServiceUtil.getOAuthApplications_UsersesCount();
+			oAuthApps = OAuthApplicationUserLocalServiceUtil.getOAuthApplicationUseres(searchContainer.getStart(), searchContainer.getEnd());
+			oAuthAppsCnt = OAuthApplicationUserLocalServiceUtil.getOAuthApplicationUseresCount();
 		} else {
 			if (OAuthConstants.TOOLBAR_ITEM_MY_APPS.equals(toolbarItem)) {
-				oAuthApps = OAuthApplications_UsersLocalServiceUtil.findByOwner(userId, true, searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
-				oAuthAppsCnt = OAuthApplications_UsersLocalServiceUtil.countByOwner(userId, true);
+				oAuthApps = OAuthApplicationUserLocalServiceUtil.findByOwner(userId, true, searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator());
+				oAuthAppsCnt = OAuthApplicationUserLocalServiceUtil.countByOwner(userId, true);
 			}
 			else {
 				renderRevokeAction = true;
 
-				oAuthApps = OAuthApplications_UsersLocalServiceUtil.findByUser(userId, searchContainer.getStart(), searchContainer.getEnd());
-				oAuthAppsCnt = OAuthApplications_UsersLocalServiceUtil.countByUser(userId);
+				oAuthApps = OAuthApplicationUserLocalServiceUtil.findByUser(userId, searchContainer.getStart(), searchContainer.getEnd());
+				oAuthAppsCnt = OAuthApplicationUserLocalServiceUtil.countByUser(userId);
 			}
 		}
 	%>
@@ -99,7 +99,7 @@ if (!adminUser) {
 	 />
 
 	<liferay-ui:search-container-row
-		className="com.liferay.portal.oauth.model.OAuthApplications_Users"
+		className="com.liferay.portal.oauth.model.OAuthApplicationUser"
 		keyProperty="oaauid"
 		modelVar="appAuth">
 
@@ -137,7 +137,7 @@ if (!adminUser) {
 
 		<c:if test="<%= renderRevokeAction %>">
 			<liferay-portlet:actionURL name="deleteOAuthAppUsr" var="revokeURL">
-				<portlet:param name="<%= OAuthConstants.WEB_APP_ID %>" value="<%= String.valueOf(appAuth.getApplicationId()) %>" />
+				<portlet:param name="<%=OAuthConstants.APPLICATION_ID%>" value="<%= String.valueOf(appAuth.getApplicationId()) %>" />
 			</liferay-portlet:actionURL>
 
 			<liferay-ui:search-container-column-text href="<%= revokeURL %>">
