@@ -36,7 +36,7 @@ import javax.portlet.RenderResponse;
  * @author Igor Beslic
  *
  */
-public class OAuthApplicationAuthorizationPortlet extends MVCPortlet {
+public class AuthorizationsPortlet extends MVCPortlet {
 
 	public void deleteOAuthAppUsr(
 			ActionRequest actionRequest, ActionResponse actionResponse)

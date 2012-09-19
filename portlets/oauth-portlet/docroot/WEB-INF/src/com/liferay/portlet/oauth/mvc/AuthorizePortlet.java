@@ -15,14 +15,12 @@
 package com.liferay.portlet.oauth.mvc;
 
 import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.oauth.OAuthAccessor;
 import com.liferay.portal.oauth.OAuthMessage;
 import com.liferay.portal.oauth.OAuthProblemException;
 import com.liferay.portal.oauth.OAuthProviderManagerUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.oauth.OAuthConstants;
 import com.liferay.portlet.oauth.OAuthWebKeys;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -32,12 +30,9 @@ import java.io.IOException;
 import javax.portlet.*;
 
 import org.apache.commons.codec.digest.DigestUtils;
-public class OAuthAuthorizePortlet extends MVCPortlet {
+public class AuthorizePortlet extends MVCPortlet {
 
 	public void authorize(ActionRequest request, ActionResponse response) {
-		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
 		OAuthMessage requestMessage = OAuthProviderManagerUtil.getMessage(
 				request, null);
 

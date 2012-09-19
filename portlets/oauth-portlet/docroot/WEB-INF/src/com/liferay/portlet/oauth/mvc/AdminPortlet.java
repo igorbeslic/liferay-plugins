@@ -42,7 +42,7 @@ import javax.portlet.RenderResponse;
  * @author Igor Beslic
  *
  */
-public class OAuthApplicationAdminPortlet extends MVCPortlet {
+public class AdminPortlet extends MVCPortlet {
 
 	public void addOAuthApp(
 			ActionRequest actionRequest, ActionResponse actionResponse)
@@ -207,6 +207,6 @@ public class OAuthApplicationAdminPortlet extends MVCPortlet {
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(
-		OAuthApplicationAdminPortlet.class);
+		AdminPortlet.class);
 
 }
