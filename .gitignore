@@ -12,4 +12,6 @@ _sass_cache_*.css
 /*/*/docroot/WEB-INF/lib/portal-compat-client.jar
 
 /build.*.properties
+/*/*/.classpath
+/*/*/.project
 /dist
