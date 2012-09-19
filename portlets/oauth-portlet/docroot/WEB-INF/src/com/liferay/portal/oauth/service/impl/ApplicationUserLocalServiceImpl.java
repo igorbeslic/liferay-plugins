@@ -97,19 +97,19 @@ public class ApplicationUserLocalServiceImpl
 
 	public int countByOwner(long ownerId, boolean authorized)
 		throws SystemException {
-		return oAuthApplications_UsersFinder.countByO_A(ownerId, authorized);
+		return applicationUserFinder.countByO_A(ownerId, authorized);
 	}
 
 	public int countByUser(long userId) throws SystemException {
-		return applicationUserPersistence.countByUserId(userId);
+		return applicationUserPersistence.countByU_AU(userId);
 	}
 
 	public ApplicationUser deleteApplicationUser(
-			long oAuthApplicationId, long userId, ServiceContext serviceContext)
+			long applicationId, long userId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 		ApplicationUser oAuthApplications_users =
 			applicationUserPersistence
-				.findByA_U(oAuthApplicationId, userId);
+				.findByU_AP(userId, applicationId);
 
 		oAuthApplications_users = deleteApplicationUser(
 				oAuthApplications_users);
@@ -133,20 +133,20 @@ public class ApplicationUserLocalServiceImpl
 			long ownerId, boolean authorized, int start, int end,
 			OrderByComparator orderByComparator)
 		throws SystemException {
-		return oAuthApplications_UsersFinder
+		return applicationUserFinder
 				.findByO_A(ownerId, authorized, start, end, orderByComparator);
 	}
 
 	public List<ApplicationUser> findByUser(long userId)
 		throws SystemException {
-		return applicationUserPersistence.findByUserId(userId);
+		return applicationUserPersistence.findByU_AU(userId);
 	}
 
 	public List<ApplicationUser> findByUser(
 			long userId, int start, int end)
 		throws SystemException {
 		return applicationUserPersistence
-				.findByUserId(userId, start, end);
+				.findByU_AU(userId, start, end);
 	}
 
 	public List<ApplicationUser> findByUser(
@@ -154,7 +154,7 @@ public class ApplicationUserLocalServiceImpl
 			OrderByComparator orderByComparator)
 		throws SystemException {
 		return applicationUserPersistence
-				.findByUserId(userId, start, end, orderByComparator);
+				.findByU_AU(userId, start, end, orderByComparator);
 	}
 
 	public ApplicationUser getApplicationUserByAccessToken(
@@ -190,19 +190,18 @@ public class ApplicationUserLocalServiceImpl
 	 * @throws SystemException
 	 */
 	public ApplicationUser updateApplicationUser(
-			boolean authorized, long oAuthApplicationId, long userId,
+			boolean authorized, long applicationId, long userId,
 			String accessSecret, String accessToken,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		ApplicationUser applicationUser =
-			applicationUserPersistence.fetchByA_U(
-				oAuthApplicationId, userId);
+			applicationUserPersistence.fetchByU_AP(userId, applicationId);
 
 		if (applicationUser == null) {
 			applicationUser =
 				addApplicationUser(
-					authorized, oAuthApplicationId, userId, accessSecret,
+					authorized, applicationId, userId, accessSecret,
 					accessToken, serviceContext);
 		}
 		else {
@@ -227,17 +226,17 @@ public class ApplicationUserLocalServiceImpl
 	}
 
 	public ApplicationUser updateApplicationUser(
-			long oAuthApplicationId, long userId, boolean authorized)
+			long applicationId, long userId, boolean authorized)
 		throws SystemException {
 
 		ApplicationUser applicationUser =
-			applicationUserPersistence.fetchByA_U(
-				oAuthApplicationId, userId);
+			applicationUserPersistence.fetchByU_AP(
+				userId, applicationId);
 
 		if (applicationUser == null) {
 			applicationUser = createApplicationUser(
 					CounterLocalServiceUtil.increment());
-			applicationUser.setApplicationId(oAuthApplicationId);
+			applicationUser.setApplicationId(applicationId);
 			applicationUser.setUserId(userId);
 		}
 
@@ -250,18 +249,18 @@ public class ApplicationUserLocalServiceImpl
 	}
 
 	public ApplicationUser updateApplicationUser(
-			long oAuthApplicationId, long userId, String accessToken,
+			long applicationId, long userId, String accessToken,
 			String accessSecret)
 		throws SystemException {
 
 		ApplicationUser applicationUser =
-			applicationUserPersistence.fetchByA_U(
-				oAuthApplicationId, userId);
+			applicationUserPersistence.fetchByU_AP(
+				userId, applicationId);
 
 		if (applicationUser == null) {
 			applicationUser = createApplicationUser(
 					CounterLocalServiceUtil.increment());
-			applicationUser.setApplicationId(oAuthApplicationId);
+			applicationUser.setApplicationId(applicationId);
 			applicationUser.setUserId(userId);
 			applicationUser.setAccessToken(accessToken);
 			applicationUser.setAccessSecret(accessSecret);

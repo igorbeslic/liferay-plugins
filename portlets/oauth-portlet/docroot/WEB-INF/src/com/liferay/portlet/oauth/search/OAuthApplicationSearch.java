@@ -20,7 +20,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.oauth.model.OAuthApplication;
+import com.liferay.portal.oauth.model.Application;
 import com.liferay.portlet.PortalPreferences;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portlet.oauth.OAuthConstants;
@@ -38,7 +38,7 @@ import javax.portlet.PortletURL;
  * @author Igor Beslic
  *
  */
-public class OAuthApplicationSearch extends SearchContainer<OAuthApplication> {
+public class OAuthApplicationSearch extends SearchContainer<Application> {
 	public static final String ORDER_BY_ASC = "name ASC";
 
 	public static final String ORDER_BY_DESC = "name DESC";
@@ -126,8 +126,8 @@ public class OAuthApplicationSearch extends SearchContainer<OAuthApplication> {
 			public int compare(Object obj1, Object obj2) {
 				// TODO implement reflections (try to find get method for
 				// column - default is name
-				OAuthApplication app1 = (OAuthApplication)obj1;
-				OAuthApplication app2 = (OAuthApplication)obj2;
+				Application app1 = (Application)obj1;
+				Application app2 = (Application)obj2;
 
 				int value = app1.getName().compareTo(app2.getName());
 

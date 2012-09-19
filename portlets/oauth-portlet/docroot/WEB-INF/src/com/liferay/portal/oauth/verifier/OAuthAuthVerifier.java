@@ -18,8 +18,8 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.oauth.model.OAuthApplications_Users;
-import com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil;
+import com.liferay.portal.oauth.model.ApplicationUser;
+import com.liferay.portal.oauth.service.ApplicationUserLocalServiceUtil;
 import com.liferay.portal.security.auth.AccessControlContext;
 import com.liferay.portal.security.auth.AuthException;
 import com.liferay.portal.security.auth.AuthVerifier;
@@ -45,12 +45,12 @@ public class OAuthAuthVerifier implements AuthVerifier {
 			return result;
 		}
 
-		OAuthApplications_Users oAuthApplications_users;
+		ApplicationUser oAuthApplications_users;
 
 		try {
 			oAuthApplications_users =
-				OAuthApplications_UsersLocalServiceUtil
-					.getOAuthApplications_UsersByAccessToken(accessToken);
+				ApplicationUserLocalServiceUtil
+					.getApplicationUserByAccessToken(accessToken);
 
 		} catch (SystemException e) {
 			throw new AuthException(e);

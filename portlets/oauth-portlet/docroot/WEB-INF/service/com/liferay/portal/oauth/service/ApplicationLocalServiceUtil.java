@@ -273,6 +273,134 @@ public class ApplicationLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	/**
+	* Add info about new application that should use OAuth feature. Method will
+	* generate new consumer key and secret that will be used by this
+	* application to do authorized access to portal resources.
+	*/
+	public static com.liferay.portal.oauth.model.Application addApplication(
+		long userId, java.lang.String name, java.lang.String description,
+		java.lang.String website, java.lang.String callBackURL,
+		int accessLevel,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addApplication(userId, name, description, website,
+			callBackURL, accessLevel, serviceContext);
+	}
+
+	/**
+	* Delete OAuth application designated by applicationId. Method will
+	* delete all application user's authorizations, application and
+	* corresponding resource entries.
+	*/
+	public static com.liferay.portal.oauth.model.Application deleteApplication(
+		long applicationId, long userId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .deleteApplication(applicationId, userId, serviceContext);
+	}
+
+	public static com.liferay.portal.oauth.model.Application getApplication(
+		java.lang.String consumerKey)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getApplication(consumerKey);
+	}
+
+	public static java.util.List<com.liferay.portal.oauth.model.Application> getApplications(
+		long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getApplications(companyId);
+	}
+
+	public static java.util.List<com.liferay.portal.oauth.model.Application> getApplications(
+		long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getApplications(companyId, start, end, orderByComparator);
+	}
+
+	public static java.util.List<com.liferay.portal.oauth.model.Application> getApplications(
+		long companyId, java.lang.String name, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getApplications(companyId, name, start, end,
+			orderByComparator);
+	}
+
+	public static java.util.List<com.liferay.portal.oauth.model.Application> getApplicationsByCN(
+		long companyId, java.lang.String name)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getApplicationsByCN(companyId, name);
+	}
+
+	public static java.util.List<com.liferay.portal.oauth.model.Application> getApplicationsByON(
+		long userId, java.lang.String name)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getApplicationsByON(userId, name);
+	}
+
+	public static java.util.List<com.liferay.portal.oauth.model.Application> getApplicationsByON(
+		long userId, java.lang.String name, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getApplicationsByON(userId, name, start, end,
+			orderByComparator);
+	}
+
+	public static java.util.List<com.liferay.portal.oauth.model.Application> getApplicationsByOwner(
+		long userId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getApplicationsByOwner(userId, start, end, orderByComparator);
+	}
+
+	public static int getApplicationsCount(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getApplicationsCount(companyId);
+	}
+
+	public static int getApplicationsCountByCN(long companyId,
+		java.lang.String name)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getApplicationsCountByCN(companyId, name);
+	}
+
+	public static int getApplicationsCountByON(long userId,
+		java.lang.String name)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getApplicationsCountByON(userId, name);
+	}
+
+	public static int getApplicationsCountByOwnerId(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getApplicationsCountByOwnerId(userId);
+	}
+
+	/**
+	* Update existing application that should use OAuth feature. If changed
+	* method will update name, description, website, callbackURL and
+	* access level.
+	*/
+	public static com.liferay.portal.oauth.model.Application updateApplication(
+		long applicationId, long userId, java.lang.String name,
+		java.lang.String description, java.lang.String website,
+		java.lang.String callBackURL, int accessLevel,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateApplication(applicationId, userId, name, description,
+			website, callBackURL, accessLevel, serviceContext);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

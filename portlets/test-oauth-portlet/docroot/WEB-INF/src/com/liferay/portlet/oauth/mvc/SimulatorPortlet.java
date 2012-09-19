@@ -25,8 +25,8 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
-import com.liferay.portal.oauth.model.OAuthApplication;
-import com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil;
+import com.liferay.portal.oauth.model.Application;
+import com.liferay.portal.oauth.service.ApplicationLocalServiceUtil;
 import com.liferay.portal.service.RoleServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -50,7 +50,7 @@ import org.scribe.builder.ServiceBuilder;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
-public class OAuthSimulatorPortlet extends MVCPortlet {
+public class SimulatorPortlet extends MVCPortlet {
 
 	public void addOAuthorization(
 			ActionRequest actionRequest, ActionResponse actionResponse)
@@ -59,8 +59,8 @@ public class OAuthSimulatorPortlet extends MVCPortlet {
 
 		if (0 != applicationId) {
 			try {
-				OAuthApplication app = OAuthApplicationLocalServiceUtil
-										.fetchOAuthApplication(applicationId);
+				Application app = ApplicationLocalServiceUtil
+										.fetchApplication(applicationId);
 
 				OAuthService oAuthService = new ServiceBuilder()
 					.provider(LiferayApi.class)
@@ -184,7 +184,7 @@ public class OAuthSimulatorPortlet extends MVCPortlet {
 							titleSb.append(" ");
 							titleSb.append(String.valueOf(added%3));
 
-							OAuthApplicationLocalServiceUtil
+							ApplicationLocalServiceUtil
 							.addApplication(
 								u.getUserId(), titleSb.toString(),
 								APP_DESCRIPTION, APP_WEB_URL, APP_CALLBACK_URL,
@@ -224,8 +224,8 @@ public class OAuthSimulatorPortlet extends MVCPortlet {
 
 		if (0 != applicationId) {
 			try {
-				OAuthApplication app = OAuthApplicationLocalServiceUtil
-										.fetchOAuthApplication(applicationId);
+				Application app = ApplicationLocalServiceUtil
+										.fetchApplication(applicationId);
 
 				OAuthService oAuthService = new ServiceBuilder()
 					.provider(LiferayApi.class)
@@ -262,7 +262,7 @@ public class OAuthSimulatorPortlet extends MVCPortlet {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		OAuthSimulatorPortlet.class);
+		SimulatorPortlet.class);
 
 	private static final String APP_CALLBACK_URL =
 			"http://www.liferay.com/test-oauth/callback";

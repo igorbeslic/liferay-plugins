@@ -36,6 +36,7 @@ import java.util.List;
  */
 public class ApplicationUserFinderImpl
 	extends BasePersistenceImpl<ApplicationUser>
+	implements ApplicationUserFinder
 	{
 	public static final String COUNT_ALL =
 			ApplicationUserFinder.class.getName() + ".countAll";

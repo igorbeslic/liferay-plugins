@@ -290,7 +290,8 @@ public class ApplicationUserWrapper implements ApplicationUser,
 		return new ApplicationUserWrapper((ApplicationUser)_applicationUser.clone());
 	}
 
-	public int compareTo(ApplicationUser applicationUser) {
+	public int compareTo(
+		com.liferay.portal.oauth.model.ApplicationUser applicationUser) {
 		return _applicationUser.compareTo(applicationUser);
 	}
 
@@ -299,11 +300,11 @@ public class ApplicationUserWrapper implements ApplicationUser,
 		return _applicationUser.hashCode();
 	}
 
-	public com.liferay.portal.model.CacheModel<ApplicationUser> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.portal.oauth.model.ApplicationUser> toCacheModel() {
 		return _applicationUser.toCacheModel();
 	}
 
-	public ApplicationUser toEscapedModel() {
+	public com.liferay.portal.oauth.model.ApplicationUser toEscapedModel() {
 		return new ApplicationUserWrapper(_applicationUser.toEscapedModel());
 	}
 

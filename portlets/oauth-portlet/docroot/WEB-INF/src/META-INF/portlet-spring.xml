@@ -5,4 +5,5 @@
 	<bean id="com.liferay.portal.oauth.service.persistence.ApplicationPersistence" class="com.liferay.portal.oauth.service.persistence.ApplicationPersistenceImpl" parent="basePersistence" />
 	<bean id="com.liferay.portal.oauth.service.ApplicationUserLocalService" class="com.liferay.portal.oauth.service.impl.ApplicationUserLocalServiceImpl" />
 	<bean id="com.liferay.portal.oauth.service.persistence.ApplicationUserPersistence" class="com.liferay.portal.oauth.service.persistence.ApplicationUserPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.portal.oauth.service.persistence.ApplicationUserFinder" class="com.liferay.portal.oauth.service.persistence.ApplicationUserFinderImpl" parent="basePersistence" />
 </beans>

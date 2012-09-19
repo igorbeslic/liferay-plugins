@@ -457,7 +457,7 @@ public class ApplicationWrapper implements Application,
 		return new ApplicationWrapper((Application)_application.clone());
 	}
 
-	public int compareTo(Application application) {
+	public int compareTo(com.liferay.portal.oauth.model.Application application) {
 		return _application.compareTo(application);
 	}
 
@@ -466,11 +466,11 @@ public class ApplicationWrapper implements Application,
 		return _application.hashCode();
 	}
 
-	public com.liferay.portal.model.CacheModel<Application> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.portal.oauth.model.Application> toCacheModel() {
 		return _application.toCacheModel();
 	}
 
-	public Application toEscapedModel() {
+	public com.liferay.portal.oauth.model.Application toEscapedModel() {
 		return new ApplicationWrapper(_application.toEscapedModel());
 	}
 

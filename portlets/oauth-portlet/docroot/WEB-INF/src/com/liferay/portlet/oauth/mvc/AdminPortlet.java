@@ -20,8 +20,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.oauth.model.OAuthApplication;
-import com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil;
+import com.liferay.portal.oauth.model.Application;
+import com.liferay.portal.oauth.service.ApplicationLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portlet.oauth.OAuthConstants;
@@ -66,8 +66,8 @@ public class AdminPortlet extends MVCPortlet {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(
 				actionRequest);
 
-			OAuthApplication application =
-				OAuthApplicationLocalServiceUtil.addApplication(
+			Application application =
+				ApplicationLocalServiceUtil.addApplication(
 					serviceContext.getUserId(), name, description, website,
 					callBackURL, accessLevel, serviceContext);
 
@@ -103,7 +103,7 @@ public class AdminPortlet extends MVCPortlet {
 				ServiceContext serviceContext =
 						ServiceContextFactory.getInstance(actionRequest);
 
-				OAuthApplicationLocalServiceUtil.deleteApplication(
+				ApplicationLocalServiceUtil.deleteApplication(
 					applicationId, serviceContext.getUserId(), serviceContext);
 			}
 			else {
@@ -142,14 +142,14 @@ public class AdminPortlet extends MVCPortlet {
 				OAuthConstants.ACCESS_TYPE_READ);
 
 			try {
-				OAuthApplication application =
-					OAuthApplicationLocalServiceUtil.fetchOAuthApplication(
+				Application application =
+					ApplicationLocalServiceUtil.fetchApplication(
 						applicationId);
 
 				ServiceContext serviceContext =
 						ServiceContextFactory.getInstance(actionRequest);
 
-				application = OAuthApplicationLocalServiceUtil
+				application = ApplicationLocalServiceUtil
 					.updateApplication(
 						applicationId, serviceContext.getUserId(), name,
 						description, website, callBackURL, accessLevel,
@@ -186,8 +186,8 @@ public class AdminPortlet extends MVCPortlet {
 
 		if (applicationId > 0) {
 			try {
-				OAuthApplication application =
-					OAuthApplicationLocalServiceUtil.fetchOAuthApplication(
+				Application application =
+					ApplicationLocalServiceUtil.fetchApplication(
 						applicationId);
 
 				renderRequest.setAttribute(

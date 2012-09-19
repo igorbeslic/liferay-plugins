@@ -32,6 +32,7 @@ import com.liferay.portal.oauth.model.Application;
 import com.liferay.portal.oauth.service.ApplicationLocalService;
 import com.liferay.portal.oauth.service.ApplicationUserLocalService;
 import com.liferay.portal.oauth.service.persistence.ApplicationPersistence;
+import com.liferay.portal.oauth.service.persistence.ApplicationUserFinder;
 import com.liferay.portal.oauth.service.persistence.ApplicationUserPersistence;
 import com.liferay.portal.service.BaseLocalServiceImpl;
 import com.liferay.portal.service.PersistedModelLocalServiceRegistryUtil;
@@ -348,6 +349,25 @@ public abstract class ApplicationLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the application user finder.
+	 *
+	 * @return the application user finder
+	 */
+	public ApplicationUserFinder getApplicationUserFinder() {
+		return applicationUserFinder;
+	}
+
+	/**
+	 * Sets the application user finder.
+	 *
+	 * @param applicationUserFinder the application user finder
+	 */
+	public void setApplicationUserFinder(
+		ApplicationUserFinder applicationUserFinder) {
+		this.applicationUserFinder = applicationUserFinder;
+	}
+
+	/**
 	 * Returns the counter local service.
 	 *
 	 * @return the counter local service
@@ -525,6 +545,8 @@ public abstract class ApplicationLocalServiceBaseImpl
 	protected ApplicationUserLocalService applicationUserLocalService;
 	@BeanReference(type = ApplicationUserPersistence.class)
 	protected ApplicationUserPersistence applicationUserPersistence;
+	@BeanReference(type = ApplicationUserFinder.class)
+	protected ApplicationUserFinder applicationUserFinder;
 	@BeanReference(type = CounterLocalService.class)
 	protected CounterLocalService counterLocalService;
 	@BeanReference(type = ResourceLocalService.class)

@@ -17,7 +17,7 @@ package com.liferay.portlet.oauth.mvc;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil;
+import com.liferay.portal.oauth.service.ApplicationUserLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portlet.oauth.OAuthConstants;
@@ -49,8 +49,8 @@ public class AuthorizationsPortlet extends MVCPortlet {
 				ServiceContext serviceContext =
 						ServiceContextFactory.getInstance(actionRequest);
 
-				OAuthApplications_UsersLocalServiceUtil
-					.deleteOAuthApplications_Users(
+				ApplicationUserLocalServiceUtil
+					.deleteApplicationUser(
 						applicationId, serviceContext.getUserId(),
 						serviceContext);
 			}

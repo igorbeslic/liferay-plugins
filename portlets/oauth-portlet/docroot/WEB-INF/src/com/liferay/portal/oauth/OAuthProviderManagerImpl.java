@@ -259,7 +259,7 @@ public class OAuthProviderManagerImpl implements OAuthProviderManager {
 			accessor.getConsumer().getOAuthApplication();
 
 		ApplicationUserLocalServiceUtil
-			.updateOAuthApplications_Users(
+			.updateApplicationUser(
 				oAuthApplication.getApplicationId(), userId, true);
 
 		// first remove the accessor from cache
@@ -279,7 +279,7 @@ public class OAuthProviderManagerImpl implements OAuthProviderManager {
 				accessor.getConsumer().getOAuthApplication();
 
 		ApplicationUserLocalServiceUtil
-			.updateOAuthApplications_Users(
+			.updateApplicationUser(
 					true, oAuthApplication.getApplicationId(), userId, null,
 					null, serviceContext);
 
