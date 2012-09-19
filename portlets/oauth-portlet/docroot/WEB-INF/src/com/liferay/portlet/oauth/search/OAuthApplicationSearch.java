@@ -21,9 +21,9 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.oauth.model.Application;
+import com.liferay.portal.oauth.util.OAuthConstants;
 import com.liferay.portlet.PortalPreferences;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
-import com.liferay.portlet.oauth.OAuthConstants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,12 +49,12 @@ public class OAuthApplicationSearch extends SearchContainer<Application> {
 	static Map<String, String> orderableHeaders = new HashMap<String, String>();
 
 	static {
-		headerNames.add(OAuthConstants.WEB_APP_NAME);
-		headerNames.add(OAuthConstants.WEB_APP_WEBSITE);
-		headerNames.add(OAuthConstants.WEB_APP_CALLBACKURL);
+		headerNames.add(OAuthConstants.NAME);
+		headerNames.add(OAuthConstants.WEBSITE);
+		headerNames.add(OAuthConstants.CALLBACK_URL);
 
 		orderableHeaders.put(
-				OAuthConstants.WEB_APP_NAME, OAuthConstants.WEB_APP_NAME);
+				OAuthConstants.NAME, OAuthConstants.NAME);
 	}
 
 	public OAuthApplicationSearch(

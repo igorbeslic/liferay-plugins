@@ -18,9 +18,9 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.oauth.service.ApplicationUserLocalServiceUtil;
+import com.liferay.portal.oauth.util.OAuthConstants;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portlet.oauth.OAuthConstants;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.io.IOException;
@@ -42,7 +42,7 @@ public class AuthorizationsPortlet extends MVCPortlet {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws IOException, PortletException {
 		long applicationId = ParamUtil.getLong(
-				actionRequest, OAuthConstants.WEB_APP_ID, 0L);
+				actionRequest, OAuthConstants.APPLICATION_ID, 0L);
 
 		try {
 			if (applicationId > 0) {

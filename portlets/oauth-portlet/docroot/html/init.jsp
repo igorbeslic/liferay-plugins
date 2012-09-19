@@ -24,7 +24,7 @@ page import="com.liferay.portal.oauth.OAuthProblemException" %><%@
 page import="com.liferay.portal.oauth.model.OAuthApplication" %><%@
 page import="com.liferay.portal.security.permission.ActionKeys" %><%@
 page import="com.liferay.portlet.PortletURLUtil" %><%@
-page import="com.liferay.portlet.oauth.OAuthConstants" %><%@
+page import="com.liferay.portal.oauth.util.OAuthConstants" %><%@
 page import="com.liferay.portlet.oauth.OAuthWebKeys" %>
 
 <%@ page import="java.net.MalformedURLException" %>

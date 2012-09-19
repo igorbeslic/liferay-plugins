@@ -22,9 +22,9 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.oauth.model.Application;
 import com.liferay.portal.oauth.service.ApplicationLocalServiceUtil;
+import com.liferay.portal.oauth.util.OAuthConstants;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portlet.oauth.OAuthConstants;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.io.IOException;
@@ -44,17 +44,17 @@ import javax.portlet.RenderResponse;
  */
 public class AdminPortlet extends MVCPortlet {
 
-	public void addOAuthApp(
+	public void addApplication(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws IOException, PortletException {
 		String name = ParamUtil.getString(
-			actionRequest, OAuthConstants.WEB_APP_NAME);
+			actionRequest, OAuthConstants.NAME);
 		String description = ParamUtil.getString(
-			actionRequest, OAuthConstants.WEB_APP_DESCRIPTION);
+			actionRequest, OAuthConstants.DESCRIPTION);
 		String website = ParamUtil.getString(
-			actionRequest, OAuthConstants.WEB_APP_WEBSITE);
+			actionRequest, OAuthConstants.WEBSITE);
 		String callBackURL = ParamUtil.getString(
-			actionRequest, OAuthConstants.WEB_APP_CALLBACKURL);
+			actionRequest, OAuthConstants.CALLBACK_URL);
 		int accessLevel = ParamUtil.getInteger(
 			actionRequest, OAuthConstants.WEB_APP_ACCESS_TYPE,
 			OAuthConstants.ACCESS_TYPE_READ);
@@ -74,7 +74,7 @@ public class AdminPortlet extends MVCPortlet {
 			// TODO this won't work see above
 
 			actionRequest.setAttribute(
-				OAuthConstants.WEB_APP_BEAN, application);
+				OAuthConstants.BEAN_ID, application);
 		}
 		catch (Exception e) {
 			if (e instanceof SystemException) {
@@ -91,12 +91,12 @@ public class AdminPortlet extends MVCPortlet {
 		}
 	}
 
-	public void deleteOAuthApp(
+	public void deleteApplication(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws IOException, PortletException {
 
 		long applicationId = ParamUtil.getLong(
-				actionRequest, OAuthConstants.WEB_APP_ID);
+				actionRequest, OAuthConstants.APPLICATION_ID);
 
 		try {
 			if (applicationId > 0) {
@@ -104,11 +104,12 @@ public class AdminPortlet extends MVCPortlet {
 						ServiceContextFactory.getInstance(actionRequest);
 
 				ApplicationLocalServiceUtil.deleteApplication(
-					applicationId, serviceContext.getUserId(), serviceContext);
+					applicationId, serviceContext);
 			}
 			else {
 				SessionErrors.add(
-					actionRequest, "cant-complete-operation-without-id");
+					actionRequest,
+					"can-not-complete-operation-without-application-id");
 			}
 		}
 		catch (Exception e) {
@@ -121,22 +122,22 @@ public class AdminPortlet extends MVCPortlet {
 		}
 	}
 
-	public void editOAuthApp(
+	public void updateApplication(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws IOException, PortletException {
 
 		long applicationId = ParamUtil.getLong(
-			actionRequest, OAuthConstants.WEB_APP_ID);
+			actionRequest, OAuthConstants.APPLICATION_ID);
 
 		if (applicationId > 0) {
 			String name = ParamUtil.getString(
-				actionRequest, OAuthConstants.WEB_APP_NAME);
+				actionRequest, OAuthConstants.NAME);
 			String description = ParamUtil.getString(
-				actionRequest, OAuthConstants.WEB_APP_DESCRIPTION);
+				actionRequest, OAuthConstants.DESCRIPTION);
 			String website = ParamUtil.getString(
-				actionRequest, OAuthConstants.WEB_APP_WEBSITE);
+				actionRequest, OAuthConstants.WEBSITE);
 			String callBackURL = ParamUtil.getString(
-				actionRequest, OAuthConstants.WEB_APP_CALLBACKURL);
+				actionRequest, OAuthConstants.CALLBACK_URL);
 			int accessLevel = ParamUtil.getInteger(
 				actionRequest, OAuthConstants.WEB_APP_ACCESS_TYPE,
 				OAuthConstants.ACCESS_TYPE_READ);
@@ -159,7 +160,7 @@ public class AdminPortlet extends MVCPortlet {
 				// actions to avoid Back button issues.
 
 				actionRequest.setAttribute(
-					OAuthConstants.WEB_APP_BEAN, application);
+					OAuthConstants.BEAN_ID, application);
 			}
 			catch (Exception e) {
 				if (e instanceof SystemException) {
@@ -172,7 +173,8 @@ public class AdminPortlet extends MVCPortlet {
 		}
 		else {
 			SessionErrors.add(
-				actionRequest, "cant-complete-operation-without-id");
+				actionRequest,
+				"can-not-complete-operation-without-application-id");
 		}
 	}
 
@@ -182,7 +184,7 @@ public class AdminPortlet extends MVCPortlet {
 		throws IOException, PortletException {
 
 		long applicationId = ParamUtil.getLong(
-			renderRequest, OAuthConstants.WEB_APP_ID);
+			renderRequest, OAuthConstants.APPLICATION_ID);
 
 		if (applicationId > 0) {
 			try {
@@ -191,7 +193,7 @@ public class AdminPortlet extends MVCPortlet {
 						applicationId);
 
 				renderRequest.setAttribute(
-					OAuthConstants.WEB_APP_BEAN, application);
+					OAuthConstants.BEAN_ID, application);
 			}
 			catch (Exception e) {
 				if (e instanceof SystemException) {

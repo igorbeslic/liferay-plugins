@@ -137,7 +137,7 @@ if (!adminUser) {
 
 		<c:if test="<%= renderRevokeAction %>">
 			<liferay-portlet:actionURL name="deleteOAuthAppUsr" var="revokeURL">
-				<portlet:param name="<%= OAuthConstants.WEB_APP_ID %>" value="<%= String.valueOf(appAuth.getApplicationId()) %>" />
+				<portlet:param name="<%=OAuthConstants.APPLICATION_ID%>" value="<%= String.valueOf(appAuth.getApplicationId()) %>" />
 			</liferay-portlet:actionURL>
 
 			<liferay-ui:search-container-column-text href="<%= revokeURL %>">

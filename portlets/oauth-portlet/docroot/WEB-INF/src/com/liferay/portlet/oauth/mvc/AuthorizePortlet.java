@@ -19,9 +19,9 @@ import com.liferay.portal.oauth.OAuthAccessor;
 import com.liferay.portal.oauth.OAuthMessage;
 import com.liferay.portal.oauth.OAuthProblemException;
 import com.liferay.portal.oauth.OAuthProviderManagerUtil;
+import com.liferay.portal.oauth.util.OAuthConstants;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portlet.oauth.OAuthConstants;
 import com.liferay.portlet.oauth.OAuthWebKeys;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 

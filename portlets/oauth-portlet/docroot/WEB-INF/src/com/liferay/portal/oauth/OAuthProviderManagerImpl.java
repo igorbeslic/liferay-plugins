@@ -20,9 +20,9 @@ import com.liferay.portal.kernel.oauth.OAuthException;
 import com.liferay.portal.oauth.model.Application;
 import com.liferay.portal.oauth.service.ApplicationLocalServiceUtil;
 import com.liferay.portal.oauth.service.ApplicationUserLocalServiceUtil;
+import com.liferay.portal.oauth.util.OAuthConstants;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.oauth.OAuthConstants;
 
 import java.io.IOException;
 import java.io.OutputStream;

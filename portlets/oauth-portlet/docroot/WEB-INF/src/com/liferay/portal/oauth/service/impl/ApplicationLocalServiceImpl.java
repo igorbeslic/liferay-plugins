@@ -29,8 +29,8 @@ import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.oauth.model.Application;
 import com.liferay.portal.oauth.service.base.ApplicationLocalServiceBaseImpl;
+import com.liferay.portal.oauth.util.OAuthConstants;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.portlet.oauth.OAuthConstants;
 
 /**
  * The implementation of the application local service.
@@ -286,12 +286,12 @@ public class ApplicationLocalServiceImpl extends ApplicationLocalServiceBaseImpl
 
 		if (Validator.isNull(name)) {
 			throw new RequiredFieldException(
-				"required-field", OAuthConstants.WEB_APP_NAME_ID);
+				"required-field", OAuthConstants.NAME);
 		}
 
 		if (Validator.isNull(callBackURL)) {
 			throw new RequiredFieldException(
-				"required-field", OAuthConstants.WEB_APP_CALLBACKURL_ID);
+				"required-field", OAuthConstants.CALLBACK_URL);
 		}
 
 		if (!Validator.isUrl(callBackURL)) {
@@ -300,7 +300,7 @@ public class ApplicationLocalServiceImpl extends ApplicationLocalServiceBaseImpl
 
 		if (Validator.isNull(website)) {
 			throw new RequiredFieldException(
-				"required-field", OAuthConstants.WEB_APP_WEBSITE_ID);
+				"required-field", OAuthConstants.WEBSITE);
 		}
 
 		if (!Validator.isUrl(website)) {

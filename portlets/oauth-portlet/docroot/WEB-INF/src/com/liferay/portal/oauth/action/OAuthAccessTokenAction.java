@@ -19,7 +19,7 @@ import com.liferay.portal.oauth.OAuthAccessor;
 import com.liferay.portal.oauth.OAuthMessage;
 import com.liferay.portal.oauth.OAuthProblemException;
 import com.liferay.portal.oauth.OAuthProviderManagerUtil;
-import com.liferay.portlet.oauth.OAuthConstants;
+import com.liferay.portal.oauth.util.OAuthConstants;
 
 import java.io.OutputStream;
 
