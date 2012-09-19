@@ -14,7 +14,7 @@
 
 package com.liferay.portal.oauth;
 
-import com.liferay.portal.oauth.model.OAuthApplication;
+import com.liferay.portal.oauth.model.Application;
 
 /**
  * @author Ivica Cardic
@@ -28,7 +28,7 @@ public interface OAuthConsumer {
 
 	public String getCallbackURL();
 
-	public OAuthApplication getOAuthApplication();
+	public Application getOAuthApplication();
 
 	public Object getProperty(String name);
 

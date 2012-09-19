@@ -32,7 +32,7 @@
 		<finder name="CompanyId" return-type="Collection">
 			<finder-column name="companyId" />
 		</finder>
-		<finder name="ConsumerKey" return-type="OAuthApplication" unique="true">
+		<finder name="ConsumerKey" return-type="Application" unique="true">
 			<finder-column name="consumerKey" />
 		</finder>
 		<finder name="C_N" return-type="Collection">
