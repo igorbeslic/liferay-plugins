@@ -101,51 +101,60 @@ public class ApplicationLocalServiceImpl extends ApplicationLocalServiceBaseImpl
 
 		return application;
 	}
+	
+	public Application deleteApplication(
+			Application application, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		// Applications
+		
+		applicationUserPersistence.removeByApplicationId(
+			application.getApplicationId());
+		
+		// Resources
+		
+		resourceLocalService.deleteResource(
+			application.getCompanyId(), Application.class.getName(),
+			ResourceConstants.SCOPE_INDIVIDUAL, application.getApplicationId());
+		
+		// Application
+		
+			applicationPersistence.remove(application);
+		
+			return application;
+	}
 
 	/**
 	 * Delete OAuth application designated by applicationId. Method will
 	 * delete all application user's authorizations, application and
 	 * corresponding resource entries.
+	 * 
+	 * @param applicationId
+	 * @param serviceContext
+	 * @return
+	 * @throws PortalException
+	 * @throws SystemException
 	 */
 	public Application deleteApplication(
-			long applicationId, long userId, ServiceContext serviceContext)
+			long applicationId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
-
-		// Application user's authorizations
-		applicationUserPersistence
-			.removeByApplicationId(applicationId);
-
-		// TODO remove resorces when ivica is done with his code...
-
-		// Application
-
-		User user = userPersistence.findByPrimaryKey(userId);
-
-		Date now = new Date();
 
 		Application application =
 				applicationPersistence.findByPrimaryKey(applicationId);
 
-		application.setUserId(user.getUserId());
-		application.setUserName(user.getFullName());
-		application.setModifiedDate(serviceContext.getModifiedDate(now));
-
-		// Resources
-
-		resourceLocalService.deleteResource(
-				application, ResourceConstants.SCOPE_COMPANY);
-
-		// Application
-
-		application = applicationPersistence.remove(application);
-
-		return application;
+		return deleteApplication(application, serviceContext);
+	}
+	
+	public Application fetchApplication(String consumerKey)
+		throws SystemException {
+		
+		return applicationPersistence.fetchByConsumerKey(consumerKey);
 	}
 
 	public Application getApplication(String consumerKey)
-		throws SystemException {
+		throws PortalException, SystemException {
 
-		return applicationPersistence.fetchByConsumerKey(consumerKey);
+		return applicationPersistence.findByConsumerKey(consumerKey);
 	}
 
 	public List<Application> getApplications(long companyId)
@@ -234,7 +243,7 @@ public class ApplicationLocalServiceImpl extends ApplicationLocalServiceBaseImpl
 		return applicationPersistence.countByU_N(userId, name);
 	}
 
-	public int getApplicationsCountByOwnerId(long userId)
+	public int getApplicationsByUserIdCount(long userId)
 		throws SystemException {
 
 		return applicationPersistence.countByUserId(userId);
@@ -246,9 +255,8 @@ public class ApplicationLocalServiceImpl extends ApplicationLocalServiceBaseImpl
 	 * access level.
 	 */
 	public Application updateApplication(
-			long applicationId, long userId, String name, String description,
-			String website, String callBackURL, int accessLevel,
-			ServiceContext serviceContext)
+			long userId, long applicationId, String name, String description,
+			String website, String callBackURL, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		// Application
@@ -270,13 +278,7 @@ public class ApplicationLocalServiceImpl extends ApplicationLocalServiceBaseImpl
 		application.setWebsite(website);
 		application.setCallBackURL(callBackURL);
 
-		// TODO: Ray/Mike - we probably shouldn't allow access level change?
-		application.setAccessLevel(accessLevel);
-
 		applicationPersistence.update(application, true);
-
-		// Resources
-		// TODO: Ray/Mike does update requires resource updates?
 
 		return application;
 	}
