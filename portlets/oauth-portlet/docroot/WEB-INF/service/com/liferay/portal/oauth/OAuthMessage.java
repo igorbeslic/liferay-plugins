@@ -14,26 +14,19 @@
 
 package com.liferay.portal.oauth;
 
-import com.liferay.portal.oauth.model.Application;
+import java.io.IOException;
 
 /**
  * @author Ivica Cardic
  */
-public interface OAuthConsumer {
-	/**
-	 * The name of the property whose value is the <a
-	 * href="http://oauth.pbwiki.com/AccessorSecret">Accessor Secret</a>.
-	 */
-	public static final String ACCESSOR_SECRET = "oauth_accessor_secret";
+public interface OAuthMessage {
+	
+	String getConsumerKey() throws IOException;
 
-	public String getCallbackURL();
+	String getToken() throws IOException;
 
-	public Application getOAuthApplication();
+	String getParameter(String name) throws IOException;
 
-	public Object getProperty(String name);
-
-	public Object getWrappedOAuthConsumer();
-
-	public void setWrappedOAuthConsumer(Object oAuthConsumer);
+	Object getWrappedOAuthMessage();
 
 }

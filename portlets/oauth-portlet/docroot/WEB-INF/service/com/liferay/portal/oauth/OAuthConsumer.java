@@ -14,18 +14,21 @@
 
 package com.liferay.portal.oauth;
 
-import java.io.IOException;
+import com.liferay.portal.oauth.model.Application;
 
 /**
  * @author Ivica Cardic
  */
-public interface OAuthMessage {
-	String getConsumerKey() throws IOException;
+public interface OAuthConsumer {
 
-	String getToken() throws IOException;
+	public String getCallbackURL();
 
-	String getParameter(String name) throws IOException;
+	public Application getOAuthApplication();
 
-	Object getWrappedOAuthMessage();
+	public Object getProperty(String name);
+
+	public Object getWrappedOAuthConsumer();
+
+	public void setWrappedOAuthConsumer(Object oAuthConsumer);
 
 }

@@ -18,7 +18,7 @@ import com.liferay.portal.kernel.struts.BaseStrutsAction;
 import com.liferay.portal.oauth.OAuthAccessor;
 import com.liferay.portal.oauth.OAuthMessage;
 import com.liferay.portal.oauth.OAuthProblemException;
-import com.liferay.portal.oauth.OAuthProviderManagerUtil;
+import com.liferay.portal.oauth.OAuthUtil;
 import com.liferay.portal.oauth.util.OAuthConstants;
 
 import java.io.OutputStream;
@@ -39,13 +39,13 @@ public class OAuthAccessTokenAction extends BaseStrutsAction {
 		throws Exception {
 
 		try {
-			OAuthMessage requestMessage = OAuthProviderManagerUtil.getMessage(
+			OAuthMessage requestMessage = OAuthUtil.getMessage(
 				request, null);
 
-			OAuthAccessor accessor = OAuthProviderManagerUtil.getAccessor(
+			OAuthAccessor accessor = OAuthUtil.getAccessor(
 				requestMessage);
 
-			OAuthProviderManagerUtil.validateMessage(requestMessage, accessor);
+			OAuthUtil.validateMessage(requestMessage, accessor);
 
 			// make sure token is authorized
 			if (!Boolean.TRUE.equals(accessor.getProperty(
@@ -57,19 +57,19 @@ public class OAuthAccessTokenAction extends BaseStrutsAction {
 			long userId = (Long)accessor.getProperty(OAuthConstants.USER);
 
 			// generate access token and secret
-			OAuthProviderManagerUtil.generateAccessToken(accessor, userId);
+			OAuthUtil.generateAccessToken(accessor, userId);
 
 			response.setContentType("text/plain");
 
 			OutputStream out = response.getOutputStream();
-			OAuthProviderManagerUtil
+			OAuthUtil
 				.formEncode(
 					accessor.getAccessToken(), accessor.getTokenSecret(), out);
 
 			out.close();
 
 		} catch (Exception e) {
-			OAuthProviderManagerUtil.handleException(
+			OAuthUtil.handleException(
 				request, response, e, true);
 		}
 

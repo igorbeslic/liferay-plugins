@@ -18,7 +18,7 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.oauth.OAuthAccessor;
 import com.liferay.portal.oauth.OAuthMessage;
 import com.liferay.portal.oauth.OAuthProblemException;
-import com.liferay.portal.oauth.OAuthProviderManagerUtil;
+import com.liferay.portal.oauth.OAuthUtil;
 import com.liferay.portal.oauth.util.OAuthConstants;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -32,17 +32,17 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class AuthorizePortlet extends MVCPortlet {
 
 	public void authorize(ActionRequest request, ActionResponse response) {
-		OAuthMessage requestMessage = OAuthProviderManagerUtil.getMessage(
+		OAuthMessage requestMessage = OAuthUtil.getMessage(
 				request, null);
 
 		try {
-			OAuthAccessor accessor = OAuthProviderManagerUtil.getAccessor(
+			OAuthAccessor accessor = OAuthUtil.getAccessor(
 				requestMessage);
 
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(
 					request);
 
-			OAuthProviderManagerUtil.markAsAuthorized(
+			OAuthUtil.markAsAuthorized(
 					accessor, serviceContext.getUserId(), serviceContext);
 
 			returnToConsumer(request, response, accessor);
@@ -62,11 +62,11 @@ public class AuthorizePortlet extends MVCPortlet {
 	public void render(RenderRequest request, RenderResponse response)
 		throws IOException, PortletException {
 
-		OAuthMessage requestMessage = OAuthProviderManagerUtil.getMessage(
+		OAuthMessage requestMessage = OAuthUtil.getMessage(
 			request, null);
 
 		try {
-			OAuthAccessor accessor = OAuthProviderManagerUtil.getAccessor(
+			OAuthAccessor accessor = OAuthUtil.getAccessor(
 				requestMessage);
 
 			request.setAttribute(OAuthConstants.OAUTH_ACCESSOR, accessor);
@@ -123,7 +123,7 @@ public class AuthorizePortlet extends MVCPortlet {
 			}
 
 			if (token != null) {
-				callback = OAuthProviderManagerUtil.addParameters(
+				callback = OAuthUtil.addParameters(
 					callback, OAuthConstants.OAUTH_TOKEN, token,
 					OAuthConstants.OAUTH_VERIFIER, verifier);
 			}

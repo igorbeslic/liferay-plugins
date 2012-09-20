@@ -32,41 +32,45 @@ import javax.servlet.http.HttpServletResponse;
  * @author Ivica Cardic
  * @author Igor Beslic
  */
-public interface OAuthProviderManager {
+public interface OAuth {
 
 	public String addParameters(String url, String... parameters)
-		throws OAuthException;
+		throws IOException;
+
+	public void authorize(
+			OAuthAccessor accessor, long userId, ServiceContext serviceContext)
+		throws PortalException, SystemException;
 
 	public void formEncode(
 			String oauthToken, String tokenSecret, OutputStream out)
-		throws OAuthException;
+		throws IOException;
 
-	public void generateAccessToken(OAuthAccessor accessor, long userId)
-		throws SystemException;
+	public void generateAccessToken(
+			OAuthAccessor accessor, long userId, ServiceContext serviceContext)
+		throws PortalException, SystemException;
+
+	public String randomizeToken(String token);
 
 	public void generateRequestToken( OAuthAccessor accessor);
 
 	public OAuthAccessor getAccessor(OAuthMessage requestMessage)
-		throws OAuthException, OAuthProblemException;
+		throws IOException, PortalException;
 
 	public OAuthConsumer getConsumer( OAuthMessage requestMessage)
-		throws OAuthException, OAuthProblemException;
+		throws IOException, PortalException, SystemException;
+
+	public OAuthMessage getMessage(HttpServletRequest request);
 
 	public OAuthMessage getMessage(HttpServletRequest request, String url);
+
+	public OAuthMessage getMessage(PortletRequest portletRequest);
 
 	public OAuthMessage getMessage(PortletRequest request, String url);
 
 	public void handleException(
-		HttpServletRequest request, HttpServletResponse response, Exception e,
-		boolean sendBody)
+			HttpServletRequest request, HttpServletResponse response,
+			Exception exception, boolean sendBody)
 		throws IOException, ServletException;
-
-	public void markAsAuthorized(OAuthAccessor accessor, long userId)
-		throws SystemException;
-
-	public void markAsAuthorized(
-			OAuthAccessor accessor, long userId, ServiceContext serviceContext)
-		throws PortalException, SystemException;
 
 	void validateMessage(OAuthMessage message, OAuthAccessor accessor)
 		throws OAuthException;

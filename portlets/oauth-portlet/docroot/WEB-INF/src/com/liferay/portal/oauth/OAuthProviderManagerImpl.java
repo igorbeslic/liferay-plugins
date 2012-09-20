@@ -44,7 +44,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 /**
  * @author Ivica Cardic
  */
-public class OAuthProviderManagerImpl implements OAuthProviderManager {
+public class OAuthProviderManagerImpl implements OAuth {
 
 	public OAuthProviderManagerImpl(OAuthValidator oAuthValidator) {
 		this._oAuthValidator = oAuthValidator;
