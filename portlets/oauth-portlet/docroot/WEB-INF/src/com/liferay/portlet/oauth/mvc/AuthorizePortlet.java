@@ -22,7 +22,6 @@ import com.liferay.portal.oauth.OAuthProviderManagerUtil;
 import com.liferay.portal.oauth.util.OAuthConstants;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portlet.oauth.OAuthWebKeys;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.io.IOException;
@@ -70,7 +69,7 @@ public class AuthorizePortlet extends MVCPortlet {
 			OAuthAccessor accessor = OAuthProviderManagerUtil.getAccessor(
 				requestMessage);
 
-			request.setAttribute(OAuthWebKeys.OAUTH_ACCESSOR, accessor);
+			request.setAttribute(OAuthConstants.OAUTH_ACCESSOR, accessor);
 
 			if (Boolean.TRUE.equals(
 				accessor.getProperty(OAuthConstants.AUTHORIZED))) {
@@ -115,8 +114,8 @@ public class AuthorizePortlet extends MVCPortlet {
 		String verifier = DigestUtils.md5Hex(secretData);
 
 		if (OAuthConstants.NONE.equals(callback) ) {
-			request.setAttribute(OAuthWebKeys.VERIFIER, verifier);
-			request.setAttribute(OAuthWebKeys.OAUTH_ACCESSOR, accessor);
+			request.setAttribute(OAuthConstants.VERIFIER, verifier);
+			request.setAttribute(OAuthConstants.OAUTH_ACCESSOR, accessor);
 		} else {
 			// if callback is not passed in, use the callback from config
 			if ((callback == null) || (callback.length() <= 0)) {

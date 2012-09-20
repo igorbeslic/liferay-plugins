@@ -290,23 +290,43 @@ public class ApplicationLocalServiceUtil {
 			callBackURL, accessLevel, serviceContext);
 	}
 
+	public static com.liferay.portal.oauth.model.Application deleteApplication(
+		com.liferay.portal.oauth.model.Application application,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().deleteApplication(application, serviceContext);
+	}
+
 	/**
 	* Delete OAuth application designated by applicationId. Method will
 	* delete all application user's authorizations, application and
 	* corresponding resource entries.
+	*
+	* @param applicationId
+	* @param serviceContext
+	* @return
+	* @throws PortalException
+	* @throws SystemException
 	*/
 	public static com.liferay.portal.oauth.model.Application deleteApplication(
-		long applicationId, long userId,
+		long applicationId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .deleteApplication(applicationId, userId, serviceContext);
+		return getService().deleteApplication(applicationId, serviceContext);
+	}
+
+	public static com.liferay.portal.oauth.model.Application fetchApplication(
+		java.lang.String consumerKey)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchApplication(consumerKey);
 	}
 
 	public static com.liferay.portal.oauth.model.Application getApplication(
 		java.lang.String consumerKey)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return getService().getApplication(consumerKey);
 	}
 
@@ -379,9 +399,9 @@ public class ApplicationLocalServiceUtil {
 		return getService().getApplicationsCountByON(userId, name);
 	}
 
-	public static int getApplicationsCountByOwnerId(long userId)
+	public static int getApplicationsByUserIdCount(long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getApplicationsCountByOwnerId(userId);
+		return getService().getApplicationsByUserIdCount(userId);
 	}
 
 	/**
@@ -390,15 +410,15 @@ public class ApplicationLocalServiceUtil {
 	* access level.
 	*/
 	public static com.liferay.portal.oauth.model.Application updateApplication(
-		long applicationId, long userId, java.lang.String name,
+		long userId, long applicationId, java.lang.String name,
 		java.lang.String description, java.lang.String website,
-		java.lang.String callBackURL, int accessLevel,
+		java.lang.String callBackURL,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateApplication(applicationId, userId, name, description,
-			website, callBackURL, accessLevel, serviceContext);
+				   .updateApplication(userId, applicationId, name, description,
+			website, callBackURL, serviceContext);
 	}
 
 	public static void clearService() {

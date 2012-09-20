@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
+import com.liferay.portal.oauth.NoSuchApplicationException;
 import com.liferay.portal.oauth.model.Application;
 import com.liferay.portal.oauth.service.base.ApplicationLocalServiceBaseImpl;
 import com.liferay.portal.oauth.util.OAuthConstants;
@@ -42,11 +43,14 @@ import com.liferay.portal.service.ServiceContext;
  * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
  * </p>
  *
- * @author Brian Wing Shun Chan
+ * @author Igor Beslic
+ * @author Raymond Augé
+ * 
  * @see com.liferay.portal.oauth.service.base.ApplicationLocalServiceBaseImpl
  * @see com.liferay.portal.oauth.service.ApplicationLocalServiceUtil
  */
-public class ApplicationLocalServiceImpl extends ApplicationLocalServiceBaseImpl {
+public class ApplicationLocalServiceImpl
+	extends ApplicationLocalServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -154,7 +158,12 @@ public class ApplicationLocalServiceImpl extends ApplicationLocalServiceBaseImpl
 	public Application getApplication(String consumerKey)
 		throws PortalException, SystemException {
 
-		return applicationPersistence.findByConsumerKey(consumerKey);
+		try {
+			return applicationPersistence.findByConsumerKey(consumerKey);
+		}
+		catch (NoSuchApplicationException e) {
+			throw new PortalException(e);
+		}
 	}
 
 	public List<Application> getApplications(long companyId)

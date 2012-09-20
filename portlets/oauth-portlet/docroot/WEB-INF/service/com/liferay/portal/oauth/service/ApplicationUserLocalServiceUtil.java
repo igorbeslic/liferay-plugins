@@ -316,13 +316,12 @@ public class ApplicationUserLocalServiceUtil {
 	}
 
 	public static com.liferay.portal.oauth.model.ApplicationUser deleteApplicationUser(
-		long oAuthApplicationId, long userId,
+		long applicationId, long userId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .deleteApplicationUser(oAuthApplicationId, userId,
-			serviceContext);
+				   .deleteApplicationUser(applicationId, userId, serviceContext);
 	}
 
 	public static java.util.List<com.liferay.portal.oauth.model.ApplicationUser> findByApplicationId(
@@ -382,30 +381,30 @@ public class ApplicationUserLocalServiceUtil {
 	* @throws SystemException
 	*/
 	public static com.liferay.portal.oauth.model.ApplicationUser updateApplicationUser(
-		boolean authorized, long oAuthApplicationId, long userId,
+		boolean authorized, long applicationId, long userId,
 		java.lang.String accessSecret, java.lang.String accessToken,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateApplicationUser(authorized, oAuthApplicationId,
-			userId, accessSecret, accessToken, serviceContext);
+				   .updateApplicationUser(authorized, applicationId, userId,
+			accessSecret, accessToken, serviceContext);
 	}
 
 	public static com.liferay.portal.oauth.model.ApplicationUser updateApplicationUser(
-		long oAuthApplicationId, long userId, boolean authorized)
+		long applicationId, long userId, boolean authorized)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateApplicationUser(oAuthApplicationId, userId, authorized);
+				   .updateApplicationUser(applicationId, userId, authorized);
 	}
 
 	public static com.liferay.portal.oauth.model.ApplicationUser updateApplicationUser(
-		long oAuthApplicationId, long userId, java.lang.String accessToken,
+		long applicationId, long userId, java.lang.String accessToken,
 		java.lang.String accessSecret)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateApplicationUser(oAuthApplicationId, userId,
-			accessToken, accessSecret);
+				   .updateApplicationUser(applicationId, userId, accessToken,
+			accessSecret);
 	}
 
 	public static void clearService() {

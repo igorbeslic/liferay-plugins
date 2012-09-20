@@ -848,7 +848,7 @@ public class ApplicationUserLocalServiceClp
 	}
 
 	public com.liferay.portal.oauth.model.ApplicationUser deleteApplicationUser(
-		long oAuthApplicationId, long userId,
+		long applicationId, long userId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -858,7 +858,7 @@ public class ApplicationUserLocalServiceClp
 			returnObj = _invokableLocalService.invokeMethod(_methodName23,
 					_methodParameterTypes23,
 					new Object[] {
-						oAuthApplicationId,
+						applicationId,
 						
 					userId,
 						
@@ -1079,7 +1079,7 @@ public class ApplicationUserLocalServiceClp
 	}
 
 	public com.liferay.portal.oauth.model.ApplicationUser updateApplicationUser(
-		boolean authorized, long oAuthApplicationId, long userId,
+		boolean authorized, long applicationId, long userId,
 		java.lang.String accessSecret, java.lang.String accessToken,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -1092,7 +1092,7 @@ public class ApplicationUserLocalServiceClp
 					new Object[] {
 						authorized,
 						
-					oAuthApplicationId,
+					applicationId,
 						
 					userId,
 						
@@ -1127,14 +1127,14 @@ public class ApplicationUserLocalServiceClp
 	}
 
 	public com.liferay.portal.oauth.model.ApplicationUser updateApplicationUser(
-		long oAuthApplicationId, long userId, boolean authorized)
+		long applicationId, long userId, boolean authorized)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName31,
 					_methodParameterTypes31,
-					new Object[] { oAuthApplicationId, userId, authorized });
+					new Object[] { applicationId, userId, authorized });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1156,7 +1156,7 @@ public class ApplicationUserLocalServiceClp
 	}
 
 	public com.liferay.portal.oauth.model.ApplicationUser updateApplicationUser(
-		long oAuthApplicationId, long userId, java.lang.String accessToken,
+		long applicationId, long userId, java.lang.String accessToken,
 		java.lang.String accessSecret)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -1165,7 +1165,7 @@ public class ApplicationUserLocalServiceClp
 			returnObj = _invokableLocalService.invokeMethod(_methodName32,
 					_methodParameterTypes32,
 					new Object[] {
-						oAuthApplicationId,
+						applicationId,
 						
 					userId,
 						

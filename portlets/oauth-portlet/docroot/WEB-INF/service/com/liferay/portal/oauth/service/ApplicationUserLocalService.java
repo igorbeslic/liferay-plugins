@@ -280,7 +280,7 @@ public interface ApplicationUserLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.portal.oauth.model.ApplicationUser deleteApplicationUser(
-		long oAuthApplicationId, long userId,
+		long applicationId, long userId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
@@ -329,18 +329,18 @@ public interface ApplicationUserLocalService extends BaseLocalService,
 	* @throws SystemException
 	*/
 	public com.liferay.portal.oauth.model.ApplicationUser updateApplicationUser(
-		boolean authorized, long oAuthApplicationId, long userId,
+		boolean authorized, long applicationId, long userId,
 		java.lang.String accessSecret, java.lang.String accessToken,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.portal.oauth.model.ApplicationUser updateApplicationUser(
-		long oAuthApplicationId, long userId, boolean authorized)
+		long applicationId, long userId, boolean authorized)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.portal.oauth.model.ApplicationUser updateApplicationUser(
-		long oAuthApplicationId, long userId, java.lang.String accessToken,
+		long applicationId, long userId, java.lang.String accessToken,
 		java.lang.String accessSecret)
 		throws com.liferay.portal.kernel.exception.SystemException;
 }

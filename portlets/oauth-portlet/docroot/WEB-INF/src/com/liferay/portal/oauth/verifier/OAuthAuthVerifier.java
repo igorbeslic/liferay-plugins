@@ -31,7 +31,6 @@ import java.util.Properties;
  * @author Ivica Cardic
  */
 public class OAuthAuthVerifier implements AuthVerifier {
-	@Override
 	public AuthVerifierResult verify(
 		AccessControlContext accessControlContext, Properties properties)
 		throws AuthException {
@@ -68,7 +67,6 @@ public class OAuthAuthVerifier implements AuthVerifier {
 		return result;
 	}
 
-	@Override
 	public String getAuthType() {
 
 		return "OAuth";

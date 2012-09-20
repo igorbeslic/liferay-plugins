@@ -138,9 +138,6 @@ public class AdminPortlet extends MVCPortlet {
 				actionRequest, OAuthConstants.WEBSITE);
 			String callBackURL = ParamUtil.getString(
 				actionRequest, OAuthConstants.CALLBACK_URL);
-			int accessLevel = ParamUtil.getInteger(
-				actionRequest, OAuthConstants.WEB_APP_ACCESS_TYPE,
-				OAuthConstants.ACCESS_TYPE_READ);
 
 			try {
 				Application application =
@@ -152,12 +149,8 @@ public class AdminPortlet extends MVCPortlet {
 
 				application = ApplicationLocalServiceUtil
 					.updateApplication(
-						applicationId, serviceContext.getUserId(), name,
-						description, website, callBackURL, accessLevel,
-						serviceContext);
-
-				// TODO This won't work because there is a redirect after
-				// actions to avoid Back button issues.
+						serviceContext.getUserId(), applicationId, name,
+						description, website, callBackURL, serviceContext);
 
 				actionRequest.setAttribute(
 					OAuthConstants.BEAN_ID, application);

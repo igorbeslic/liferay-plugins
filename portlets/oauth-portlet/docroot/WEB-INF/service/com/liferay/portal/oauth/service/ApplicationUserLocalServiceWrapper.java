@@ -314,11 +314,11 @@ public class ApplicationUserLocalServiceWrapper
 	}
 
 	public com.liferay.portal.oauth.model.ApplicationUser deleteApplicationUser(
-		long oAuthApplicationId, long userId,
+		long applicationId, long userId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _applicationUserLocalService.deleteApplicationUser(oAuthApplicationId,
+		return _applicationUserLocalService.deleteApplicationUser(applicationId,
 			userId, serviceContext);
 	}
 
@@ -379,28 +379,27 @@ public class ApplicationUserLocalServiceWrapper
 	* @throws SystemException
 	*/
 	public com.liferay.portal.oauth.model.ApplicationUser updateApplicationUser(
-		boolean authorized, long oAuthApplicationId, long userId,
+		boolean authorized, long applicationId, long userId,
 		java.lang.String accessSecret, java.lang.String accessToken,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _applicationUserLocalService.updateApplicationUser(authorized,
-			oAuthApplicationId, userId, accessSecret, accessToken,
-			serviceContext);
+			applicationId, userId, accessSecret, accessToken, serviceContext);
 	}
 
 	public com.liferay.portal.oauth.model.ApplicationUser updateApplicationUser(
-		long oAuthApplicationId, long userId, boolean authorized)
+		long applicationId, long userId, boolean authorized)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _applicationUserLocalService.updateApplicationUser(oAuthApplicationId,
+		return _applicationUserLocalService.updateApplicationUser(applicationId,
 			userId, authorized);
 	}
 
 	public com.liferay.portal.oauth.model.ApplicationUser updateApplicationUser(
-		long oAuthApplicationId, long userId, java.lang.String accessToken,
+		long applicationId, long userId, java.lang.String accessToken,
 		java.lang.String accessSecret)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _applicationUserLocalService.updateApplicationUser(oAuthApplicationId,
+		return _applicationUserLocalService.updateApplicationUser(applicationId,
 			userId, accessToken, accessSecret);
 	}
 
