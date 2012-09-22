@@ -70,6 +70,9 @@
 		<finder name="ApplicationId" return-type="Collection" >
 			<finder-column name="applicationId" />
 		</finder>
+		<finder name="UserId" return-type="Collection" >
+			<finder-column name="userId" />
+		</finder>
 		<finder name="A_A" return-type="Collection" >
 			<finder-column name="applicationId" />
 			<finder-column name="authorized" />
@@ -80,6 +83,7 @@
 		</finder>
 		<finder name="U_AU" return-type="Collection" >
 			<finder-column name="userId" />
+			<finder-column name="authorized" />
 		</finder>
 	</entity>
 </service-builder>

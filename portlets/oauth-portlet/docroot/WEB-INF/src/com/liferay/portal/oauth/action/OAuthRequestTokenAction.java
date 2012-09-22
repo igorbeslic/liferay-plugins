@@ -16,6 +16,7 @@ package com.liferay.portal.oauth.action;
 
 import com.liferay.portal.kernel.struts.BaseStrutsAction;
 import com.liferay.portal.oauth.*;
+import com.liferay.portal.oauth.util.OAuthConstants;
 
 import java.io.OutputStream;
 
@@ -51,7 +52,7 @@ public class OAuthRequestTokenAction extends BaseStrutsAction {
 				"oauth_accessor_secret");
 
 			if (secret != null) {
-				accessor.setProperty(OAuthConsumer.ACCESSOR_SECRET, secret);
+				accessor.setProperty(OAuthConstants.ACCESSOR_SECRET, secret);
 			}
 
 			// generate request_token and secret

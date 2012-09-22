@@ -14,10 +14,10 @@
 
 package com.liferay.portlet.oauth.mvc;
 
+import com.liferay.portal.kernel.oauth.OAuthException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.oauth.OAuthAccessor;
 import com.liferay.portal.oauth.OAuthMessage;
-import com.liferay.portal.oauth.OAuthProblemException;
 import com.liferay.portal.oauth.OAuthUtil;
 import com.liferay.portal.oauth.util.OAuthConstants;
 import com.liferay.portal.service.ServiceContext;
@@ -42,15 +42,15 @@ public class AuthorizePortlet extends MVCPortlet {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(
 					request);
 
-			OAuthUtil.markAsAuthorized(
+			OAuthUtil.authorize(
 					accessor, serviceContext.getUserId(), serviceContext);
 
 			returnToConsumer(request, response, accessor);
 		}
 		catch (Exception e) {
-			if (e instanceof OAuthProblemException) {
+			if (e instanceof OAuthException) {
 				SessionErrors.add(
-						request, ((OAuthProblemException) e).getProblem());
+						request, e.getMessage());
 			}
 			else {
 				SessionErrors.add(request, e.getClass());
@@ -78,10 +78,10 @@ public class AuthorizePortlet extends MVCPortlet {
 			}
 		}
 		catch (Exception e) {
-			if (e instanceof OAuthProblemException) {
+			if (e instanceof OAuthException) {
 				SessionErrors.add(
-					request, OAuthProblemException.class,
-					((OAuthProblemException) e).getProblem());
+					request, OAuthException.class,
+					e.getMessage());
 			}
 			else {
 				SessionErrors.add(request, e.getClass());

@@ -14,6 +14,7 @@
 
 package com.liferay.portlet.oauth.mvc;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -131,10 +132,17 @@ public class SimulatorPortlet extends MVCPortlet {
 					_log.info("Generating test defaults...");
 				}
 
-				Role role = RoleServiceUtil.getRole(
-					sc.getCompanyId(), OAUTH_ROLE_NAME);
-
-				if (null == role) {
+				Role role = null;
+				
+				try {
+					RoleServiceUtil.getRole(
+						sc.getCompanyId(), OAUTH_ROLE_NAME);
+				}
+				catch (PortalException e) {
+					_log.warn("Role "
+						.concat(OAUTH_ROLE_NAME)
+						.concat(" does not exist. Creating new role."));
+					
 					Map<Locale, String> titleMap =
 									new HashMap<Locale, String>();
 					titleMap.put(LocaleUtil.getDefault(), OAUTH_ROLE_TITLE);
@@ -152,6 +160,7 @@ public class SimulatorPortlet extends MVCPortlet {
 							OAUTH_ROLE_NAME, titleMap, descMap,
 							RoleConstants.TYPE_REGULAR);
 				}
+				
 
 				long addedAppsCnt = 0L;
 				String base = "oauths";

@@ -24,6 +24,7 @@ create index IX_8EC698E2 on OAuth_ApplicationUser (applicationId);
 create index IX_A63C0331 on OAuth_ApplicationUser (applicationId, authorized);
 create index IX_FC2191B3 on OAuth_ApplicationUser (userId);
 create unique index IX_52A72E68 on OAuth_ApplicationUser (userId, applicationId);
+create index IX_83DB4A82 on OAuth_ApplicationUser (userId, authorized);
 
 create index IX_78A82761 on OAuth_OAuthApplication (companyId);
 create index IX_DD85AA60 on OAuth_OAuthApplication (companyId, name);

@@ -38,7 +38,7 @@ public class OAuthConsumerImpl implements OAuthConsumer {
 		return _oAuthConsumer.callbackURL;
 	}
 
-	public Application getOAuthApplication() {
+	public Application getApplication() {
 		return _oAuthApplication;
 	}
 

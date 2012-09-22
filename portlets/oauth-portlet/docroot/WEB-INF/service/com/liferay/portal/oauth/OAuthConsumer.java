@@ -23,7 +23,7 @@ public interface OAuthConsumer {
 
 	public String getCallbackURL();
 
-	public Application getOAuthApplication();
+	public Application getApplication();
 
 	public Object getProperty(String name);
 

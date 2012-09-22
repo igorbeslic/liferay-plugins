@@ -14,10 +14,6 @@
  */
 --%>
 
-<%@ page import="com.liferay.portal.oauth.model.OAuthApplications_Users" %>
-<%@ page import="com.liferay.portal.oauth.service.OAuthApplicationLocalServiceUtil" %>
-<%@ page import="com.liferay.portal.oauth.service.OAuthApplications_UsersLocalServiceUtil" %>
-
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 

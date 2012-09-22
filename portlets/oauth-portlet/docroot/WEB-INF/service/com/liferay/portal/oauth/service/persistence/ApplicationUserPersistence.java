@@ -339,6 +339,124 @@ public interface ApplicationUserPersistence extends BasePersistence<ApplicationU
 			com.liferay.portal.oauth.NoSuchApplicationUserException;
 
 	/**
+	* Returns all the application users where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @return the matching application users
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.portal.oauth.model.ApplicationUser> findByUserId(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns a range of all the application users where userId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param userId the user ID
+	* @param start the lower bound of the range of application users
+	* @param end the upper bound of the range of application users (not inclusive)
+	* @return the range of matching application users
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.portal.oauth.model.ApplicationUser> findByUserId(
+		long userId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns an ordered range of all the application users where userId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param userId the user ID
+	* @param start the lower bound of the range of application users
+	* @param end the upper bound of the range of application users (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching application users
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.portal.oauth.model.ApplicationUser> findByUserId(
+		long userId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the first application user in the ordered set where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching application user
+	* @throws com.liferay.portal.oauth.NoSuchApplicationUserException if a matching application user could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.oauth.model.ApplicationUser findByUserId_First(
+		long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.oauth.NoSuchApplicationUserException;
+
+	/**
+	* Returns the first application user in the ordered set where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching application user, or <code>null</code> if a matching application user could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.oauth.model.ApplicationUser fetchByUserId_First(
+		long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the last application user in the ordered set where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching application user
+	* @throws com.liferay.portal.oauth.NoSuchApplicationUserException if a matching application user could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.oauth.model.ApplicationUser findByUserId_Last(
+		long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.oauth.NoSuchApplicationUserException;
+
+	/**
+	* Returns the last application user in the ordered set where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching application user, or <code>null</code> if a matching application user could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.oauth.model.ApplicationUser fetchByUserId_Last(
+		long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the application users before and after the current application user in the ordered set where userId = &#63;.
+	*
+	* @param oaauId the primary key of the current application user
+	* @param userId the user ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next application user
+	* @throws com.liferay.portal.oauth.NoSuchApplicationUserException if a application user with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.oauth.model.ApplicationUser[] findByUserId_PrevAndNext(
+		long oaauId, long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.oauth.NoSuchApplicationUserException;
+
+	/**
 	* Returns all the application users where applicationId = &#63; and authorized = &#63;.
 	*
 	* @param applicationId the application ID
@@ -505,40 +623,44 @@ public interface ApplicationUserPersistence extends BasePersistence<ApplicationU
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns all the application users where userId = &#63;.
+	* Returns all the application users where userId = &#63; and authorized = &#63;.
 	*
 	* @param userId the user ID
+	* @param authorized the authorized
 	* @return the matching application users
 	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.portal.oauth.model.ApplicationUser> findByU_AU(
-		long userId) throws com.liferay.portal.kernel.exception.SystemException;
+		long userId, boolean authorized)
+		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns a range of all the application users where userId = &#63;.
+	* Returns a range of all the application users where userId = &#63; and authorized = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
 	* @param userId the user ID
+	* @param authorized the authorized
 	* @param start the lower bound of the range of application users
 	* @param end the upper bound of the range of application users (not inclusive)
 	* @return the range of matching application users
 	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.portal.oauth.model.ApplicationUser> findByU_AU(
-		long userId, int start, int end)
+		long userId, boolean authorized, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns an ordered range of all the application users where userId = &#63;.
+	* Returns an ordered range of all the application users where userId = &#63; and authorized = &#63;.
 	*
 	* <p>
 	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
 	* </p>
 	*
 	* @param userId the user ID
+	* @param authorized the authorized
 	* @param start the lower bound of the range of application users
 	* @param end the upper bound of the range of application users (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
@@ -546,78 +668,83 @@ public interface ApplicationUserPersistence extends BasePersistence<ApplicationU
 	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.portal.oauth.model.ApplicationUser> findByU_AU(
-		long userId, int start, int end,
+		long userId, boolean authorized, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the first application user in the ordered set where userId = &#63;.
+	* Returns the first application user in the ordered set where userId = &#63; and authorized = &#63;.
 	*
 	* @param userId the user ID
+	* @param authorized the authorized
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching application user
 	* @throws com.liferay.portal.oauth.NoSuchApplicationUserException if a matching application user could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.portal.oauth.model.ApplicationUser findByU_AU_First(
-		long userId,
+		long userId, boolean authorized,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplicationUserException;
 
 	/**
-	* Returns the first application user in the ordered set where userId = &#63;.
+	* Returns the first application user in the ordered set where userId = &#63; and authorized = &#63;.
 	*
 	* @param userId the user ID
+	* @param authorized the authorized
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching application user, or <code>null</code> if a matching application user could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.portal.oauth.model.ApplicationUser fetchByU_AU_First(
-		long userId,
+		long userId, boolean authorized,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the last application user in the ordered set where userId = &#63;.
+	* Returns the last application user in the ordered set where userId = &#63; and authorized = &#63;.
 	*
 	* @param userId the user ID
+	* @param authorized the authorized
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching application user
 	* @throws com.liferay.portal.oauth.NoSuchApplicationUserException if a matching application user could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.portal.oauth.model.ApplicationUser findByU_AU_Last(
-		long userId,
+		long userId, boolean authorized,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplicationUserException;
 
 	/**
-	* Returns the last application user in the ordered set where userId = &#63;.
+	* Returns the last application user in the ordered set where userId = &#63; and authorized = &#63;.
 	*
 	* @param userId the user ID
+	* @param authorized the authorized
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching application user, or <code>null</code> if a matching application user could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.portal.oauth.model.ApplicationUser fetchByU_AU_Last(
-		long userId,
+		long userId, boolean authorized,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the application users before and after the current application user in the ordered set where userId = &#63;.
+	* Returns the application users before and after the current application user in the ordered set where userId = &#63; and authorized = &#63;.
 	*
 	* @param oaauId the primary key of the current application user
 	* @param userId the user ID
+	* @param authorized the authorized
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next application user
 	* @throws com.liferay.portal.oauth.NoSuchApplicationUserException if a application user with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.portal.oauth.model.ApplicationUser[] findByU_AU_PrevAndNext(
-		long oaauId, long userId,
+		long oaauId, long userId, boolean authorized,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.portal.oauth.NoSuchApplicationUserException;
@@ -684,6 +811,15 @@ public interface ApplicationUserPersistence extends BasePersistence<ApplicationU
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Removes all the application users where userId = &#63; from the database.
+	*
+	* @param userId the user ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeByUserId(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Removes all the application users where applicationId = &#63; and authorized = &#63; from the database.
 	*
 	* @param applicationId the application ID
@@ -707,12 +843,13 @@ public interface ApplicationUserPersistence extends BasePersistence<ApplicationU
 			com.liferay.portal.oauth.NoSuchApplicationUserException;
 
 	/**
-	* Removes all the application users where userId = &#63; from the database.
+	* Removes all the application users where userId = &#63; and authorized = &#63; from the database.
 	*
 	* @param userId the user ID
+	* @param authorized the authorized
 	* @throws SystemException if a system exception occurred
 	*/
-	public void removeByU_AU(long userId)
+	public void removeByU_AU(long userId, boolean authorized)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -744,6 +881,16 @@ public interface ApplicationUserPersistence extends BasePersistence<ApplicationU
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Returns the number of application users where userId = &#63;.
+	*
+	* @param userId the user ID
+	* @return the number of matching application users
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByUserId(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns the number of application users where applicationId = &#63; and authorized = &#63;.
 	*
 	* @param applicationId the application ID
@@ -766,13 +913,14 @@ public interface ApplicationUserPersistence extends BasePersistence<ApplicationU
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of application users where userId = &#63;.
+	* Returns the number of application users where userId = &#63; and authorized = &#63;.
 	*
 	* @param userId the user ID
+	* @param authorized the authorized
 	* @return the number of matching application users
 	* @throws SystemException if a system exception occurred
 	*/
-	public int countByU_AU(long userId)
+	public int countByU_AU(long userId, boolean authorized)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
