@@ -172,7 +172,7 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 		String consumerToken = null;
 
 		try {
-			requestMessage.getToken();
+			consumerToken = requestMessage.getToken();
 		}
 		catch (IOException ioe) {
 			throw new OAuthException(ioe);
