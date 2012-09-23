@@ -137,7 +137,7 @@ public class ApplicationUserFinderImpl
 			SQLQuery q = session.createSQLQuery(query);
 
 			q.addEntity(
-				"OAuthApplications_Users", ApplicationUserImpl.class);
+				"ApplicationUser", ApplicationUserImpl.class);
 
 			return (List<ApplicationUser>)QueryUtil.list(
 					q, getDialect(), start, end);
@@ -167,7 +167,7 @@ public class ApplicationUserFinderImpl
 			SQLQuery q = session.createSQLQuery(query);
 
 			q.addEntity(
-				"OAuthApplications_Users", ApplicationUserImpl.class);
+				"ApplicationUser", ApplicationUserImpl.class);
 
 			QueryPos qPos = QueryPos.getInstance(q);
 

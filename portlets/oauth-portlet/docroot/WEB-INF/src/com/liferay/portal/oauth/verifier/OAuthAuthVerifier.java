@@ -44,10 +44,10 @@ public class OAuthAuthVerifier implements AuthVerifier {
 			return result;
 		}
 
-		ApplicationUser oAuthApplications_users;
+		ApplicationUser applicationUser;
 
 		try {
-			oAuthApplications_users =
+			applicationUser =
 				ApplicationUserLocalServiceUtil
 					.getApplicationUserByAccessToken(accessToken);
 
@@ -55,11 +55,11 @@ public class OAuthAuthVerifier implements AuthVerifier {
 			throw new AuthException(e);
 		}
 
-		if (oAuthApplications_users == null) {
+		if (applicationUser == null) {
 			return result;
 		}
 
-		long userId = oAuthApplications_users.getUserId();
+		long userId = applicationUser.getUserId();
 
 		result.setState(AuthVerifierResult.State.SUCCESS);
 		result.setUserId(userId);
