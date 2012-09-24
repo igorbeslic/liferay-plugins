@@ -14,15 +14,16 @@
 
 package com.liferay.portal.oauth.service.impl;
 
-import java.util.List;
-
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.ResourceConstants;
+import com.liferay.portal.oauth.NoSuchApplicationUserException;
 import com.liferay.portal.oauth.model.ApplicationUser;
 import com.liferay.portal.oauth.service.base.ApplicationUserLocalServiceBaseImpl;
 import com.liferay.portal.service.ServiceContext;
+
+import java.util.List;
 
 /**
  * The implementation of the application user local service. <p> All custom
@@ -144,6 +145,13 @@ public class ApplicationUserLocalServiceImpl
 		throw new SystemException("No such ApplicationUser.");
 	}
 
+	public ApplicationUser getApplicationUserByApplicationId(
+			long userId, long applicationId)
+		throws SystemException, NoSuchApplicationUserException {
+
+		return applicationUserPersistence.findByU_AP(userId, applicationId);
+	}
+
 	public List<ApplicationUser> getApplicationUsers(long applicationId)
 		throws SystemException {
 
@@ -228,10 +236,8 @@ public class ApplicationUserLocalServiceImpl
 	 * Update user's authorization for an existing application that is
 	 * registered to use OAuth feature. If entity doesn't exist new one (with
 	 * resources for later permissions check) will be created.
-	 * 
-	 * @param authorized
-	 *            if set to false application access rights are revoked
-	 * @param oAuthApplicationId
+	 *
+	 * @param applicationId
 	 * @param userId
 	 * @param accessSecret
 	 * @param accessToken
