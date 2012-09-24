@@ -14,6 +14,8 @@
 
 package com.liferay.portal.oauth;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.oauth.OAuthException;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.Validator;
@@ -24,23 +26,18 @@ import com.liferay.portal.oauth.util.OAuthConstants;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.PwdGenerator;
-
-import java.io.IOException;
-import java.io.OutputStream;
-
-import java.util.Collection;
-import java.util.HashSet;
+import net.oauth.OAuth;
+import net.oauth.server.OAuthServlet;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.portlet.PortletRequest;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import net.oauth.OAuth;
-import net.oauth.server.OAuthServlet;
-
-import org.apache.commons.codec.digest.DigestUtils;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * @author Ivica Cardic
@@ -61,19 +58,11 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 
 	public void authorize(
 		OAuthAccessor accessor, long userId, ServiceContext serviceContext)
-		throws OAuthException {
+		throws PortalException, SystemException {
 
 		OAuthConsumer consumer = accessor.getConsumer();
 
 		Application application = consumer.getApplication();
-
-		try {
-			ApplicationUserLocalServiceUtil.updateAuthorized(
-				userId, application.getApplicationId(), true, serviceContext);
-		}
-		catch (Exception e) {
-			throw new OAuthException(e);
-		}
 
 		// first remove the accessor from cache
 
@@ -97,7 +86,7 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 
 	public void generateAccessToken(
 		OAuthAccessor accessor, long userId, ServiceContext serviceContext)
-		throws OAuthException {
+		throws PortalException, SystemException {
 
 		OAuthConsumer consumer = accessor.getConsumer();
 		Application application = consumer.getApplication();
@@ -114,15 +103,11 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 		accessor.setTokenSecret(secret);
 		accessor.setRequestToken(null);
 
-		try {
-			ApplicationUserLocalServiceUtil.updateApplicationUser(
-				userId, application.getApplicationId(),
-				accessor.getAccessToken(), accessor.getTokenSecret(),
-				serviceContext);
-		}
-		catch (Exception e) {
-			throw new OAuthException(e);
-		}
+
+		ApplicationUserLocalServiceUtil.updateApplicationUser(
+			userId, application.getApplicationId(),
+			accessor.getAccessToken(), accessor.getTokenSecret(),
+			serviceContext);
 
 		// first remove the accessor from cache
 
@@ -206,24 +191,19 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 	}
 
 	public OAuthConsumer getConsumer(OAuthMessage requestMessage)
-		throws OAuthException {
+		throws PortalException, SystemException, IOException {
 
-		try {
-			String consumerKey = requestMessage.getConsumerKey();
+		String consumerKey = requestMessage.getConsumerKey();
 
-			Application application =
-				ApplicationLocalServiceUtil.getApplication(consumerKey);
+		Application application =
+			ApplicationLocalServiceUtil.getApplication(consumerKey);
 
-			if (application == null) {
-				throw new OAuthProblemException(
-					OAuthProblemException.TOKEN_REJECTED);
-			}
-
-			return new OAuthConsumerImpl(application);
+		if (application == null) {
+			throw new OAuthProblemException(
+				OAuthProblemException.TOKEN_REJECTED);
 		}
-		catch (Exception e) {
-			throw new OAuthException(e);
-		}
+
+		return new OAuthConsumerImpl(application);
 	}
 
 	public OAuthMessage getMessage(HttpServletRequest request) {
