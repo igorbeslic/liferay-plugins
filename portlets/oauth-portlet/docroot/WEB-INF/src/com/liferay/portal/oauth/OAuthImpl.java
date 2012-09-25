@@ -14,12 +14,16 @@
 
 package com.liferay.portal.oauth;
 
+import com.liferay.portal.kernel.cache.MultiVMPoolUtil;
+import com.liferay.portal.kernel.cache.PortalCache;
+import com.liferay.portal.kernel.concurrent.ConcurrentHashSet;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.oauth.OAuthException;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.oauth.model.Application;
+import com.liferay.portal.oauth.model.ApplicationUser;
 import com.liferay.portal.oauth.service.ApplicationLocalServiceUtil;
 import com.liferay.portal.oauth.service.ApplicationUserLocalServiceUtil;
 import com.liferay.portal.oauth.util.OAuthConstants;
@@ -36,8 +40,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashSet;
 
 /**
  * @author Ivica Cardic
@@ -60,19 +64,15 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 		OAuthAccessor accessor, long userId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		OAuthConsumer consumer = accessor.getConsumer();
-
-		Application application = consumer.getApplication();
-
 		// first remove the accessor from cache
 
-		_tokens.remove(accessor);
+		getTokens().remove(accessor);
 
 		accessor.setProperty("user", userId);
 		accessor.setProperty(OAuthConstants.AUTHORIZED, Boolean.TRUE);
 
 		// update token in local cache
-		_tokens.add(accessor);
+		getTokens().add(accessor);
 	}
 
 	public void formEncode(
@@ -103,22 +103,38 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 		accessor.setTokenSecret(secret);
 		accessor.setRequestToken(null);
 
+		
+		ApplicationUser applicationUser = null;
 
-		ApplicationUserLocalServiceUtil.updateApplicationUser(
-			userId, application.getApplicationId(),
-			accessor.getAccessToken(), accessor.getTokenSecret(),
-			serviceContext);
+		try {
+		applicationUser =
+			ApplicationUserLocalServiceUtil.getApplicationUserByApplicationId(
+			userId, application.getApplicationId());
+		}catch (NoSuchApplicationUserException e){}
+
+		if(applicationUser == null){
+			ApplicationUserLocalServiceUtil.addApplicationUser(
+				userId, application.getApplicationId(),
+				accessor.getAccessToken(), accessor.getTokenSecret(),
+				serviceContext);
+		}else{
+			applicationUser.setAccessToken(accessor.getAccessToken());
+			applicationUser.setAccessSecret(accessor.getTokenSecret());
+
+			ApplicationUserLocalServiceUtil.updateApplicationUser(
+				applicationUser);
+		}
 
 		// first remove the accessor from cache
 
-		_tokens.remove(accessor);
+		getTokens().remove(accessor);
 
 		accessor.setRequestToken(null);
 		accessor.setTokenSecret(secret);
 		accessor.setAccessToken(token);
 
 		// update token in local cache
-		_tokens.add(accessor);
+		getTokens().add(accessor);
 	}
 
 	/**
@@ -143,7 +159,7 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 
 		// add to the local cache
 
-		_tokens.add(accessor);
+		getTokens().add(accessor);
 	}
 
 	/**
@@ -154,7 +170,7 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 
 		// try to load from local cache if not throw exception
 
-		String consumerToken = null;
+		String consumerToken;
 
 		try {
 			consumerToken = requestMessage.getToken();
@@ -165,7 +181,7 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 
 		OAuthAccessor accessor = null;
 
-		for (OAuthAccessor oAuthAccessor : _tokens) {
+		for (OAuthAccessor oAuthAccessor : getTokens()) {
 			String requestToken = oAuthAccessor.getRequestToken();
 			String accessToken = oAuthAccessor.getAccessToken();
 
@@ -265,8 +281,25 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 		_oAuthValidator.validateMessage(message, accessor);
 	}
 
-	private static final Collection<OAuthAccessor> _tokens =
-		new HashSet<OAuthAccessor>();
+	protected static Collection<OAuthAccessor> getTokens() {
+		Collection<OAuthAccessor> tokens =
+			(Collection<OAuthAccessor>)_portalCache.get(_CACHE_KEY);
+
+		if (tokens == null) {
+			tokens = new ConcurrentHashSet<OAuthAccessor>();
+
+			_portalCache.put(_CACHE_KEY, (Serializable)tokens);
+		}
+
+		return tokens;
+	}
+
+	private static final String _CACHE_KEY = "tokens";
+
+	private static final String _CACHE_NAME = OAuthImpl.class.getName();
+
+	private static PortalCache<String, Serializable> _portalCache =
+		MultiVMPoolUtil.getCache(_CACHE_NAME);
 
 	private OAuthValidator _oAuthValidator;
 

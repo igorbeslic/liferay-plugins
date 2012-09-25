@@ -207,7 +207,7 @@ public class OAuthProviderTest {
 
 			for (WebElement webElement : elements) {
 				if (webElement.getText().contains(
-					"Your token has been expired.")) {
+					"Your token is expired.")) {
 
 					return;
 				}
