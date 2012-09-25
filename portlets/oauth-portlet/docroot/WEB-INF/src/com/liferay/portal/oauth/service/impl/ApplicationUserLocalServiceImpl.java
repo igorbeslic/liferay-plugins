@@ -53,8 +53,7 @@ public class ApplicationUserLocalServiceImpl
 	 * registered to use OAuth feature. All optional fields will be set to null
 	 * or initial value (depending on data type). Method creates necessary
 	 * resources used later by permissions algorithm.
-	 * 
-	 * @param authorized
+	 *
 	 * @param applicationId
 	 * @param userId
 	 * @param accessSecret
@@ -66,7 +65,7 @@ public class ApplicationUserLocalServiceImpl
 	 */
 	public ApplicationUser addApplicationUser(
 		long userId, long applicationId, String accessToken,
-		String accessSecret, boolean authorized, ServiceContext serviceContext)
+		String accessSecret, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		long oaauId = counterLocalService.increment();
@@ -78,7 +77,6 @@ public class ApplicationUserLocalServiceImpl
 		applicationUser.setApplicationId(applicationId);
 		applicationUser.setAccessToken(accessToken);
 		applicationUser.setAccessSecret(accessSecret);
-		applicationUser.setAuthorized(authorized);
 
 		applicationUser =
 			applicationUserPersistence.update(applicationUser, false);
@@ -173,14 +171,6 @@ public class ApplicationUserLocalServiceImpl
 		return applicationUserPersistence.findByUserId(userId);
 	}
 
-	public List<ApplicationUser> getApplicationUsersByUserId(
-		long userId, int start, int end, OrderByComparator orderByComparator)
-		throws SystemException {
-
-		return applicationUserPersistence.findByUserId(
-			userId, start, end, orderByComparator);
-	}
-
 	public int getApplicationUsersByUserIdCount(long userId)
 		throws SystemException {
 
@@ -193,43 +183,29 @@ public class ApplicationUserLocalServiceImpl
 		return applicationUserPersistence.countByApplicationId(applicationId);
 	}
 	
-	public List<ApplicationUser> getAuthorizedApplicationUsersByOwnerId(
-			long ownerId, boolean authorized, int start, int end,
+	public List<ApplicationUser> getApplicationUsersByOwnerId(
+			long ownerId, int start, int end,
 			OrderByComparator orderByComparator)
 		throws SystemException {
-		
-		return applicationUserFinder.findByO_A(
-			ownerId, authorized, start, end, orderByComparator);
-	}
-	
-	public int getAuthorizedApplicationUsersByOwnerIdCount(
-			long ownerId, boolean authorized)
-		throws SystemException {
-	
-		return applicationUserFinder.countByO_A(ownerId, authorized);
+
+		return applicationUserFinder.findByO(
+			ownerId, start, end, orderByComparator);
 	}
 
-	public List<ApplicationUser> getAuthorizedApplicationUsersByUserId(
-			long userId, boolean authorized)
+	public int getApplicationUsersByOwnerIdCount(
+		long ownerId)
 		throws SystemException {
 
-		return applicationUserPersistence.findByU_AU(userId, authorized);
+		return applicationUserFinder.countByO(ownerId);
 	}
 
-	public List<ApplicationUser> getAuthorizedApplicationUsersByUserId(
-		long userId, boolean authorized, int start, int end,
+	public List<ApplicationUser> getApplicationUsersByUserId(
+		long userId, int start, int end,
 		OrderByComparator orderByComparator)
 		throws SystemException {
 
-		return applicationUserPersistence.findByU_AU(
-			userId, authorized, start, end, orderByComparator);
-	}
-
-	public int getAuthorizedApplicationUsersByUserIdCount(
-		long userId, boolean authorized)
-		throws SystemException {
-
-		return applicationUserPersistence.countByU_AU(userId, authorized);
+		return applicationUserPersistence.findByUserId(
+			userId, start, end, orderByComparator);
 	}
 
 	/**
@@ -256,21 +232,6 @@ public class ApplicationUserLocalServiceImpl
 
 		applicationUser.setAccessToken(accessToken);
 		applicationUser.setAccessSecret(accessSecret);
-
-		applicationUserPersistence.update(applicationUser, false);
-
-		return applicationUser;
-	}
-	
-	public ApplicationUser updateAuthorized(
-		long userId, long applicationId, boolean authorized,
-		ServiceContext serviceContext)
-		throws PortalException, SystemException {
-
-		ApplicationUser applicationUser =
-			applicationUserPersistence.fetchByU_AP(userId, applicationId);
-
-		applicationUser.setAuthorized(authorized);
 
 		applicationUserPersistence.update(applicationUser, false);
 
