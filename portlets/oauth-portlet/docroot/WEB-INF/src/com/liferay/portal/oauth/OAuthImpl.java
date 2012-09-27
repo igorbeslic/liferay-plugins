@@ -61,6 +61,14 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 		OAuthAccessor accessor, long userId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
+		Boolean authorized = (Boolean)accessor.getProperty(
+			OAuthConstants.AUTHORIZED);
+
+		if(authorized != null && authorized.equals(Boolean.TRUE) &&
+			accessor.getRequestToken() != null){
+			throw new OAuthException(OAuthConstants.TOKEN_EXPIRED);
+		}
+
 		// first remove the accessor from cache
 
 		_portalCache.remove(accessor.getRequestToken());
@@ -69,7 +77,7 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 		accessor.setProperty(OAuthConstants.AUTHORIZED, Boolean.TRUE);
 
 		// update token in local cache
-		_portalCache.put(accessor.getRequestToken(), (Serializable)accessor);
+		_portalCache.put(accessor.getRequestToken(), (Serializable) accessor);
 	}
 
 	public void formEncode(
@@ -84,6 +92,14 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 	public void generateAccessToken(
 		OAuthAccessor accessor, long userId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
+
+		Boolean authorized = (Boolean)accessor.getProperty(
+			OAuthConstants.AUTHORIZED);
+
+		if(authorized != null && authorized.equals(Boolean.TRUE) &&
+			accessor.getAccessToken() != null){
+			throw new OAuthException(OAuthConstants.TOKEN_EXPIRED);
+		}
 
 		OAuthConsumer consumer = accessor.getConsumer();
 		Application application = consumer.getApplication();
@@ -131,7 +147,7 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 		accessor.setAccessToken(token);
 
 		// update token in local cache
-		_portalCache.put(token, (Serializable)accessor);
+		_portalCache.put(token, (Serializable) accessor);
 	}
 
 	/**
@@ -156,7 +172,7 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 
 		// add to the local cache
 
-		_portalCache.put(token, (Serializable)accessor);
+		_portalCache.put(token, (Serializable) accessor);
 	}
 
 	/**
@@ -179,14 +195,7 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 		OAuthAccessor accessor = (OAuthAccessor)_portalCache.get(consumerToken);
 
 		if (accessor == null) {
-			throw new OAuthException(OAuthProblemException.TOKEN_EXPIRED);
-		}
-
-		Boolean authorized = (Boolean)accessor.getProperty(
-			OAuthConstants.AUTHORIZED);
-
-		if(authorized != null && authorized.equals(Boolean.TRUE)){
-			throw new OAuthException(OAuthProblemException.TOKEN_EXPIRED);
+			throw new OAuthException(OAuthConstants.TOKEN_EXPIRED);
 		}
 
 		return accessor;
@@ -201,8 +210,8 @@ public class OAuthImpl implements com.liferay.portal.oauth.OAuth {
 			ApplicationLocalServiceUtil.getApplication(consumerKey);
 
 		if (application == null) {
-			throw new OAuthProblemException(
-				OAuthProblemException.TOKEN_REJECTED);
+			throw new OAuthException(
+				OAuthConstants.TOKEN_REJECTED);
 		}
 
 		return new OAuthConsumerImpl(application);
